@@ -1,6 +1,7 @@
 package com.harmony.engine.core;
 
 import com.harmony.engine.core.io.Display;
+import com.harmony.engine.core.io.Input;
 import com.harmony.engine.core.parameters.Parameters;
 import com.harmony.engine.core.state.StateManager;
 
@@ -16,6 +17,7 @@ public class Harmony implements Runnable {
     private Parameters parameters;
     private Display display;
     private StateManager stateManager;
+    private Input input;
 
     private Graphics2D g;
 
@@ -41,6 +43,8 @@ public class Harmony implements Runnable {
 
         display = new Display(parameters.displayParameters);
         g = display.getGraphics2D();
+
+        input = new Input(this);
 
         stateManager = new StateManager();
     }
@@ -115,6 +119,7 @@ public class Harmony implements Runnable {
 
     private synchronized void update() {
         stateManager.update();
+        input.update();
     }
 
     private synchronized void render() {
@@ -150,4 +155,11 @@ public class Harmony implements Runnable {
      * @return the current fps
      */
     public int getCurrentFps() { return currentFps; }
+
+    /**
+     * Gets display.
+     *
+     * @return the display
+     */
+    public Display getDisplay() { return display; }
 }

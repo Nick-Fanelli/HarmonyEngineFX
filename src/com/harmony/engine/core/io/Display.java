@@ -50,13 +50,13 @@ public class Display {
         Display.width = parameters.startingWidth;
         Display.height = parameters.startingHeight;
 
-        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        image = new BufferedImage(Display.width, Display.height, BufferedImage.TYPE_INT_ARGB);
+        g2d = (Graphics2D) image.getGraphics();
 
         canvas = new Canvas();
-        canvas.setSize(new Dimension(width, height));
+        canvas.setPreferredSize(new Dimension(Display.width, Display.height));
 
         frame = new JFrame(title);
-        // TODO: Change
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setLayout(new BorderLayout());
@@ -64,14 +64,15 @@ public class Display {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setResizable(true);
+        frame.setFocusable(true);
+        frame.setVisible(true);
+
+        frame.requestFocus();
+        canvas.requestFocus();
 
         canvas.createBufferStrategy(2);
         bufferStrategy = canvas.getBufferStrategy();
         g = bufferStrategy.getDrawGraphics();
-
-        g2d = (Graphics2D) image.getGraphics();
-
-        frame.setVisible(true);
 
         handleFrameResize();
     }
@@ -113,8 +114,15 @@ public class Display {
 
     /**
      * Gets the background color of the display.
+     *
+     * @return the background color
      */
     public static Color getBackgroundColor() { return backgroundColor; }
 
-
+    /**
+     * Gets canvas.
+     *
+     * @return the canvas
+     */
+    public Canvas getCanvas() { return canvas; }
 }

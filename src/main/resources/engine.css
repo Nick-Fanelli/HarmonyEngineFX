@@ -5,6 +5,7 @@
     src: url('fonts/Montserrat/Montserrat-Regular.ttf');
 }
 
+
 /* Custom Colors */
 
 * {
@@ -12,6 +13,8 @@
     -fx-tab-selected-color: #4287f5;
     -fx-default-dark: #2B2B2B;
     -fx-default-medium: #313335;
+    -fx-default-light: #3c3f41;
+    -fx-default-extra-light: #61676b;
 }
 
 

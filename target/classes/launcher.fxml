@@ -2,9 +2,16 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane id="anchor-pane" fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@launcher.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.LauncherController">
    <children>
-      <Button id="new-proj-btn" fx:id="newProjectButton" layoutX="235.0" layoutY="179.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="New Project" AnchorPane.bottomAnchor="178.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="179.0" />
+      <Button id="new-proj-btn" fx:id="newProjectButton" layoutX="235.0" layoutY="271.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="New Project" AnchorPane.bottomAnchor="86.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="271.0" />
+      <Button id="new-proj-btn" fx:id="openProjectButton" layoutX="235.0" layoutY="328.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="Open Project" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="328.0" />
+      <Label layoutX="142.0" layoutY="14.0" style="-fx-font-family: Montserrat;" styleClass="call" text="Harmony Engine" textFill="#d0cccc" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="141.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

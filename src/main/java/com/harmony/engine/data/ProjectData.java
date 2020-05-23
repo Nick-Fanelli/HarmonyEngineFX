@@ -17,9 +17,13 @@ import java.io.File;
 public class ProjectData {
 
     public static String projectName;
+    public static String author;
+    public static String versionID;
 
     public static void reset() {
         projectName = "";
+        author = "";
+        versionID = "";
     }
 
     public static void save(File directory) {
@@ -44,8 +48,6 @@ public class ProjectData {
             StreamResult file = new StreamResult(new File(directory.getPath() + "/" + directory.getName() + ".hyproj"));
 
             transformer.transform(source, file);
-
-            System.out.println("Harmony -> Saved Project Data");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,6 +55,8 @@ public class ProjectData {
 
     public static void addAttributes(Element rootElement, Document document) {
         rootElement.appendChild(createElement(document, VALUE, "ProjectName", projectName));
+        rootElement.appendChild(createElement(document, VALUE, "Author", author));
+        rootElement.appendChild(createElement(document, VALUE, "VersionID", versionID));
     }
 
     public static final String VALUE = "value";
@@ -84,8 +88,17 @@ public class ProjectData {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) node;
 
-                    if (eElement.getAttribute("name").equals("ProjectName"))
-                        projectName = eElement.getAttribute("value");
+                    switch (eElement.getAttribute("name")) {
+                        case "ProjectName":
+                            projectName = eElement.getAttribute("value");
+                            break;
+                        case "Author":
+                            author = eElement.getAttribute("value");
+                            break;
+                        case "VersionID":
+                            versionID = eElement.getAttribute("value");
+                            break;
+                    }
                 }
             }
 

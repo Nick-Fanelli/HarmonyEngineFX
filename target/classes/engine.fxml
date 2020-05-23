@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -9,7 +10,27 @@
         <tabs>
           <Tab text="Project">
             <content>
-              <StackPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
+                     <children>
+                        <Group layoutX="14.0" layoutY="14.0">
+                           <children>
+                              <TextField fx:id="projectName" layoutX="105.0" style="-fx-background-color: -fx-default-dark; -fx-text-fill: -fx-default-extra-light; -fx-font-family: Montserrat;" />
+                              <Label layoutY="5.0" style="-fx-font-family: Montserrat;" text="Project Name:" textFill="#e4e4e4" />
+                           </children>
+                        </Group>
+                        <Group layoutX="14.0" layoutY="52.0">
+                           <children>
+                              <TextField fx:id="author" layoutX="105.0" style="-fx-background-color: -fx-default-dark; -fx-text-fill: -fx-default-extra-light; -fx-font-family: Montserrat;" />
+                              <Label layoutY="5.0" style="-fx-font-family: Montserrat;" text="Author:" textFill="#e4e4e4" />
+                           </children>
+                        </Group>
+                        <Group layoutX="14.0" layoutY="91.0">
+                           <children>
+                              <TextField fx:id="version" layoutX="105.0" style="-fx-background-color: -fx-default-dark; -fx-text-fill: -fx-default-extra-light; -fx-font-family: Montserrat;" />
+                              <Label layoutY="5.0" style="-fx-font-family: Montserrat;" text="Version:" textFill="#e4e4e4" />
+                           </children>
+                        </Group>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Textures">

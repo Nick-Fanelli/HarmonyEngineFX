@@ -17,17 +17,29 @@ public class LauncherController {
 
     public AnchorPane anchorPane;
     public Button newProjectButton;
+    public Button openProjectButton;
 
     @FXML
     public void initialize() {
         newProjectButton.setOnMouseClicked(mouseEvent -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
-            directoryChooser.setTitle("Choose Project Directory");
+            directoryChooser.setTitle("Create Project");
 
             File selectedFile = directoryChooser.showDialog(Launcher.staticStage);
 
             if (selectedFile != null) {
                 create(selectedFile);
+            }
+        });
+
+        openProjectButton.setOnMouseClicked(mouseEvent -> {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setTitle("Open Project");
+
+            File selectedFile = directoryChooser.showDialog(Launcher.staticStage);
+
+            if(selectedFile != null) {
+                open(selectedFile);
             }
         });
     }
@@ -68,9 +80,47 @@ public class LauncherController {
         }
 
         try {
+            ProjectData.reset();
+
             ProjectData.projectName = directory.getName();
+            ProjectData.versionID = "0.0.1";
+
             ProjectData.save(directory);
 
+            Harmony.open(directory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void open(File directory) {
+        if(!directory.exists()) return;
+        if(!directory.isDirectory()) return;
+
+        String[] children = directory.list();
+        assert children != null;
+
+        boolean prefCheck = false;
+        boolean projCheck = false;
+
+        for(String child : children) {
+            if(child.endsWith("hypref")) prefCheck = true;
+            if(child.endsWith("hyproj")) projCheck = true;
+        }
+
+        if(!(prefCheck && projCheck)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error Opening Project Directory");
+            alert.setContentText("The selected directory is either not a Harmony Project directory or is corrupted.");
+
+            alert.showAndWait();
+
+            return;
+        }
+
+        try {
+            ProjectData.reset();
             Harmony.open(directory);
         } catch (Exception e) {
             e.printStackTrace();

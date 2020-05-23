@@ -1,6 +1,8 @@
 package com.harmony.engine;
 
+import com.harmony.engine.data.ProjectData;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,9 +14,17 @@ public class Harmony extends Application {
 
     public static File directory;
 
+    public static void main(String[] args) throws Exception { open(new File("/Users/nick227889/Dev/Game")); }
+
     public static void open(File directory) throws Exception {
         Harmony.directory = directory;
-        new Harmony().start(Launcher.staticStage);
+        ProjectData.load(directory);
+
+        if(Launcher.staticStage != null) {
+            new Harmony().start(Launcher.staticStage);
+        } else {
+            launch();
+        }
     }
 
     @Override
@@ -25,5 +35,11 @@ public class Harmony extends Application {
         stage.setTitle("Harmony Engine v1.0");
         stage.setScene(scene);
         stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            ProjectData.save(Harmony.directory);
+            Platform.exit();
+            System.exit(0);
+        });
     }
 }

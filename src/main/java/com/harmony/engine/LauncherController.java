@@ -1,5 +1,6 @@
 package com.harmony.engine;
 
+import com.harmony.engine.data.ProjectData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -8,7 +9,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -68,6 +68,9 @@ public class LauncherController {
         }
 
         try {
+            ProjectData.projectName = directory.getName();
+            ProjectData.save(directory);
+
             Harmony.open(directory);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="anchor-pane" fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@launcher.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.LauncherController">
+   <children>
+      <Button id="new-proj-btn" fx:id="newProjectButton" layoutX="235.0" layoutY="179.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="New Project" AnchorPane.bottomAnchor="178.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="179.0" />
+   </children>
+</AnchorPane>

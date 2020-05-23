@@ -1,0 +1,75 @@
+/* Fonts */
+
+@font-face {
+    font-family: Montserrat;
+    src: url('fonts/Montserrat/Montserrat-Regular.ttf');
+}
+
+/* Custom Colors */
+
+* {
+    -fx-tab-color: #70a7ff;
+    -fx-tab-selected-color: #4287f5;
+    -fx-default-dark: #2B2B2B;
+    -fx-default-medium: #313335;
+}
+
+
+.anchor-section {
+    -fx-background-color: -fx-default-medium;
+}
+
+/* Tab Pane */
+
+.tab-pane > .tab-header-area {
+    -fx-padding: 0;
+}
+
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: #E1E1E1, -fx-default-dark;
+    -fx-background-insets: 0, 0 0 1px 0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: -fx-default-dark;
+    -fx-background-insets: 0 0 1px 0;
+    -fx-padding: 1.25em 1.5em;
+    -fx-cursor: hand;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab >.tab-container >.tab-label {
+    -fx-text-fill: -fx-tab-color;
+    -fx-font-family: 'Montserrat';
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: -fx-tab-selected-color, -fx-default-medium;
+    -fx-background-insets: 0, 0 0 2px 0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected >.tab-container >.tab-label {
+    -fx-text-fill: -fx-tab-selected-color;
+    -fx-font-family: 'Montserrat';
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected >.tab-container >.focus-indicator {
+    -fx-opacity: 0;
+}
+
+/* Menu Bar */
+
+.menu-bar {
+    -fx-background-color: -fx-default-medium;
+}
+
+.menu .label {
+    -fx-text-fill: #fefefe;
+}
+
+.menu-item:focused {
+    -fx-background-color: blue;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
+}

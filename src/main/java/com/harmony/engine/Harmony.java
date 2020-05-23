@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -33,6 +34,7 @@ public class Harmony extends Application {
         Scene scene = new Scene(root, 1280, 720);
 
         stage.setTitle("Harmony Engine v1.0");
+        stage.getIcons().add(new Image(Harmony.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.show();
 

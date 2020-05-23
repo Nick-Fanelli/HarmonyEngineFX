@@ -1,3 +1,6 @@
+com/harmony/engine/data/ProjectData.class
 com/harmony/engine/EngineController.class
 com/harmony/engine/Harmony.class
+com/harmony/engine/Launcher.class
 module-info.class
+com/harmony/engine/LauncherController.class

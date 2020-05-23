@@ -1,8 +1,5 @@
 module com.harmony {
 
-    // For Intellij Kotlin Dependencies
-    requires kotlin.stdlib;
-
     // JavaFx Dependencies
     requires javafx.controls;
     requires javafx.fxml;

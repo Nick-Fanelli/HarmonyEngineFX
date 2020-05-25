@@ -14,6 +14,7 @@ import java.io.File;
 public class Harmony extends Application {
 
     public static File directory;
+    public static Stage staticStage;
 
     public static void main(String[] args) throws Exception { open(new File("/Users/nick227889/Dev/Game")); }
 
@@ -30,12 +31,16 @@ public class Harmony extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Harmony.staticStage = stage;
+
         Parent root = FXMLLoader.load(Harmony.class.getResource("/engine.fxml"));
         Scene scene = new Scene(root, 1280, 720);
 
         stage.setTitle("Harmony Engine v1.0");
         stage.getIcons().add(new Image(Harmony.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
+        stage.setResizable(true);
+        stage.centerOnScreen();
         stage.show();
 
         stage.setOnCloseRequest(event -> {

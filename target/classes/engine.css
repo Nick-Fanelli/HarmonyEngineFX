@@ -5,7 +5,6 @@
     src: url('fonts/Montserrat/Montserrat-Regular.ttf');
 }
 
-
 /* Custom Colors */
 
 * {
@@ -17,6 +16,32 @@
     -fx-default-extra-light: #61676b;
 }
 
+/* Defaults */
+.default-text-field {
+    -fx-background-color: -fx-default-dark;
+    -fx-text-fill: #eeeeee;
+    -fx-font-family: Montserrat;
+}
+
+.default-button {
+    -fx-background-color: -fx-default-dark;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: Montserrat;
+    -fx-cursor: hand;
+}
+
+.default-choose-button {
+    -fx-background-color: #365880;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: Montserrat;
+    -fx-cursor: hand;
+}
+
+.default-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #eeeeee;
+    -fx-font-family: Montserrat;
+}
 
 .anchor-section {
     -fx-background-color: -fx-default-medium;
@@ -59,20 +84,23 @@
     -fx-opacity: 0;
 }
 
-/* Menu Bar */
+/* Textures */
+#texturesList {
+    -fx-background-color: transparent;
+}
 
-.menu-bar {
+#texturesList:focused {
+    -fx-background-color: transparent;
+}
+
+.list-row-cell:odd {
     -fx-background-color: -fx-default-medium;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
 }
 
-.menu .label {
-    -fx-text-fill: #fefefe;
-}
-
-.menu-item:focused {
-    -fx-background-color: blue;
-}
-
-.menu-item .label {
-    -fx-text-fill: black;
+.list-row-cell:event {
+    -fx-background-color: -fx-default-dark;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
 }

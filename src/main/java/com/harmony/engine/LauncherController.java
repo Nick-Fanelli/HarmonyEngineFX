@@ -75,6 +75,7 @@ public class LauncherController {
             new File(directory.getPath() + "/" + directory.getName() + ".hyproj").createNewFile();
             new File(directory.getPath() + "/" + directory.getName() + ".hypref").createNewFile();
             new File(directory.getPath() + "/Resources").mkdir();
+            new File(directory.getPath() + "/Resources/Textures").mkdir();
         } catch (IOException e) {
             e.printStackTrace();
         }

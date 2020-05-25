@@ -101,6 +101,8 @@ public class ProjectData {
     public static Element createContainerElement(Document document, String name) { return document.createElement(name); }
 
     public static void load(File directory) {
+        ProjectData.reset();
+
         File inputFile = new File(directory.getPath() + "/" + directory.getName() + ".hyproj");
 
         try {

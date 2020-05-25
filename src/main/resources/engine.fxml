@@ -38,7 +38,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>
-                        <SplitPane dividerPositions="0.3311036789297659" prefHeight="200.0" prefWidth="200.0" style="-fx-color: -fx-default-dark; -fx-box-border: -fx-default-dark;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.3311036789297659" prefHeight="200.0" prefWidth="200.0" style="-fx-color: -fx-default-dark; -fx-box-border: -fx-default-dark; -fx-background-color: -fx-default-light;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <items>
                               <AnchorPane>
                                  <children>
@@ -53,9 +53,13 @@
                               </AnchorPane>
                               <AnchorPane fx:id="textureInteractables" prefHeight="200.0" prefWidth="402.0" style="-fx-background-color: -fx-default-light;">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="17.0" styleClass="default-label" text="Name:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="17.0" />
-                                    <TextField fx:id="textureField" layoutX="78.0" layoutY="14.0" prefHeight="27.0" prefWidth="135.0" styleClass="default-text-field" AnchorPane.leftAnchor="78.0" AnchorPane.topAnchor="14.0" />
+                                    <Label layoutX="34.0" layoutY="17.0" styleClass="default-label" text="Name:" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="17.0" />
+                                    <TextField fx:id="textureField" layoutX="98.0" layoutY="14.0" prefHeight="27.0" prefWidth="135.0" styleClass="default-text-field" AnchorPane.leftAnchor="98.0" AnchorPane.topAnchor="14.0" />
                                     <ImageView fx:id="textureImageView" fitHeight="150.0" fitWidth="200.0" layoutX="98.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="150.0" />
+                                     <Button fx:id="saveTextureButton" layoutX="329.0" layoutY="4.0" mnemonicParsing="false" style="-fx-background-color: #228B22; -fx-cursor: hand;" text="Save" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS" />
+                                    <Label layoutX="14.0" layoutY="49.0" styleClass="default-label" text="Location:" />
+                                    <TextField fx:id="textureLocationField" layoutX="98.0" layoutY="46.0" prefHeight="27.0" prefWidth="242.0" styleClass="default-text-field" />
+                                    <Button fx:id="chooseTextureButton" layoutX="355.0" layoutY="46.0" mnemonicParsing="false" styleClass="default-button" text="Choose" AnchorPane.topAnchor="46.0" />
                                  </children></AnchorPane>
                            </items>
                         </SplitPane>

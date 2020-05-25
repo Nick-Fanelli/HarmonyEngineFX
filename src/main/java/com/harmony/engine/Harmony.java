@@ -37,7 +37,6 @@ public class Harmony extends Application {
         Scene scene = new Scene(root, 1280, 720);
 
         stage.setTitle("Harmony Engine v1.0");
-        stage.getIcons().add(new Image(Harmony.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.setResizable(true);
         stage.centerOnScreen();

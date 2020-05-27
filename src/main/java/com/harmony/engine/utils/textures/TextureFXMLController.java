@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 
 import java.io.BufferedInputStream;
@@ -15,7 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class TextureController {
+public class TextureFXMLController {
 
     public Button locationButton;
     public TextField locationField;
@@ -42,18 +44,16 @@ public class TextureController {
             }
         });
 
-        cancelButton.setOnMouseClicked(mouseEvent -> {
-            TextureUtils.staticStage.close();
-        });
+        cancelButton.setOnMouseClicked(mouseEvent -> TextureUtils.staticStage.close());
 
         chooseButton.setOnMouseClicked(mouseEvent -> {
             if(!(locationField.getText().isEmpty() || nameField.getText().isEmpty())) {
-                ProjectData.textures.add(new Texture(locationField.getText().trim(), nameField.getText().trim(),
+                ProjectData.textures.add(new Texture(locationField.getText().trim().replaceAll(Harmony.directory.getPath(), ""), nameField.getText().trim(),
                         ProjectData.textures.size()));
                 EngineController.synchronizeTextures();
                 TextureUtils.staticStage.close();
             }
         });
-    }
 
+    }
 }

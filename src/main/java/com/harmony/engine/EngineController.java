@@ -1,11 +1,13 @@
 package com.harmony.engine;
 
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.utils.gameObjects.GameObjectUtils;
 import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,6 +21,7 @@ import java.io.FileNotFoundException;
 public class EngineController {
 
     // Project Tab
+    public Tab projectTab;
     public TextField projectName;
     public TextField author;
     public TextField version;
@@ -26,6 +29,7 @@ public class EngineController {
     // Textures Tab
     public static ListView<String> staticTexturesList;
 
+    public Tab texturesTab;
     public ListView<String> texturesList;
     public Button newTextureButton;
     public Button deleteTextureButton;
@@ -37,10 +41,21 @@ public class EngineController {
     public Button saveTextureButton;
     public Button chooseTextureButton;
 
+    // GameObjects Tab
+    public static ListView<String> staticGameObjectsList;
+
+    public Tab gameObjectsTab;
+    public ListView<String> gameObjectsList;
+    public Button newGameObjectButton;
+    public Button deleteGameObjectButton;
+
+    public AnchorPane gameObjectsInteractables;
+
     @FXML
     public void initialize() {
         initProjectTab();
         initTexturesTab();
+        initGameObjectsTab();
     }
 
     // Project Methods
@@ -109,11 +124,12 @@ public class EngineController {
         saveTextureButton.setOnMouseClicked(mouseEvent -> {
             int index = staticTexturesList.getSelectionModel().getSelectedIndex();
 
+
             if(index < 0) return;
 
             // Put The New Data In The Data Buffer
             ProjectData.textures.get(index).name = textureField.getText().trim();
-            ProjectData.textures.get(index).path = textureLocationField.getText().trim();
+            ProjectData.textures.get(index).path = textureLocationField.getText().trim().replaceAll(Harmony.directory.getPath(), "");
 
             // Update The Static Textures List
             staticTexturesList.getItems().set(index, textureField.getText().trim());
@@ -138,7 +154,7 @@ public class EngineController {
     }
     private void setTexturesImage(String path) {
         try {
-            textureImageView.setImage(new Image(new FileInputStream(new File(path))));
+            textureImageView.setImage(new Image(new FileInputStream(new File(Harmony.directory.getPath() + path))));
             textureLocationField.setStyle("-fx-text-fill: #eeeeee;");
         } catch (FileNotFoundException e) {
             // TODO: Error Pop-Up on the screen
@@ -155,4 +171,31 @@ public class EngineController {
             ProjectData.textures.get(i).id = i;
         }
     }
+
+    // GameObject Methods
+    private void initGameObjectsTab() {
+        EngineController.staticGameObjectsList = gameObjectsList;
+        gameObjectsInteractables.setVisible(false);
+
+        EngineController.synchronizeGameObjects();
+        handleGameObjectElements();
+    }
+    private void handleGameObjectElements() {
+        newGameObjectButton.setOnMouseClicked(mouseEvent -> GameObjectUtils.createGameObject());
+
+        deleteGameObjectButton.setOnMouseClicked(mouseEvent -> {
+            int id = staticGameObjectsList.getSelectionModel().getSelectedIndex();
+            staticGameObjectsList.getItems().remove(id);
+            ProjectData.gameObjects.remove(id);
+            EngineController.synchronizeGameObjects();
+        });
+    }
+    public static void synchronizeGameObjects() {
+        staticGameObjectsList.getItems().clear();
+
+        for(int i = 0; i < ProjectData.gameObjects.size(); i++) {
+            staticGameObjectsList.getItems().add(i, ProjectData.gameObjects.get(i).name);
+        }
+    }
+
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: -fx-default-medium;" stylesheets="@../engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.textures.TextureController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: -fx-default-medium;" stylesheets="@../engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.textures.TextureFXMLController">
    <children>
       <Group layoutX="27.0" layoutY="26.0">
          <children>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: -fx-default-medium;" stylesheets="@../engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.gameObjects.GameObjectController">
+    <children>
+        <Group layoutX="27.0" layoutY="26.0">
+            <children>
+                <Label layoutY="3.0" style="-fx-font-family: Montserrat;" text="Name:" textFill="#eeeeee">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="nameField" layoutX="64.0" promptText="GameObject Name" styleClass="default-text-field" />
+            </children>
+        </Group>
+
+
+        <Button fx:id="cancelButton" cancelButton="true" layoutX="450.0" layoutY="359.0" mnemonicParsing="false" styleClass="default-button" text="Cancel" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="95.0" />
+        <Button fx:id="chooseButton" layoutX="515.0" layoutY="359.0" mnemonicParsing="false" styleClass="default-choose-button" text="Choose" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="18.0" />
+    </children>
+</AnchorPane>

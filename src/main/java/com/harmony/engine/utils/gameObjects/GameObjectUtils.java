@@ -1,5 +1,6 @@
-package com.harmony.engine.utils.textures;
+package com.harmony.engine.utils.gameObjects;
 
+import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,17 +9,17 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class TextureUtils {
+public class GameObjectUtils {
 
     public static Stage staticStage;
 
-    public static void createTexture() {
+    public static void createGameObject() {
         try {
-            FXMLLoader loader = new FXMLLoader(TextureUtils.class.getResource("/utils/texture.fxml"));
-            Stage stage = new Stage();
-            TextureUtils.staticStage = stage;
+            FXMLLoader loader = new FXMLLoader(TextureUtils.class.getResource("/utils/gameObject.fxml"));
             Parent root = loader.load();
-            stage.setTitle("Create Texture");
+            Stage stage = new Stage();
+            GameObjectUtils.staticStage = stage;
+            stage.setTitle("Create Game Object");
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setAlwaysOnTop(true);

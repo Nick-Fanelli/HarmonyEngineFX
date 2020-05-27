@@ -2,10 +2,7 @@ package com.harmony.engine;
 
 import com.harmony.engine.data.ProjectData;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 
@@ -18,9 +15,12 @@ public class LauncherController {
     public AnchorPane anchorPane;
     public Button newProjectButton;
     public Button openProjectButton;
+    public Label versionLabel;
 
     @FXML
     public void initialize() {
+        versionLabel.setText(String.format("Version: %s.%s.%s", Launcher.VERSION_ID[0], Launcher.VERSION_ID[1], Launcher.VERSION_ID[2]));
+
         newProjectButton.setOnMouseClicked(mouseEvent -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             directoryChooser.setTitle("Create Project");

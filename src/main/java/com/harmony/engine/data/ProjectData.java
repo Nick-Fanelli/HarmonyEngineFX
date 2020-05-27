@@ -1,5 +1,6 @@
 package com.harmony.engine.data;
 
+import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.textures.Texture;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,8 +14,9 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class ProjectData {
 
@@ -23,12 +25,14 @@ public class ProjectData {
     public static String versionID;
 
     public static ArrayList<Texture> textures = new ArrayList<>();
+    public static ArrayList<GameObject> gameObjects = new ArrayList<>();
 
     public static void reset() {
         projectName = "";
         author = "";
         versionID = "";
         textures.clear();
+        gameObjects.clear();
     }
 
     public static void save(File directory) {
@@ -64,6 +68,7 @@ public class ProjectData {
         rootElement.appendChild(createElement(document, VALUE, "VersionID", versionID));
 
         ProjectData.addTextureAttributes(rootElement, document);
+        ProjectData.addGameObjectAttributes(rootElement, document);
     }
 
     private static void addTextureAttributes(Element rootElement, Document document) {
@@ -76,8 +81,19 @@ public class ProjectData {
         rootElement.appendChild(texturesElement);
     }
 
+    private static void addGameObjectAttributes(Element rootElement, Document document) {
+        Element gameObjectsElement = createContainerElement(document, "GameObjects");
+
+        for(GameObject gameObject : gameObjects) {
+            gameObjectsElement.appendChild(createGameObjectElement(document, gameObject));
+        }
+
+        rootElement.appendChild(gameObjectsElement);
+    }
+
     public static final String VALUE = "value";
     public static final String TEXTURE = "texture";
+    public static final String GAME_OBJECT = "gameObject";
 
     public static Element createElement(Document document, String type, String name, String value) {
         Element node = document.createElement(type);
@@ -94,6 +110,28 @@ public class ProjectData {
         node.setAttribute("path", path);
         node.setAttribute("name", name);
         node.setAttribute("id", Integer.toString(id));
+
+        return node;
+    }
+
+    public static Element createGameObjectElement(Document document, GameObject gameObject) {
+        Element node = document.createElement(GAME_OBJECT);
+
+        String serializedData = "";
+
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream os = new ObjectOutputStream(bo);
+
+            os.writeObject(gameObject);
+            os.flush();
+            serializedData = new String(Base64.getEncoder().encode(bo.toByteArray()));
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        node.setAttribute("data", serializedData);
 
         return node;
     }
@@ -115,6 +153,7 @@ public class ProjectData {
             // Load in all of the nodes
             loadValueNodes(document.getElementsByTagName(VALUE));
             loadTextureNodes(document.getElementsByTagName(TEXTURE));
+            loadGameObjectNodes(document.getElementsByTagName(GAME_OBJECT));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,6 +193,30 @@ public class ProjectData {
                         eElement.getAttribute("name").trim(),
                         Integer.parseInt(eElement.getAttribute("id").trim()));
                 textures.add(texture.id, texture);
+            }
+        }
+    }
+
+    private static void loadGameObjectNodes(NodeList nList) {
+        for(int i = 0; i < nList.getLength(); i++) {
+            Node node = nList.item(i);
+
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) node;
+
+                GameObject gameObject = null;
+
+                try {
+                    byte[] bytes = Base64.getDecoder().decode(eElement.getAttribute("data").getBytes());
+
+                    ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+                    ObjectInputStream si = new ObjectInputStream(bi);
+                    gameObject = (GameObject) si.readObject();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if(gameObject != null) gameObjects.add(gameObject);
             }
         }
     }

@@ -9,7 +9,7 @@
    <children>
       <TabPane layoutY="28.0" prefHeight="372.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Project">
+          <Tab fx:id="projectTab" text="Project">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>
@@ -34,11 +34,11 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Textures">
+          <Tab fx:id="texturesTab" text="Textures">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>
-                        <SplitPane dividerPositions="0.3311036789297659" prefHeight="200.0" prefWidth="200.0" style="-fx-color: -fx-default-dark; -fx-box-border: -fx-default-dark; -fx-background-color: -fx-default-light;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.33" prefHeight="200.0" prefWidth="200.0" style="-fx-color: -fx-default-dark; -fx-box-border: -fx-default-dark; -fx-background-color: -fx-default-light;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <items>
                               <AnchorPane>
                                  <children>
@@ -65,6 +65,49 @@
                         </SplitPane>
                      </children></AnchorPane>
             </content>
+          </Tab>
+          <Tab fx:id="gameObjectsTab" text="Game Objects">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
+                      <children>
+                          <SplitPane dividerPositions="0.33" prefHeight="200.0" prefWidth="200.0" style="-fx-color: -fx-default-dark; -fx-box-border: -fx-default-dark; -fx-background-color: -fx-default-light;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <items>
+                                  <AnchorPane>
+                                      <children>
+                                          <ListView id="gameObjectsList" fx:id="gameObjectsList" prefHeight="314.0" prefWidth="200.0" style="-fx-background-color: -fx-default-medium;" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <HBox layoutY="313.0" style="-fx-background-color: -fx-default-medium;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                              <children>
+                                                  <Button fx:id="newGameObjectButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #228B22; -fx-cursor: hand;" text="New" HBox.hgrow="ALWAYS" />
+                                                  <Button fx:id="deleteGameObjectButton" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #f55442; -fx-cursor: hand;" text="Delete" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                      </children>
+                                  </AnchorPane>
+                                  <AnchorPane fx:id="gameObjectsInteractables" prefHeight="200.0" prefWidth="402.0" style="-fx-background-color: -fx-default-light;">
+                                      <children>
+
+                                            <Group layoutX="34.0" layoutY="14.0">
+                                               <children>
+                                                        <Label layoutY="3.0" styleClass="default-label" text="Name:" />
+                                                        <TextField fx:id="gameObjectNameField" layoutX="64.0" prefHeight="27.0" prefWidth="135.0" styleClass="default-text-field" />
+                                               </children>
+                                            </Group>
+
+                                            <Group layoutX="34.0" layoutY="50.0">
+                                                <children>
+                                                      <Label layoutX="-12.0" layoutY="3.0" styleClass="default-label" text="Texture:" />
+                                                     <TextField fx:id="gameObjectTextureField" layoutX="64.0" prefHeight="27.0" prefWidth="190.0" styleClass="default-text-field" />
+                                                 </children>
+                                            </Group>
+
+                                          <Button fx:id="saveGameObjectButton" layoutX="329.0" layoutY="4.0" mnemonicParsing="false" style="-fx-background-color: #228B22; -fx-cursor: hand;" text="Save" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS" />
+                                      </children>
+                                  </AnchorPane>
+                              </items>
+                          </SplitPane>
+                      </children>
+                  </AnchorPane>
+              </content>
           </Tab>
         </tabs>
       </TabPane>

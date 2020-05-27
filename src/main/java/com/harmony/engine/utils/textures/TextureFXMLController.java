@@ -3,6 +3,7 @@ package com.harmony.engine.utils.textures;
 import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.utils.Status;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -44,13 +45,17 @@ public class TextureFXMLController {
             }
         });
 
-        cancelButton.setOnMouseClicked(mouseEvent -> TextureUtils.staticStage.close());
+        cancelButton.setOnMouseClicked(mouseEvent -> {
+            Status.setCurrentStatus(Status.Type.READY);
+            TextureUtils.staticStage.close();
+        });
 
         chooseButton.setOnMouseClicked(mouseEvent -> {
             if(!(locationField.getText().isEmpty() || nameField.getText().isEmpty())) {
                 ProjectData.textures.add(new Texture(locationField.getText().trim().replaceAll(Harmony.directory.getPath(), ""), nameField.getText().trim(),
                         ProjectData.textures.size()));
                 EngineController.synchronizeTextures();
+                Status.setCurrentStatus(Status.Type.READY);
                 TextureUtils.staticStage.close();
             }
         });

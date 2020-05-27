@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.EngineController">
    <children>
-      <TabPane layoutY="28.0" prefHeight="372.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane layoutY="28.0" prefHeight="386.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab fx:id="projectTab" text="Project">
             <content>
@@ -31,6 +31,7 @@
                               <Label layoutY="5.0" style="-fx-font-family: Montserrat;" text="Version:" textFill="#e4e4e4" />
                            </children>
                         </Group>
+                        <AnchorPane layoutX="446.0" layoutY="-59.0" prefHeight="53.0" prefWidth="154.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -111,5 +112,10 @@
           </Tab>
         </tabs>
       </TabPane>
+      <AnchorPane layoutY="379.0" prefHeight="24.0" prefWidth="600.0" style="-fx-background-color: -fx-default-dark;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label fx:id="statusLabel" layoutX="505.0" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

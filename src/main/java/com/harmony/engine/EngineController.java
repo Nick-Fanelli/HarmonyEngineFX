@@ -1,17 +1,16 @@
 package com.harmony.engine;
 
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObjectUtils;
 import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -19,6 +18,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class EngineController {
+
+    // Misc.
+    public static Label staticStatusLabel;
+    public Label statusLabel;
 
     // Project Tab
     public Tab projectTab;
@@ -53,9 +56,23 @@ public class EngineController {
 
     @FXML
     public void initialize() {
+        initMiscMethods();
+
         initProjectTab();
         initTexturesTab();
         initGameObjectsTab();
+
+        Status.setCurrentStatus(Status.Type.READY);
+    }
+
+    // Misc Methods
+    private void initMiscMethods() {
+        staticStatusLabel = statusLabel;
+        Status.setCurrentStatus(Status.Type.STAND_BY);
+    }
+    public static void setStatusLabel(String status, Color color) {
+        staticStatusLabel.setTextFill(color);
+        staticStatusLabel.setText("Status: " + status);
     }
 
     // Project Methods

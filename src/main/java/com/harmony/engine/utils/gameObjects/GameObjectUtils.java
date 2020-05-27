@@ -1,5 +1,6 @@
 package com.harmony.engine.utils.gameObjects;
 
+import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,7 @@ public class GameObjectUtils {
 
     public static void createGameObject() {
         try {
+            Status.setCurrentStatus(Status.Type.LOADING);
             FXMLLoader loader = new FXMLLoader(TextureUtils.class.getResource("/utils/gameObject.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();

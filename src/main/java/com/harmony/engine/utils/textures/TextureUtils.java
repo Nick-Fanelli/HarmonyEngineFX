@@ -1,5 +1,6 @@
 package com.harmony.engine.utils.textures;
 
+import com.harmony.engine.utils.Status;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ public class TextureUtils {
 
     public static void createTexture() {
         try {
+            Status.setCurrentStatus(Status.Type.LOADING);
             FXMLLoader loader = new FXMLLoader(TextureUtils.class.getResource("/utils/texture.fxml"));
             Stage stage = new Stage();
             TextureUtils.staticStage = stage;

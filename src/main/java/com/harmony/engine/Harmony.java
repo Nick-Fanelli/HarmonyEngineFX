@@ -1,6 +1,7 @@
 package com.harmony.engine;
 
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.documentation.DocumentationController;
 import com.harmony.engine.utils.Status;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -64,9 +65,7 @@ public class Harmony extends Application {
 
             if(controlDown && sDown && !saving) {
                 saving = true;
-                Status.setCurrentStatus(Status.Type.SAVING);
                 ProjectData.save(Harmony.directory);
-                Status.setCurrentStatus(Status.Type.READY);
                 saving = false;
             }
         });

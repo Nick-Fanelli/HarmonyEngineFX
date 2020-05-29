@@ -116,5 +116,12 @@
             <Label fx:id="statusLabel" layoutX="505.0" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0" />
          </children>
       </AnchorPane>
+      <AnchorPane prefHeight="56.0" prefWidth="172.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="runProjectButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutX="79.0" layoutY="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="saveProjectButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutX="61.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="documentationButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutY="1.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

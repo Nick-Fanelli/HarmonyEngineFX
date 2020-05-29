@@ -1,5 +1,7 @@
 package com.harmony.engine.data;
 
+import com.harmony.engine.documentation.DocumentationController;
+import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.textures.Texture;
 import org.w3c.dom.Document;
@@ -36,6 +38,8 @@ public class ProjectData {
     }
 
     public static void save(File directory) {
+        Status.setCurrentStatus(Status.Type.SAVING);
+
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
 
@@ -60,6 +64,8 @@ public class ProjectData {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Status.setCurrentStatus(Status.Type.READY);
     }
 
     public static void addAttributes(Element rootElement, Document document) {

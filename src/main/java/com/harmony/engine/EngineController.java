@@ -1,6 +1,7 @@
 package com.harmony.engine;
 
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.documentation.Documentation;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObjectUtils;
 import com.harmony.engine.utils.textures.Texture;
@@ -22,6 +23,10 @@ public class EngineController {
     // Misc.
     public static Label staticStatusLabel;
     public Label statusLabel;
+
+    public Button saveProjectButton;
+    public Button runProjectButton;
+    public Button documentationButton;
 
     // Project Tab
     public Tab projectTab;
@@ -69,6 +74,13 @@ public class EngineController {
     private void initMiscMethods() {
         staticStatusLabel = statusLabel;
         Status.setCurrentStatus(Status.Type.STAND_BY);
+
+        saveProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/save-icon.png"), 32, 32, true, true)));
+        runProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/run-icon.png"), 32, 32, true, true)));
+        documentationButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/info-icon.png"), 32, 32, true, true)));
+
+        saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
+        documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(Documentation.Location.PROJECT_TAB));
     }
     public static void setStatusLabel(String status, Color color) {
         staticStatusLabel.setTextFill(color);

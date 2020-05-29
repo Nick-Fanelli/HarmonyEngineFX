@@ -30,6 +30,10 @@
     -fx-cursor: hand;
 }
 
+.default-button:hover {
+    -fx-background-color: -fx-default-extra-light;
+}
+
 .default-choose-button {
     -fx-background-color: #365880;
     -fx-text-fill: #ffffff;

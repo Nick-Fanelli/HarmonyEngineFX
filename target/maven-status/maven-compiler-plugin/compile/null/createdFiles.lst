@@ -1,7 +1,6 @@
 com/harmony/engine/data/ProjectData.class
 com/harmony/engine/utils/gameObjects/GameObject.class
 com/harmony/engine/utils/textures/TextureUtils.class
-com/harmony/engine/documentation/DocumentationController.class
 com/harmony/engine/Harmony.class
 com/harmony/engine/utils/Status.class
 com/harmony/engine/utils/textures/Texture.class

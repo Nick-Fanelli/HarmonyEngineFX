@@ -1,43 +1,50 @@
 package com.harmony.engine.documentation;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class Documentation {
 
-    public static Stage staticStage;
-    public static Location location;
+    public static final String documentationBranch = "version-1.0";
 
     public enum Location {
-        PROJECT_TAB("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/master/projectTab.md#project-tab", "Project Tab");
+        PROJECT_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/projectTab.md#project-tab", documentationBranch), "Project Tab"),
+        TEXTURES_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/texturesTab.md#textures-tab", documentationBranch), "Textures Tab");
 
         public String url;
-        public String titleName;
+        public String title;
 
-        Location (String url, String titleName) {
+        Location (String url, String title) {
             this.url = url;
-            this.titleName = titleName;
+            this.title = title;
         }
     }
 
     public static void showDocumentation(Location location) {
-        if(staticStage != null) staticStage.close();
+        Stage stage = new Stage();
+        stage.setTitle("Harmony Documentation - " + location.title);
+        stage.setResizable(true);
 
-        Documentation.location = location;
+        stage.setMinWidth(600);
+        stage.setMinHeight(600);
 
-        try {
-            FXMLLoader loader = new FXMLLoader(Documentation.class.getResource("/utils/documentation.fxml"));
-            Stage stage = new Stage();
-            Documentation.staticStage = stage;
-            Parent root = loader.load();
-            stage.setResizable(true);
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        WebView webView = new WebView();
+
+        webView.getEngine().load(location.url);
+
+        AnchorPane anchorPane = new AnchorPane(webView);
+
+        AnchorPane.setTopAnchor(webView, 0.0);
+        AnchorPane.setBottomAnchor(webView, 0.0);
+        AnchorPane.setLeftAnchor(webView, 0.0);
+        AnchorPane.setRightAnchor(webView, 0.0);
+
+        Scene scene = new Scene(anchorPane, 800, 640);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

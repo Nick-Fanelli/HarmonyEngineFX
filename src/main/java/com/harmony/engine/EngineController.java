@@ -21,6 +21,8 @@ import java.io.FileNotFoundException;
 public class EngineController {
 
     // Misc.
+    public TabPane tabBar;
+
     public static Label staticStatusLabel;
     public Label statusLabel;
 
@@ -80,7 +82,12 @@ public class EngineController {
         documentationButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/info-icon.png"), 32, 32, true, true)));
 
         saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
-        documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(Documentation.Location.PROJECT_TAB));
+        documentationButton.setOnMouseClicked(mouse -> {
+            if(tabBar.getSelectionModel().getSelectedItem() == projectTab)
+                Documentation.showDocumentation(Documentation.Location.PROJECT_TAB);
+            else if(tabBar.getSelectionModel().getSelectedItem() == texturesTab)
+                Documentation.showDocumentation(Documentation.Location.TEXTURES_TAB);
+        });
     }
     public static void setStatusLabel(String status, Color color) {
         staticStatusLabel.setTextFill(color);

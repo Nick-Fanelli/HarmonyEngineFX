@@ -48,7 +48,7 @@
                 <version>0.0.3</version>
                 <configuration>
                     <mainClass>com.harmony.engine.Launcher</mainClass>
-                    <launcher>launch</launcher>
+                    <launcher>launch.sh</launcher>
                     <compress>2</compress>
                     <jlinkZipName>Harmony</jlinkZipName>
                     <jlinkImageName>Harmony</jlinkImageName>

@@ -18,6 +18,7 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        configureSystemProperties();
         staticStage = stage;
 
         Parent root = FXMLLoader.load(Harmony.class.getResource("/launcher.fxml"));
@@ -28,5 +29,9 @@ public class Launcher extends Application {
         stage.setResizable(false);
 
         stage.show();
+    }
+
+    public static void configureSystemProperties() {
+        System.setProperty("prism.lcdtext", "false");
     }
 }

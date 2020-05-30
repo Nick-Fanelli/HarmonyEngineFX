@@ -1,8 +1,6 @@
 package com.harmony.engine;
 
 import com.harmony.engine.data.ProjectData;
-import com.harmony.engine.documentation.DocumentationController;
-import com.harmony.engine.utils.Status;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +29,7 @@ public class Harmony extends Application {
         if(Launcher.staticStage != null) {
             new Harmony().start(Launcher.staticStage);
         } else {
+            Launcher.configureSystemProperties();
             launch();
         }
     }

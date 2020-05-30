@@ -1,9 +1,7 @@
 package com.harmony.engine.documentation;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
+import java.awt.*;
+import java.net.URI;
 
 public class Documentation {
 
@@ -23,28 +21,13 @@ public class Documentation {
     }
 
     public static void showDocumentation(Location location) {
-        Stage stage = new Stage();
-        stage.setTitle("Harmony Documentation - " + location.title);
-        stage.setResizable(true);
+        URI uri = URI.create(location.url);
 
-        stage.setMinWidth(600);
-        stage.setMinHeight(600);
-
-        WebView webView = new WebView();
-
-        webView.getEngine().load(location.url);
-
-        AnchorPane anchorPane = new AnchorPane(webView);
-
-        AnchorPane.setTopAnchor(webView, 0.0);
-        AnchorPane.setBottomAnchor(webView, 0.0);
-        AnchorPane.setLeftAnchor(webView, 0.0);
-        AnchorPane.setRightAnchor(webView, 0.0);
-
-        Scene scene = new Scene(anchorPane, 800, 640);
-
-        stage.setScene(scene);
-        stage.show();
+        try {
+            Desktop.getDesktop().browse(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

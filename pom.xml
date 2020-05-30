@@ -54,6 +54,7 @@
                     <jlinkImageName>Harmony</jlinkImageName>
                     <noManPages>true</noManPages>
                     <noHeaderFiles>true</noHeaderFiles>
+                    <options>-Djavax.net.debug=all</options>
                 </configuration>
             </plugin>
         </plugins>

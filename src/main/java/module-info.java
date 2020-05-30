@@ -6,7 +6,7 @@ module com.harmony {
     requires javafx.swing;
     requires javafx.web;
 
-    opens com.harmony.engine to javafx.fxml;
+    opens com.harmony.engine to javafx.web;
 
     exports com.harmony.engine;
     exports com.harmony.engine.data;

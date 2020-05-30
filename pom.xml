@@ -6,6 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mainClass>com.harmony.engine.Launcher</mainClass>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
@@ -30,11 +31,6 @@
             <artifactId>javafx-web</artifactId>
             <version>12</version>
         </dependency>
-        <dependency>
-            <groupId>com.atlassian.commonmark</groupId>
-            <artifactId>commonmark</artifactId>
-            <version>0.15.0</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -52,13 +48,12 @@
                 <version>0.0.3</version>
                 <configuration>
                     <mainClass>com.harmony.engine.Launcher</mainClass>
-                    <launcher>launch.sh</launcher>
+                    <launcher>launch</launcher>
                     <compress>2</compress>
                     <jlinkZipName>Harmony</jlinkZipName>
                     <jlinkImageName>Harmony</jlinkImageName>
                     <noManPages>true</noManPages>
                     <noHeaderFiles>true</noHeaderFiles>
-                    <!-- Used to Run JVM Args <options></options> -->
                 </configuration>
             </plugin>
         </plugins>

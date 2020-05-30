@@ -11,7 +11,7 @@ public class Documentation {
     public static Location location;
 
     public enum Location {
-        PROJECT_TAB("https://github.com/Nick227889/HarmonyDocumentation/blob/master/projectTab.md#project-tab", "Project Tab");
+        PROJECT_TAB("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/master/projectTab.md#project-tab", "Project Tab");
 
         public String url;
         public String titleName;
@@ -32,7 +32,6 @@ public class Documentation {
             Stage stage = new Stage();
             Documentation.staticStage = stage;
             Parent root = loader.load();
-            stage.setTitle("Harmony Documentation");
             stage.setResizable(true);
             stage.setScene(new Scene(root));
             stage.show();

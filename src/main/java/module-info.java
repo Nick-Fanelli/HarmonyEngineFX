@@ -6,9 +6,6 @@ module com.harmony {
     requires javafx.swing;
     requires javafx.web;
 
-    // Misc. Dependencies
-    requires org.commonmark;
-
     opens com.harmony.engine to javafx.fxml;
 
     exports com.harmony.engine;

@@ -8,8 +8,8 @@ public class Documentation {
     public static final String documentationBranch = "version-1.0";
 
     public enum Location {
-        PROJECT_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/projectTab.md#project-tab", documentationBranch), "Project Tab"),
-        TEXTURES_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/texturesTab.md#textures-tab", documentationBranch), "Textures Tab");
+        PROJECT_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/ProjectTab.md#project-tab", documentationBranch), "Project Tab"),
+        TEXTURES_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/TexturesTab.md#textures-tab", documentationBranch), "Textures Tab");
 
         public String url;
         public String title;

@@ -101,6 +101,7 @@
                                             </Group>
 
                                           <Button fx:id="saveGameObjectButton" layoutX="329.0" layoutY="4.0" mnemonicParsing="false" style="-fx-background-color: #228B22; -fx-cursor: hand; -fx-font-family: sans-serif;" text="Save" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="chooseGameObjectTexture" layoutX="296.0" layoutY="50.0" mnemonicParsing="false" styleClass="default-button" text="Choose" AnchorPane.leftAnchor="296.0" AnchorPane.topAnchor="50.0" />
                                       </children>
                                   </AnchorPane>
                               </items>

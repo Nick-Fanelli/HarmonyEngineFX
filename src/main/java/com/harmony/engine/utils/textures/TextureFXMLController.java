@@ -52,7 +52,7 @@ public class TextureFXMLController {
 
         chooseButton.setOnMouseClicked(mouseEvent -> {
             if(!(locationField.getText().isEmpty() || nameField.getText().isEmpty())) {
-                ProjectData.textures.add(new Texture(locationField.getText().trim().replaceAll(Harmony.directory.getPath(), ""), nameField.getText().trim(),
+                ProjectData.textures.add(new Texture(Harmony.getResourceString(locationField.getText()), nameField.getText().trim(),
                         ProjectData.textures.size()));
                 EngineController.synchronizeTextures();
                 Status.setCurrentStatus(Status.Type.READY);

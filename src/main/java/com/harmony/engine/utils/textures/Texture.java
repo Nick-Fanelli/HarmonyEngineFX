@@ -1,6 +1,8 @@
 package com.harmony.engine.utils.textures;
 
-public class Texture {
+import java.io.Serializable;
+
+public class Texture implements Serializable {
 
     public String path;
     public String name;

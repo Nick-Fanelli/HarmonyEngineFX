@@ -76,6 +76,9 @@ public class Harmony extends Application {
                 sDown = false;
             }
         });
+    }
 
+    public static String getResourceString(String path) {
+        return path.trim().replaceAll(Harmony.directory.getPath(), "").trim();
     }
 }

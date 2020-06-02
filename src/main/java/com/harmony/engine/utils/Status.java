@@ -8,7 +8,6 @@ public class Status {
     public enum Type {
         READY("Ready", Color.color(0, 1, 0)),
         STAND_BY("Stand-By", Color.color(1, 1, 0)),
-        LOADING("Loading", Color.color(0, 1, 1)),
         SAVING("Saving", Color.color(0, 1, 1));
 
         private String tag;

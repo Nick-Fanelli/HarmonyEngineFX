@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
@@ -30,7 +31,9 @@ public class EngineController {
     public TabPane tabBar;
 
     public static Label staticStatusLabel;
+    public static Label staticMousePositionLabel;
     public Label statusLabel;
+    public Label mousePositionLabel;
 
     public Button saveProjectButton;
     public Button runProjectButton;
@@ -77,6 +80,7 @@ public class EngineController {
     public Tab editorTab;
     public Canvas editorCanvas;
     public AnchorPane editorPane;
+    public GridPane objectsPane;
 
     @FXML
     public void initialize() {
@@ -93,6 +97,8 @@ public class EngineController {
     // Misc Methods
     private void initMiscMethods() {
         staticStatusLabel = statusLabel;
+        staticMousePositionLabel = mousePositionLabel;
+
         Status.setCurrentStatus(Status.Type.STAND_BY);
 
         saveProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/save-icon.png"), 32, 32, true, true)));
@@ -299,12 +305,10 @@ public class EngineController {
 
     // Editor Methods
     private void initEditorTab() {
-        new Editor(editorCanvas, editorPane);
+        new Editor(editorCanvas, editorPane, objectsPane);
 
         tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
-            if(t1 == editorTab) Editor.draw();
+            if(t1 == editorTab) Editor.update();
         });
-
-        Editor.addGameObject(0, ProjectData.gameObjects.get(0));
     }
 }

@@ -36,6 +36,11 @@
             <artifactId>kotlin-stdlib</artifactId>
             <version>1.3.72</version>
         </dependency>
+        <dependency>
+            <groupId>org.jfxtras</groupId>
+            <artifactId>jfxtras-labs</artifactId>
+            <version>9.0-r1</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -61,6 +66,20 @@
                     <noHeaderFiles>true</noHeaderFiles>
                     <options>-Djavax.net.debug=all</options>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>1.3.72</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

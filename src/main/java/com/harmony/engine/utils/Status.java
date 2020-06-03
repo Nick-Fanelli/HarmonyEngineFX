@@ -1,6 +1,7 @@
 package com.harmony.engine.utils;
 
 import com.harmony.engine.EngineController;
+import com.harmony.engine.math.Vector2f;
 import javafx.scene.paint.Color;
 
 public class Status {
@@ -23,5 +24,9 @@ public class Status {
 
     public static void setCurrentStatus(Type type) {
         EngineController.setStatusLabel(type.toString(), type.color);
+    }
+
+    public static void setMousePosition(Vector2f position) {
+        EngineController.staticMousePositionLabel.setText(String.format("(%s)", position.toString()));
     }
 }

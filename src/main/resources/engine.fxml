@@ -123,26 +123,27 @@
               <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>
-                        <SplitPane dividerPositions="0.7848101265822784" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.32608695652173914" prefHeight="160.0" prefWidth="200.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <SplitPane dividerPositions="0.18624161073825504" prefHeight="160.0" prefWidth="200.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <SplitPane fx:id="editorSplitPane" dividerPositions="0.6528662420382165" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <items>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
                                                 <TreeView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children></AnchorPane>
-                                        <AnchorPane fx:id="editorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                             <children>
-                                                 <Canvas fx:id="editorCanvas" height="244.0" width="481.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
+                                          <GridPane fx:id="objectsPane" gridLinesVisible="true" prefHeight="120.0" prefWidth="189.0"></GridPane>
                                       </items>
                                     </SplitPane>
                                  </children>
                               </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                            <AnchorPane fx:id="editorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                     <Canvas fx:id="editorCanvas" height="244.0" width="481.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
                           </items>
                         </SplitPane>
                      </children>
@@ -154,6 +155,7 @@
       <AnchorPane layoutY="379.0" prefHeight="24.0" prefWidth="600.0" style="-fx-background-color: -fx-default-dark;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label fx:id="statusLabel" layoutX="505.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="3.0" />
+            <Label fx:id="mousePositionLabel" layoutX="8.0" layoutY="4.0" style="-fx-font-family: sans-serif; -fx-text-fill: -fx-default-extra-light;" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="56.0" prefWidth="172.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

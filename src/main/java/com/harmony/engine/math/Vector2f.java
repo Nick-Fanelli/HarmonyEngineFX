@@ -26,6 +26,11 @@ public class Vector2f implements Serializable {
         this.y = r.y;
     }
 
+    public void set(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public Vector2f copy() {
         return new Vector2f(this.x, this.y);
     }

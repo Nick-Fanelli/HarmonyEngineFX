@@ -6,6 +6,9 @@ module com.harmony {
     requires javafx.swing;
     requires javafx.web;
 
+    // JavaFX Extras Dependencies
+    requires jfxtras.labs;
+
     // Kotlin Dependencies
     requires kotlin.stdlib;
 

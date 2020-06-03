@@ -2,12 +2,17 @@ package com.harmony.engine;
 
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
+import com.harmony.engine.io.Editor;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.gameObjects.GameObjectUtils;
 import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -63,8 +68,15 @@ public class EngineController {
     public AnchorPane gameObjectsInteractables;
     public TextField gameObjectNameField;
     public TextField gameObjectTextureField;
+    public TextField gameObjectPosX;
+    public TextField gameObjectPosY;
     public Button chooseGameObjectTexture;
     public Button saveGameObjectButton;
+
+    // Editor Tab
+    public Tab editorTab;
+    public Canvas editorCanvas;
+    public AnchorPane editorPane;
 
     @FXML
     public void initialize() {
@@ -73,6 +85,7 @@ public class EngineController {
         initProjectTab();
         initTexturesTab();
         initGameObjectsTab();
+        initEditorTab();
 
         Status.setCurrentStatus(Status.Type.READY);
     }
@@ -89,6 +102,7 @@ public class EngineController {
         saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
         documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(this, tabBar.getSelectionModel().getSelectedItem()));
     }
+
     public static void setStatusLabel(String status, Color color) {
         staticStatusLabel.setTextFill(color);
         staticStatusLabel.setText("Status: " + status);
@@ -142,7 +156,7 @@ public class EngineController {
         staticTexturesList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             int index = staticTexturesList.getSelectionModel().getSelectedIndex();
 
-            if(index < 0) {
+            if (index < 0) {
                 textureInteractables.setVisible(false);
                 return;
             } else {
@@ -160,7 +174,7 @@ public class EngineController {
         saveTextureButton.setOnMouseClicked(mouseEvent -> {
             int index = staticTexturesList.getSelectionModel().getSelectedIndex();
 
-            if(index < 0) return;
+            if (index < 0) return;
 
             // Put The New Data In The Data Buffer
             ProjectData.textures.get(index).name = textureField.getText().trim();
@@ -174,14 +188,14 @@ public class EngineController {
 
         chooseTextureButton.setOnMouseClicked(mouseEvent -> {
             int index = staticTexturesList.getSelectionModel().getSelectedIndex();
-            if(index < 0) return;
+            if (index < 0) return;
 
             FileChooser chooser = new FileChooser();
             chooser.setInitialDirectory(new File(Harmony.directory.getPath() + "/Resources/Textures"));
             chooser.setTitle("Choose Texture");
             File selectedFile = chooser.showOpenDialog(Harmony.staticStage);
 
-            if(selectedFile == null) return;
+            if (selectedFile == null) return;
 
             textureLocationField.setText(Harmony.getResourceString(selectedFile.getPath()));
             setTexturesImage(Harmony.getResourceString(selectedFile.getPath()));
@@ -201,7 +215,7 @@ public class EngineController {
     public static Image loadTexturesImage(String path) {
         try {
             return new Image(new FileInputStream(new File(Harmony.directory.getPath() + path)));
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -210,7 +224,7 @@ public class EngineController {
     public static void synchronizeTextures() {
         staticTexturesList.getItems().clear();
 
-        for(int i = 0; i < ProjectData.textures.size(); i++) {
+        for (int i = 0; i < ProjectData.textures.size(); i++) {
             staticTexturesList.getItems().add(i, ProjectData.textures.get(i).name);
             ProjectData.textures.get(i).id = i;
         }
@@ -237,7 +251,7 @@ public class EngineController {
         staticGameObjectsList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             int index = staticGameObjectsList.getSelectionModel().getSelectedIndex();
 
-            if(index < 0) {
+            if (index < 0) {
                 gameObjectsInteractables.setVisible(false);
                 return;
             } else {
@@ -247,15 +261,17 @@ public class EngineController {
             GameObject object = ProjectData.gameObjects.get(index);
 
             gameObjectNameField.setText(object.name);
+            gameObjectPosX.setText(Float.toString(object.position.x));
+            gameObjectPosY.setText(Float.toString(object.position.y));
 
-            if(object.texture != null) gameObjectTextureField.setText(object.texture.name);
+            if (object.texture != null) gameObjectTextureField.setText(object.texture.name);
             else gameObjectTextureField.setText("");
         });
 
         saveGameObjectButton.setOnMouseClicked(mouseEvent -> {
             int index = staticGameObjectsList.getSelectionModel().getSelectedIndex();
 
-            if(index < 0) return;
+            if (index < 0) return;
 
             // Put The New Data In The Data Buffer
             ProjectData.gameObjects.get(index).name = gameObjectNameField.getText().trim();
@@ -274,11 +290,21 @@ public class EngineController {
         int index = staticGameObjectsList.getSelectionModel().getSelectedIndex();
         staticGameObjectsList.getItems().clear();
 
-        for(int i = 0; i < ProjectData.gameObjects.size(); i++) {
+        for (int i = 0; i < ProjectData.gameObjects.size(); i++) {
             staticGameObjectsList.getItems().add(i, ProjectData.gameObjects.get(i).name);
         }
 
-        if(index >= 0) staticGameObjectsList.getSelectionModel().select(index);
+        if (index >= 0) staticGameObjectsList.getSelectionModel().select(index);
     }
 
+    // Editor Methods
+    private void initEditorTab() {
+        new Editor(editorCanvas, editorPane);
+
+        tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
+            if(t1 == editorTab) Editor.draw();
+        });
+
+        Editor.addGameObject(0, ProjectData.gameObjects.get(0));
+    }
 }

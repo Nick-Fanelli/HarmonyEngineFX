@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -86,14 +87,22 @@
                                   <AnchorPane fx:id="gameObjectsInteractables" prefHeight="200.0" prefWidth="402.0" style="-fx-background-color: -fx-default-light;">
                                       <children>
 
-                                            <Group layoutX="34.0" layoutY="14.0">
+                                            <Group layoutX="34.0" layoutY="14.0" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="14.0">
                                                <children>
                                                         <Label layoutY="3.0" styleClass="default-label" text="Name:" />
                                                         <TextField fx:id="gameObjectNameField" layoutX="64.0" prefHeight="27.0" prefWidth="135.0" styleClass="default-text-field" />
                                                </children>
                                             </Group>
+                                    <Group layoutX="22.0" layoutY="51.0">
+                                       <children>
+      
+                                                  <Label layoutY="3.0" styleClass="default-label" text="Position:" />
+                                                  <TextField fx:id="gameObjectPosX" layoutX="77.0" prefHeight="27.0" prefWidth="70.0" promptText="posX" styleClass="default-text-field" />
+                                                  <TextField fx:id="gameObjectPosY" layoutX="161.0" prefHeight="27.0" prefWidth="70.0" promptText="posY" styleClass="default-text-field" />
+                                       </children>
+                                    </Group>
 
-                                            <Group layoutX="34.0" layoutY="50.0">
+                                            <Group layoutX="34.0" layoutY="50.0" AnchorPane.topAnchor="87.0">
                                                 <children>
                                                       <Label layoutX="-12.0" layoutY="3.0" styleClass="default-label" text="Texture:" />
                                                      <TextField fx:id="gameObjectTextureField" layoutX="64.0" prefHeight="27.0" prefWidth="190.0" styleClass="default-text-field" />
@@ -101,12 +110,42 @@
                                             </Group>
 
                                           <Button fx:id="saveGameObjectButton" layoutX="329.0" layoutY="4.0" mnemonicParsing="false" style="-fx-background-color: #228B22; -fx-cursor: hand; -fx-font-family: sans-serif;" text="Save" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" HBox.hgrow="ALWAYS" />
-                                    <Button fx:id="chooseGameObjectTexture" layoutX="296.0" layoutY="50.0" mnemonicParsing="false" styleClass="default-button" text="Choose" AnchorPane.leftAnchor="296.0" AnchorPane.topAnchor="50.0" />
+                                    <Button fx:id="chooseGameObjectTexture" layoutX="296.0" layoutY="87.0" mnemonicParsing="false" styleClass="default-button" text="Choose" AnchorPane.leftAnchor="296.0" AnchorPane.topAnchor="87.0" />
                                       </children>
                                   </AnchorPane>
                               </items>
                           </SplitPane>
                       </children>
+                  </AnchorPane>
+              </content>
+          </Tab>
+          <Tab fx:id="editorTab" text="Editor">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
+                     <children>
+                        <SplitPane dividerPositions="0.7848101265822784" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <SplitPane dividerPositions="0.18624161073825504" prefHeight="160.0" prefWidth="200.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                             <children>
+                                                <TreeView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children></AnchorPane>
+                                        <AnchorPane fx:id="editorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                             <children>
+                                                 <Canvas fx:id="editorCanvas" height="244.0" width="481.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                      </items>
+                                    </SplitPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                          </items>
+                        </SplitPane>
+                     </children>
                   </AnchorPane>
               </content>
           </Tab>

@@ -47,6 +47,12 @@
     -fx-font-family: Montserrat;
 }
 
+.default-split-pane {
+    -fx-color: -fx-default-dark;
+    -fx-box-border: -fx-default-dark;
+    -fx-background-color: -fx-default-light;
+}
+
 .anchor-section {
     -fx-background-color: -fx-default-medium;
 }

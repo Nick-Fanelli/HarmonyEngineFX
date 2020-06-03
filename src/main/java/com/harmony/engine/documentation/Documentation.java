@@ -24,7 +24,7 @@ public class Documentation {
 
     public static void showDocumentation(EngineController engineController, Tab tab) {
         Location location = Documentation.getDocumentationLocation(engineController, tab);
-        assert location != null;
+        if(location == null) return;
 
         URI uri = URI.create(location.url);
 
@@ -43,7 +43,7 @@ public class Documentation {
         else if (tab == engineController.gameObjectsTab)
             return Location.GAME_OBJECTS_TAB;
 
-        System.err.println("Documentation not handled for tab \"" + tab + "\"");
+        System.err.println("Documentation not handled for tab \"" + tab.getText() + "\"");
         return null;
     }
 }

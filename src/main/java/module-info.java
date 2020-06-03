@@ -13,6 +13,7 @@ module com.harmony {
 
     exports com.harmony.engine;
     exports com.harmony.engine.data;
+    exports com.harmony.engine.math;
     exports com.harmony.engine.utils;
     exports com.harmony.engine.documentation;
     exports com.harmony.engine.utils.textures;

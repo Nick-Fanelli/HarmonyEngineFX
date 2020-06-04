@@ -1,6 +1,7 @@
 package com.harmony.engine.documentation;
 
 import com.harmony.engine.EngineController;
+import com.harmony.engine.Launcher;
 import javafx.scene.control.Tab;
 
 import java.awt.*;
@@ -8,12 +9,10 @@ import java.net.URI;
 
 public class Documentation {
 
-    public static final String documentationBranch = "version-1.0";
-
     public enum Location {
-        PROJECT_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/ProjectTab.md#project-tab", documentationBranch)),
-        TEXTURES_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/TexturesTab.md#textures-tab", documentationBranch)),
-        GAME_OBJECTS_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/GameObjectsTab.md#game-objects-tab", documentationBranch));
+        PROJECT_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/ProjectTab.md#project-tab", Launcher.GITHUB_VERSION_STRING)),
+        TEXTURES_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/TexturesTab.md#textures-tab", Launcher.GITHUB_VERSION_STRING)),
+        GAME_OBJECTS_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/GameObjectsTab.md#game-objects-tab", Launcher.GITHUB_VERSION_STRING));
 
         public String url;
 

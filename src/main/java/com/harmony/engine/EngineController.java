@@ -14,6 +14,9 @@ import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,9 +24,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URI;
 
 public class EngineController {
 
@@ -44,6 +49,7 @@ public class EngineController {
     public TextField projectName;
     public TextField author;
     public TextField version;
+    public Button openDocumentationButton;
 
     // Textures Tab
     public static ListView<String> staticTexturesList;
@@ -137,6 +143,15 @@ public class EngineController {
         // VersionID
         version.textProperty().addListener((observableValue, s, t1) -> {
             ProjectData.versionID = t1;
+        });
+
+        openDocumentationButton.setOnMouseClicked(mouseEvent -> {
+            try {
+                System.out.println("Hey");
+                Desktop.getDesktop().browse(URI.create("https://github.com/HarmonyEngines/HarmonyDocumentation/tree/" + Launcher.GITHUB_VERSION_STRING));
+            } catch (Exception e) {
+                System.err.println("Could not load the documentation at branch: " + Launcher.GITHUB_VERSION_STRING);
+            }
         });
     }
 

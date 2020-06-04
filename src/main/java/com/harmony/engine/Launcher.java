@@ -12,6 +12,8 @@ public class Launcher extends Application {
             1, 0, 0
     };
 
+    public static final String GITHUB_VERSION_STRING = "version-1.0";
+
     public static Stage staticStage;
 
     public static void main(String[] args) { launch(); }

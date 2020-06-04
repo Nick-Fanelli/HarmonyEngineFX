@@ -4,16 +4,11 @@ module com.harmony {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.swing;
-    requires javafx.web;
 
-    // JavaFX Extras Dependencies
-    requires jfxtras.labs;
+    // Open to JavaFX
+    opens com.harmony.engine to javafx.fxml;
 
-    // Kotlin Dependencies
-    requires kotlin.stdlib;
-
-    opens com.harmony.engine to javafx.web;
-
+    // Exported Src Directories
     exports com.harmony.engine;
     exports com.harmony.engine.data;
     exports com.harmony.engine.math;

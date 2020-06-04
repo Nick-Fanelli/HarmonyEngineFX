@@ -7,25 +7,37 @@
 
 /* Custom Colors */
 
-* {
-    -fx-tab-color: #70a7ff;
-    -fx-tab-selected-color: #4287f5;
-    -fx-default-dark: #2B2B2B;
-    -fx-default-medium: #313335;
-    -fx-default-light: #3c3f41;
-    -fx-default-extra-light: #61676b;
-}
+
+    /* Dark Theme */
+    * {
+        -fx-tab-color: #70a7ff;
+        -fx-tab-selected-color: #4287f5;
+        -fx-default-dark: #2B2B2B;
+        -fx-default-medium: #313335;
+        -fx-default-light: #3c3f41;
+        -fx-default-extra-light: #61676b;
+        -fx-default-text-fill: #ffffff;
+    }
+
+    /* Light Theme */
+    * {
+        -fx-default-light: #e3e3e3;
+        -fx-default-medium: #ffffff;
+        -fx-default-extra-light: #ffffff;
+        -fx-default-dark: f2f2f2;
+        -fx-default-text-fill: #242424;
+    }
 
 /* Defaults */
 .default-text-field {
     -fx-background-color: -fx-default-dark;
-    -fx-text-fill: #eeeeee;
+    -fx-text-fill: -fx-default-text-fill;
     -fx-font-family: Montserrat;
 }
 
 .default-button {
     -fx-background-color: -fx-default-dark;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: -fx-default-text-fill;
     -fx-font-family: Montserrat;
     -fx-cursor: hand;
 }
@@ -43,7 +55,7 @@
 
 .default-label {
     -fx-font-size: 16px;
-    -fx-text-fill: #eeeeee;
+    -fx-text-fill: -fx-default-text-fill;
     -fx-font-family: Montserrat;
 }
 
@@ -113,4 +125,21 @@
     -fx-background-color: -fx-default-dark;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
+}
+
+/* Launcher */
+#launcher-pane {
+    -fx-background-color: -fx-default-dark;
+}
+
+#new-proj-btn {
+    -fx-background-color: -fx-default-medium;
+    -fx-cursor: hand;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 15px;
+}
+
+#new-proj-btn:hover {
+    -fx-background-color: #2e3133;
 }

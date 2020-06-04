@@ -9,7 +9,7 @@
     <children>
         <Group layoutX="27.0" layoutY="26.0">
             <children>
-                <Label layoutY="3.0" style="-fx-font-family: Montserrat;" text="Name:" textFill="#eeeeee">
+                <Label layoutY="3.0" styleClass="default-label" text="Name:" textFill="#eeeeee">
                     <font>
                         <Font size="16.0" />
                     </font>

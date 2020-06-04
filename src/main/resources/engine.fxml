@@ -16,20 +16,20 @@
                      <children>
                         <Group layoutX="14.0" layoutY="14.0">
                            <children>
-                              <TextField fx:id="projectName" layoutX="105.0" style="-fx-background-color: -fx-default-dark; -fx-text-fill: -fx-default-extra-light; -fx-font-family: Montserrat;" />
-                              <Label layoutY="5.0" style="-fx-font-family: Montserrat;" text="Project Name:" textFill="#e4e4e4" />
+                              <TextField fx:id="projectName" layoutX="138.0" styleClass="default-text-field" />
+                              <Label layoutY="5.0" styleClass="default-label" text="Project Name:" textFill="#e4e4e4" />
                            </children>
                         </Group>
                         <Group layoutX="14.0" layoutY="52.0">
                            <children>
-                              <TextField fx:id="author" layoutX="105.0" style="-fx-background-color: -fx-default-dark; -fx-text-fill: -fx-default-extra-light; -fx-font-family: Montserrat;" />
-                              <Label layoutY="5.0" style="-fx-font-family: Montserrat;" text="Author:" textFill="#e4e4e4" />
+                              <TextField fx:id="author" layoutX="137.0" styleClass="default-text-field" />
+                              <Label layoutY="5.0" styleClass="default-label" text="Author:" textFill="#e4e4e4" />
                            </children>
                         </Group>
                         <Group layoutX="14.0" layoutY="91.0">
                            <children>
-                              <TextField fx:id="version" layoutX="105.0" style="-fx-background-color: -fx-default-dark; -fx-text-fill: -fx-default-extra-light; -fx-font-family: Montserrat;" />
-                              <Label layoutY="5.0" style="-fx-font-family: Montserrat;" text="Version:" textFill="#e4e4e4" />
+                              <TextField fx:id="version" layoutX="137.0" styleClass="default-text-field" />
+                              <Label layoutY="5.0" styleClass="default-label" text="Version:" textFill="#e4e4e4" />
                            </children>
                         </Group>
                         <Button fx:id="openDocumentationButton" layoutX="424.0" layoutY="14.0" mnemonicParsing="false" styleClass="default-choose-button" text="Full Documentation" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />

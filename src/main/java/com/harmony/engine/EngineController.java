@@ -1,5 +1,6 @@
 package com.harmony.engine;
 
+import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
 import com.harmony.engine.io.Editor;
@@ -49,6 +50,8 @@ public class EngineController {
     public TextField projectName;
     public TextField author;
     public TextField version;
+
+    public Button globalPreferencesButton;
     public Button openDocumentationButton;
 
     // Textures Tab
@@ -152,6 +155,14 @@ public class EngineController {
             } catch (Exception e) {
                 System.err.println("Could not load the documentation at branch: " + Launcher.GITHUB_VERSION_STRING);
             }
+        });
+
+        globalPreferencesButton.setOnMouseClicked(mouseEvent -> {
+            // TODO: Open Global Preferences
+            if(GlobalData.dataContext.theme == GlobalData.Theme.DARK)
+                GlobalData.dataContext.theme = GlobalData.Theme.LIGHT;
+            else
+                GlobalData.dataContext.theme = GlobalData.Theme.DARK;
         });
     }
 

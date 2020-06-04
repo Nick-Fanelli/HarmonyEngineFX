@@ -1,0 +1,9 @@
+* {
+    -fx-tab-color: #70a7ff;
+    -fx-tab-selected-color: #4287f5;
+    -fx-default-light: #e3e3e3;
+    -fx-default-medium: #ffffff;
+    -fx-default-extra-light: #ffffff;
+    -fx-default-dark: f2f2f2;
+    -fx-default-text-fill: #242424;
+}

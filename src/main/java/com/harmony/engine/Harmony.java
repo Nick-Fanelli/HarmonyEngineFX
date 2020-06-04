@@ -1,5 +1,6 @@
 package com.harmony.engine;
 
+import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -39,7 +40,12 @@ public class Harmony extends Application {
         Harmony.staticStage = stage;
 
         Parent root = FXMLLoader.load(Harmony.class.getResource("/engine.fxml"));
+
         Scene scene = new Scene(root, 1280, 720);
+
+        // Handle Theme
+        scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
+                + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
 
         stage.setTitle("Harmony Engine v1.0");
         stage.setMinHeight(400);
@@ -51,6 +57,8 @@ public class Harmony extends Application {
 
         stage.setOnCloseRequest(event -> {
             ProjectData.save(Harmony.directory);
+            GlobalData.dataContext.save();
+
             Platform.exit();
             System.exit(0);
         });

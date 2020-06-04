@@ -1,5 +1,7 @@
 package com.harmony.engine.utils.gameObjects;
 
+import com.harmony.engine.Harmony;
+import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXMLLoader;
@@ -19,13 +21,20 @@ public class GameObjectUtils {
             Status.setCurrentStatus(Status.Type.STAND_BY);
             FXMLLoader loader = new FXMLLoader(TextureUtils.class.getResource("/utils/gameObject.fxml"));
             Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            // Handle Theme
+            scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
+                    + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+
             Stage stage = new Stage();
             GameObjectUtils.staticStage = stage;
             stage.setTitle("Create Game Object");
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setAlwaysOnTop(true);
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

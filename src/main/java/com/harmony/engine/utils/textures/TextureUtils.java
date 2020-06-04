@@ -1,5 +1,7 @@
 package com.harmony.engine.utils.textures;
 
+import com.harmony.engine.Harmony;
+import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import javafx.fxml.FXMLLoader;
@@ -37,10 +39,17 @@ public class TextureUtils {
             Stage stage = new Stage();
             TextureUtils.staticStage = stage;
             Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            // Handle Theme
+            scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
+                    + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setAlwaysOnTop(true);
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
             stage.show();
         } catch(IOException e) {
             e.printStackTrace();

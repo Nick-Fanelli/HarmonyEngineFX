@@ -5,29 +5,6 @@
     src: url('fonts/Montserrat/Montserrat-Regular.ttf');
 }
 
-/* Custom Colors */
-
-
-    /* Dark Theme */
-    * {
-        -fx-tab-color: #70a7ff;
-        -fx-tab-selected-color: #4287f5;
-        -fx-default-dark: #2B2B2B;
-        -fx-default-medium: #313335;
-        -fx-default-light: #3c3f41;
-        -fx-default-extra-light: #61676b;
-        -fx-default-text-fill: #ffffff;
-    }
-
-    /* Light Theme */
-    * {
-        -fx-default-light: #e3e3e3;
-        -fx-default-medium: #ffffff;
-        -fx-default-extra-light: #ffffff;
-        -fx-default-dark: f2f2f2;
-        -fx-default-text-fill: #242424;
-    }
-
 /* Defaults */
 .default-text-field {
     -fx-background-color: -fx-default-dark;

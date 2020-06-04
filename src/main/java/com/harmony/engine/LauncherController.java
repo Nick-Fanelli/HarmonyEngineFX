@@ -73,7 +73,6 @@ public class LauncherController {
 
         try {
             new File(directory.getPath() + "/" + directory.getName() + ".hyproj").createNewFile();
-            new File(directory.getPath() + "/" + directory.getName() + ".hypref").createNewFile();
             new File(directory.getPath() + "/Resources").mkdir();
             new File(directory.getPath() + "/Resources/Textures").mkdir();
         } catch (IOException e) {
@@ -101,15 +100,13 @@ public class LauncherController {
         String[] children = directory.list();
         assert children != null;
 
-        boolean prefCheck = false;
         boolean projCheck = false;
 
         for(String child : children) {
-            if(child.endsWith("hypref")) prefCheck = true;
             if(child.endsWith("hyproj")) projCheck = true;
         }
 
-        if(!(prefCheck && projCheck)) {
+        if(!projCheck) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error Opening Project Directory");

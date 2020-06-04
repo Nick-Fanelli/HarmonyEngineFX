@@ -5,25 +5,19 @@ import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
-import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import jfxtras.labs.util.event.MouseControlUtil;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +28,7 @@ public class Editor {
     private static Canvas canvas;
     private static AnchorPane editorPane;
     private static GridPane objectsPane;
+    private static TreeView<String> hierarchy;
 
     private static HashMap<Integer, GameObject> gameObjects = new HashMap<>();
 
@@ -42,10 +37,11 @@ public class Editor {
     private static double deltaScale = 1;
     private static int selectedObject = -1;
 
-    public Editor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane) {
+    public Editor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy) {
         Editor.canvas = canvas;
         Editor.editorPane = editorPane;
         Editor.objectsPane = objectsPane;
+        Editor.hierarchy = hierarchy;
 
         canvas.widthProperty().bind(editorPane.widthProperty());
         canvas.heightProperty().bind(editorPane.heightProperty());
@@ -57,8 +53,41 @@ public class Editor {
         objectsPane.setVgap(5);
 
         handleInput();
+        initializeHierarchy();
+
+        hierarchy.setOnDragOver(event -> {
+            if(event.getGestureSource() != hierarchy && copiedGameObject != null) {
+                if(hierarchy.getSelectionModel().getSelectedIndex() >= 0) {
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                } else {
+                    event.acceptTransferModes(TransferMode.NONE);
+                }
+
+            }
+            event.consume();
+        });
+
+        hierarchy.setOnDragDropped(event -> {
+            if(hierarchy.getSelectionModel().getSelectedIndex() < 0) return;
+            Dragboard db = event.getDragboard();
+
+            boolean success = false;
+
+            if (copiedGameObject != null) {
+                System.out.println(copiedGameObject.name);
+                // TODO: ADD THE OBJECT TO THE HIERARCHY.
+                copiedGameObject = null;
+                success = true;
+            }
+
+            event.setDropCompleted(success);
+
+            event.consume();
+        });
 
     }
+
+    private static GameObject copiedGameObject = null;
 
     public static void update() {
         for(int i = 0; i < ProjectData.gameObjects.size(); i++) {
@@ -74,7 +103,8 @@ public class Editor {
                 Dragboard db = texture.startDragAndDrop(TransferMode.ANY);
 
                 ClipboardContent content = new ClipboardContent();
-                content.putString(ProjectData.gameObjects.get(finalI).name);
+                copiedGameObject = ProjectData.gameObjects.get(finalI);
+                content.putString("GameObject:" + ProjectData.gameObjects.get(finalI));
                 content.putImage(EngineController.loadTexturesImage(ProjectData.gameObjects.get(finalI).texture.path));
                 db.setContent(content);
 
@@ -126,6 +156,17 @@ public class Editor {
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
             Status.setMousePosition(mousePosition);
         });
+    }
+
+    private void initializeHierarchy() {
+        TreeItem<String> root = new TreeItem<>();
+        root.setValue(ProjectData.projectName);
+
+        hierarchy.setRoot(root);
+    }
+
+    public static void addObjectToSelectedIndex(GameObject gameObject) {
+
     }
 
     public static void addGameObject(int index, GameObject gameObject) {

@@ -131,10 +131,10 @@
                                       <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
-                                                <TreeView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <TreeView fx:id="hierarchy" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
-                                          <GridPane fx:id="objectsPane" gridLinesVisible="true" prefHeight="120.0" prefWidth="189.0"></GridPane>
+                                          <GridPane fx:id="objectsPane" gridLinesVisible="true" prefHeight="120.0" prefWidth="189.0" />
                                       </items>
                                     </SplitPane>
                                  </children>

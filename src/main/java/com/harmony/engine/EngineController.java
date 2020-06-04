@@ -81,6 +81,7 @@ public class EngineController {
     public Canvas editorCanvas;
     public AnchorPane editorPane;
     public GridPane objectsPane;
+    public TreeView<String> hierarchy;
 
     @FXML
     public void initialize() {
@@ -305,7 +306,7 @@ public class EngineController {
 
     // Editor Methods
     private void initEditorTab() {
-        new Editor(editorCanvas, editorPane, objectsPane);
+        new Editor(editorCanvas, editorPane, objectsPane, hierarchy);
 
         tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
             if(t1 == editorTab) Editor.update();

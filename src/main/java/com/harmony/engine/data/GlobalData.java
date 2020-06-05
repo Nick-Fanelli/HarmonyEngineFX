@@ -1,9 +1,16 @@
 package com.harmony.engine.data;
 
+import com.harmony.engine.Launcher;
+
 import java.io.*;
-import java.net.URISyntaxException;
 
 public class GlobalData implements Serializable {
+
+    public static final String GLOBAL_PREFERENCES_FILENAME = "globalPreferences.dat";
+    public static final String GLOBAL_DATA_LOCATION =  System.getProperty("user.home") + File.separator
+            + ".harmony" + File.separator + Launcher.GITHUB_VERSION_STRING.replaceAll("version-", "") + File.separator;
+
+    public static final String GLOBAL_PREFERENCES_LOCATION = GLOBAL_DATA_LOCATION + File.separator + GLOBAL_PREFERENCES_FILENAME;
 
     private static final GlobalData defaultData = new GlobalData();
 
@@ -21,21 +28,21 @@ public class GlobalData implements Serializable {
 
     public void save() {
         try {
-            FileOutputStream file = new FileOutputStream(new File(GlobalData.class.getResource("/users/globalPreferences.dat").toURI()));
+            FileOutputStream file = new FileOutputStream(GLOBAL_PREFERENCES_LOCATION);
             ObjectOutputStream out = new ObjectOutputStream(file);
 
             out.writeObject(dataContext);
 
             out.close();
             file.close();
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public GlobalData load() {
         try {
-            FileInputStream file = new FileInputStream(new File(GlobalData.class.getResource("/users/globalPreferences.dat").toURI()));
+            FileInputStream file = new FileInputStream(GLOBAL_PREFERENCES_LOCATION);
             ObjectInputStream out = new ObjectInputStream(file);
 
             GlobalData.dataContext = (GlobalData) out.readObject();
@@ -47,6 +54,9 @@ public class GlobalData implements Serializable {
         } catch (Exception e) {
             System.out.println("Harmony -> Creating the globalPreferences.dat workspace...");
         }
+
+        System.out.println(new File(GLOBAL_DATA_LOCATION).mkdirs() ? "Harmony -> Location Successfully Set-Up"
+                : "Harmony -> Error Setting Up Location");
 
         return GlobalData.defaultData;
     }

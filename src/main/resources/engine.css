@@ -5,6 +5,17 @@
     src: url('fonts/Montserrat/Montserrat-Regular.ttf');
 }
 
+/* The Dark Theme For Creating!!! TODO: REMOVE *//*
+* {
+    -fx-tab-color: #70a7ff;
+    -fx-tab-selected-color: #4287f5;
+    -fx-default-dark: #2B2B2B;
+    -fx-default-medium: #313335;
+    -fx-default-light: #3c3f41;
+    -fx-default-extra-light: #61676b;
+    -fx-default-text-fill: #ffffff;
+}*/
+
 /* Defaults */
 .default-text-field {
     -fx-background-color: -fx-default-dark;
@@ -40,6 +51,36 @@
     -fx-color: -fx-default-dark;
     -fx-box-border: -fx-default-dark;
     -fx-background-color: -fx-default-light;
+}
+
+.default-combo-box {
+    -fx-background-color: -fx-default-dark;
+}
+
+.default-combo-box .list-cell {
+    -fx-focus-color: transparent;
+    -fx-background: -fx-default-dark;
+    -fx-background-color: transparent;
+    -fx-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: Montserrat;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em;
+}
+
+.default-combo-box .combo-box-popup .list-view {
+    -fx-background-color: -fx-default-medium, -fx-default-medium;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+
+.default-combo-box .combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: -fx-default-light, -fx-default-light;
+    -fx-cursor: hand;
+}
+
+.default-combo-box .combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: -fx-default-dark, -fx-default-dark;
 }
 
 .anchor-section {

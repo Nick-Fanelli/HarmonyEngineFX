@@ -156,6 +156,8 @@ public class Editor {
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
             Status.setMousePosition(mousePosition);
         });
+
+        canvas.setOnMouseExited(mouseEvent -> Status.setMousePosition(null));
     }
 
     private void initializeHierarchy() {

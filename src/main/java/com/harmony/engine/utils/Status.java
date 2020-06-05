@@ -27,6 +27,11 @@ public class Status {
     }
 
     public static void setMousePosition(Vector2f position) {
+        if(position == null) {
+            EngineController.staticMousePositionLabel.setText("");
+            return;
+        }
+
         EngineController.staticMousePositionLabel.setText(String.format("(%s)", position.toString()));
     }
 }

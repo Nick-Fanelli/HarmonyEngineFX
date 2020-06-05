@@ -1,6 +1,12 @@
 package com.harmony.engine.data;
 
+import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.*;
 
@@ -24,7 +30,30 @@ public class GlobalData implements Serializable {
     // Values
 
     public Theme theme;
-    public enum Theme { LIGHT, DARK }
+    public enum Theme {
+        LIGHT("Default Light"), DARK("Default Dark");
+
+        private String viewableString;
+        Theme(String viewableString) { this.viewableString = viewableString; }
+
+        @Override public String toString() { return viewableString; }
+    }
+
+    public GlobalData copy() {
+        GlobalData globalData = new GlobalData();
+
+        globalData.theme = dataContext.theme;
+
+        return globalData;
+    }
+
+    @Override
+    public String toString() {
+        return "GlobalData = [\n" +
+                    "\tTheme: \"" + theme.viewableString + "\"\n" +
+                "]";
+
+    }
 
     public void save() {
         try {
@@ -61,4 +90,30 @@ public class GlobalData implements Serializable {
         return GlobalData.defaultData;
     }
 
+    public static Stage staticStage;
+
+    public static void launchGlobalPreferences() {
+        try {
+            FXMLLoader loader = new FXMLLoader(GlobalData.class.getResource("/utils/globalPreferences.fxml"));
+
+            Stage stage = new Stage();
+            GlobalData.staticStage = stage;
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            // Handle Theme
+            scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
+                    + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+
+            stage.setResizable(false);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setAlwaysOnTop(true);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

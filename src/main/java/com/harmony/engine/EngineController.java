@@ -44,14 +44,13 @@ public class EngineController {
     public Button saveProjectButton;
     public Button runProjectButton;
     public Button documentationButton;
+    public Button globalPreferencesButton;
 
     // Project Tab
     public Tab projectTab;
     public TextField projectName;
     public TextField author;
     public TextField version;
-
-    public Button globalPreferencesButton;
     public Button openDocumentationButton;
 
     // Textures Tab
@@ -114,9 +113,11 @@ public class EngineController {
         saveProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/save-icon.png"), 32, 32, true, true)));
         runProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/run-icon.png"), 32, 32, true, true)));
         documentationButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/info-icon.png"), 32, 32, true, true)));
+        globalPreferencesButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/settings-icon.png"), 20, 20, true, true)));
 
         saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
         documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(this, tabBar.getSelectionModel().getSelectedItem()));
+        globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
     }
 
     public static void setStatusLabel(String status, Color color) {
@@ -155,14 +156,6 @@ public class EngineController {
             } catch (Exception e) {
                 System.err.println("Could not load the documentation at branch: " + Launcher.GITHUB_VERSION_STRING);
             }
-        });
-
-        globalPreferencesButton.setOnMouseClicked(mouseEvent -> {
-            // TODO: Open Global Preferences
-            if(GlobalData.dataContext.theme == GlobalData.Theme.DARK)
-                GlobalData.dataContext.theme = GlobalData.Theme.LIGHT;
-            else
-                GlobalData.dataContext.theme = GlobalData.Theme.DARK;
         });
     }
 

@@ -17,6 +17,8 @@ public class Harmony extends Application {
     public static File directory;
     public static Stage staticStage;
 
+    private static Scene staticScene;
+
     private boolean controlDown = false;
     private boolean sDown = false;
     public static boolean saving = false;
@@ -42,6 +44,7 @@ public class Harmony extends Application {
         Parent root = FXMLLoader.load(Harmony.class.getResource("/engine.fxml"));
 
         Scene scene = new Scene(root, 1280, 720);
+        staticScene = scene;
 
         // Handle Theme
         scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
@@ -84,6 +87,14 @@ public class Harmony extends Application {
                 sDown = false;
             }
         });
+    }
+
+    public static void changeTheme() {
+        staticScene.getStylesheets().remove(staticScene.getStylesheets().size() - 1);
+
+        // Handle Theme
+        staticScene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
+                + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
     }
 
     public static String getResourceString(String path) {

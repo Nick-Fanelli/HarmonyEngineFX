@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@../engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.GlobalPrefController">
+   <children>
+      <Label styleClass="default-label" text="Theme:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <ComboBox fx:id="theme" layoutX="81.0" layoutY="17.0" prefHeight="27.0" prefWidth="150.0" styleClass="default-combo-box" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="17.0" />
+     <Button fx:id="applyButton" mnemonicParsing="false" styleClass="default-choose-button" text="Apply" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+     <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="default-button" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
+
+   </children>
+</AnchorPane>

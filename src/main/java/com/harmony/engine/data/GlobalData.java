@@ -96,7 +96,6 @@ public class GlobalData implements Serializable {
 
     public static void launchGlobalPreferences() {
         try {
-            Status.setCurrentStatus(Status.Type.STAND_BY);
             FXMLLoader loader = new FXMLLoader(GlobalData.class.getResource("/utils/globalPreferences.fxml"));
             Parent root = loader.load();
 

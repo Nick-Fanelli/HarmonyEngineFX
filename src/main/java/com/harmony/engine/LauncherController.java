@@ -1,8 +1,11 @@
 package com.harmony.engine;
 
+import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 
@@ -15,11 +18,15 @@ public class LauncherController {
     public AnchorPane anchorPane;
     public Button newProjectButton;
     public Button openProjectButton;
+    public Button globalPreferencesButton;
     public Label versionLabel;
 
     @FXML
     public void initialize() {
         versionLabel.setText(String.format("Version: %s.%s.%s", Launcher.VERSION_ID[0], Launcher.VERSION_ID[1], Launcher.VERSION_ID[2]));
+
+        globalPreferencesButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/settings-icon.png"), 20, 20, true, true)));
+        globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
 
         newProjectButton.setOnMouseClicked(mouseEvent -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -46,6 +53,7 @@ public class LauncherController {
 
     private void create(File directory) {
         if(!directory.isDirectory()) return;
+        GlobalData.save();
 
         String[] children = directory.list();
         assert children != null;
@@ -96,6 +104,8 @@ public class LauncherController {
     private void open(File directory) {
         if(!directory.exists()) return;
         if(!directory.isDirectory()) return;
+
+        GlobalData.save();
 
         String[] children = directory.list();
         assert children != null;

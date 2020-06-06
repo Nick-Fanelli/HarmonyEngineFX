@@ -1,6 +1,7 @@
 package com.harmony.engine.utils;
 
 import com.harmony.engine.Harmony;
+import com.harmony.engine.Launcher;
 import com.harmony.engine.data.GlobalData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,7 +23,6 @@ public class GlobalPrefController {
         setFields();
 
         cancelButton.setOnMouseClicked(event -> {
-            Status.setCurrentStatus(Status.Type.READY);
             GlobalData.staticStage.close();
         });
 
@@ -35,9 +35,13 @@ public class GlobalPrefController {
 
             GlobalData.setAutoSave(autoSave.isSelected());
 
-            if(isThemeChange) Harmony.changeTheme();
+            if(isThemeChange) {
+                if(Harmony.staticStage != null)
+                    Harmony.changeTheme();
+                else if(Launcher.staticStage != null)
+                    Launcher.changeTheme();
+            }
 
-            Status.setCurrentStatus(Status.Type.READY);
             GlobalData.staticStage.close();
         });
 

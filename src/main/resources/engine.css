@@ -170,5 +170,5 @@
 }
 
 #new-proj-btn:hover {
-    -fx-background-color: #2e3133;
+    -fx-background-color: -fx-default-light;
 }

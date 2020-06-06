@@ -43,8 +43,7 @@ public class TextureUtils {
             Scene scene = new Scene(root);
 
             // Handle Theme
-            scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
-                    + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+            scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);

@@ -2,13 +2,14 @@ package com.harmony.engine.data;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
+import com.harmony.engine.utils.Status;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.*;
+import java.util.HashMap;
 
 public class GlobalData implements Serializable {
 
@@ -17,103 +18,95 @@ public class GlobalData implements Serializable {
             + ".harmony" + File.separator + Launcher.GITHUB_VERSION_STRING.replaceAll("version-", "") + File.separator;
 
     public static final String GLOBAL_PREFERENCES_LOCATION = GLOBAL_DATA_LOCATION + File.separator + GLOBAL_PREFERENCES_FILENAME;
+    public static HashMap<String, String> dataContext = new HashMap<>();
 
-    private static final GlobalData defaultData = new GlobalData();
-
-    // Defaults For Global Data
-    static {
-        defaultData.theme = Theme.LIGHT;
+    public static void setDefaults() {
+        GlobalData.setTheme(Theme.LIGHT);
     }
 
-    public static GlobalData dataContext = new GlobalData().load();
-
-    // Values
-
-    public Theme theme;
+    public static final String THEME_LOCATION = "theme";
     public enum Theme {
-        LIGHT("Default Light"), DARK("Default Dark");
+        LIGHT("Default Light"),
+        DARK("Default Dark"),
+        BEACH("Beach Pallet"),
+        PASTEL_BLUE("Pastel Blue"),
+        PASTEL_PINK("Pastel Pink");
 
-        private String viewableString;
-        Theme(String viewableString) { this.viewableString = viewableString; }
+        private final String name;
+        Theme(String name) { this.name = name; }
 
-        @Override public String toString() { return viewableString; }
+        @Override public String toString() { return name; }
     }
+    public static void setTheme(Theme theme) { dataContext.put(THEME_LOCATION, theme.name()); }
+    public static Theme getTheme() { return Theme.valueOf(dataContext.get(THEME_LOCATION)); }
 
-    public GlobalData copy() {
-        GlobalData globalData = new GlobalData();
-
-        globalData.theme = dataContext.theme;
-
-        return globalData;
-    }
-
-    @Override
-    public String toString() {
-        return "GlobalData = [\n" +
-                    "\tTheme: \"" + theme.viewableString + "\"\n" +
-                "]";
-
-    }
-
-    public void save() {
+    public static void save() {
         try {
-            FileOutputStream file = new FileOutputStream(GLOBAL_PREFERENCES_LOCATION);
+            FileOutputStream file = new FileOutputStream(new File(GLOBAL_PREFERENCES_LOCATION));
             ObjectOutputStream out = new ObjectOutputStream(file);
 
             out.writeObject(dataContext);
 
             out.close();
             file.close();
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
 
-    public GlobalData load() {
+    public static HashMap<String, String> load() {
         try {
-            FileInputStream file = new FileInputStream(GLOBAL_PREFERENCES_LOCATION);
-            ObjectInputStream out = new ObjectInputStream(file);
+            FileInputStream file = new FileInputStream(new File(GLOBAL_PREFERENCES_LOCATION));
+            ObjectInputStream in = new ObjectInputStream(file);
 
-            GlobalData.dataContext = (GlobalData) out.readObject();
+            dataContext = (HashMap<String, String>) in.readObject();
 
-            out.close();
+            in.close();
             file.close();
 
-            return GlobalData.dataContext;
-        } catch (Exception e) {
-            System.out.println("Harmony -> Creating the globalPreferences.dat workspace...");
+            return dataContext;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Harmony -> Setting up globalPreferences.dat");
         }
 
-        System.out.println(new File(GLOBAL_DATA_LOCATION).mkdirs() ? "Harmony -> Location Successfully Set-Up"
-                : "Harmony -> Error Setting Up Location");
+        try {
+            new File(GLOBAL_DATA_LOCATION).mkdirs();
+            System.out.println("Harmony -> Created the global data location");
+            new File(GLOBAL_PREFERENCES_LOCATION).createNewFile();
+            System.out.println("Harmony -> Created the global data preferences file");
+        } catch (Exception e) {
+            System.err.println("Harmony -> Could not create the location or the preferences file");
+            e.printStackTrace();
+        }
 
-        return GlobalData.defaultData;
+        GlobalData.setDefaults();
+        return dataContext;
     }
+
+    // Utils
+    public static String getThemeCSSLocation() { return "/cssThemes/" + getTheme().name().toLowerCase() + "Theme.css"; }
 
     public static Stage staticStage;
 
     public static void launchGlobalPreferences() {
         try {
+            Status.setCurrentStatus(Status.Type.STAND_BY);
             FXMLLoader loader = new FXMLLoader(GlobalData.class.getResource("/utils/globalPreferences.fxml"));
-
-            Stage stage = new Stage();
-            GlobalData.staticStage = stage;
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
 
             // Handle Theme
-            scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
-                    + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+            scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
+            Stage stage = new Stage();
+            GlobalData.staticStage = stage;
+            stage.setTitle("Global Preferences");
             stage.setResizable(false);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setAlwaysOnTop(true);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

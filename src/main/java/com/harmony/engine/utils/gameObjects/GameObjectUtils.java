@@ -25,8 +25,7 @@ public class GameObjectUtils {
             Scene scene = new Scene(root);
 
             // Handle Theme
-            scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
-                    + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+            scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
             Stage stage = new Stage();
             GameObjectUtils.staticStage = stage;

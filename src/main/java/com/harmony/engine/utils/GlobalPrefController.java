@@ -8,8 +8,6 @@ import javafx.scene.control.ComboBox;
 
 public class GlobalPrefController {
 
-    public GlobalData data;
-
     public ComboBox<String> theme;
 
     public Button cancelButton;
@@ -19,15 +17,23 @@ public class GlobalPrefController {
 
     @FXML
     public void initialize() {
-        data = GlobalData.dataContext.copy();
         setFields();
 
-        cancelButton.setOnMouseClicked(event -> GlobalData.staticStage.close());
+        cancelButton.setOnMouseClicked(event -> {
+            Status.setCurrentStatus(Status.Type.READY);
+            GlobalData.staticStage.close();
+        });
 
         applyButton.setOnMouseClicked(event -> {
-            GlobalData.dataContext = data;
+            // Set Values
+            for(int i = 0; i < GlobalData.Theme.values().length; i++) {
+                if(GlobalData.Theme.values()[i].toString().equals(theme.getSelectionModel().getSelectedItem()))
+                    GlobalData.setTheme(GlobalData.Theme.values()[i]);
+            }
+
             if(isThemeChange) Harmony.changeTheme();
 
+            Status.setCurrentStatus(Status.Type.READY);
             GlobalData.staticStage.close();
         });
 
@@ -39,17 +45,14 @@ public class GlobalPrefController {
 
         for(int i = 0; i < GlobalData.Theme.values().length; i++) {
             theme.getItems().add(GlobalData.Theme.values()[i].toString());
-            if(GlobalData.Theme.values()[i] == GlobalData.dataContext.theme) selectedTheme = i;
+            if(GlobalData.Theme.values()[i] == GlobalData.getTheme()) selectedTheme = i;
         }
 
         theme.getSelectionModel().select(selectedTheme);
     }
 
     private void handleChanges() {
-        theme.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
-            data.theme = GlobalData.Theme.values()[t1.intValue()];
-            isThemeChange = true;
-        });
+        theme.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> isThemeChange = true);
     }
 
 }

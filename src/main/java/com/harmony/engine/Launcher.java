@@ -24,12 +24,13 @@ public class Launcher extends Application {
         configureSystemProperties();
         staticStage = stage;
 
+        GlobalData.load();
+
         Parent root = FXMLLoader.load(Harmony.class.getResource("/launcher.fxml"));
         Scene scene = new Scene(root, 640, 400);
 
         // Handle Theme
-        scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
-                + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+        scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
         stage.setTitle("Harmony Engine v1.0");
         stage.setScene(scene);

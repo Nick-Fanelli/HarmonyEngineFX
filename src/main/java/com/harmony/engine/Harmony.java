@@ -46,9 +46,10 @@ public class Harmony extends Application {
         Scene scene = new Scene(root, 1280, 720);
         staticScene = scene;
 
+        GlobalData.load();
+
         // Handle Theme
-        scene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
-                + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+        scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
         stage.setTitle("Harmony Engine v1.0");
         stage.setMinHeight(400);
@@ -58,13 +59,7 @@ public class Harmony extends Application {
         stage.centerOnScreen();
         stage.show();
 
-        stage.setOnCloseRequest(event -> {
-            ProjectData.save(Harmony.directory);
-            GlobalData.dataContext.save();
-
-            Platform.exit();
-            System.exit(0);
-        });
+        stage.setOnCloseRequest(event -> closeApplication());
 
         scene.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode() == KeyCode.CONTROL || keyEvent.getCode() == KeyCode.COMMAND) {
@@ -89,12 +84,19 @@ public class Harmony extends Application {
         });
     }
 
+    private void closeApplication() {
+        ProjectData.save(Harmony.directory);
+        GlobalData.save();
+
+        Platform.exit();
+        System.exit(0);
+    }
+
     public static void changeTheme() {
         staticScene.getStylesheets().remove(staticScene.getStylesheets().size() - 1);
 
         // Handle Theme
-        staticScene.getStylesheets().add(Harmony.class.getResource("/cssThemes/"
-                + GlobalData.dataContext.theme.name().toLowerCase() + "Theme.css").toExternalForm());
+        staticScene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
     }
 
     public static String getResourceString(String path) {

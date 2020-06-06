@@ -4,11 +4,13 @@ import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 
 public class GlobalPrefController {
 
     public ComboBox<String> theme;
+    public CheckBox autoSave;
 
     public Button cancelButton;
     public Button applyButton;
@@ -31,6 +33,8 @@ public class GlobalPrefController {
                     GlobalData.setTheme(GlobalData.Theme.values()[i]);
             }
 
+            GlobalData.setAutoSave(autoSave.isSelected());
+
             if(isThemeChange) Harmony.changeTheme();
 
             Status.setCurrentStatus(Status.Type.READY);
@@ -49,6 +53,8 @@ public class GlobalPrefController {
         }
 
         theme.getSelectionModel().select(selectedTheme);
+
+        autoSave.setSelected(GlobalData.getAutoSave());
     }
 
     private void handleChanges() {

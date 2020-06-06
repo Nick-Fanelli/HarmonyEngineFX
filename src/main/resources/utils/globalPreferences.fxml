@@ -9,6 +9,8 @@
       <ComboBox fx:id="theme" layoutX="81.0" layoutY="17.0" prefHeight="27.0" prefWidth="150.0" styleClass="default-combo-box" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="17.0" />
      <Button fx:id="applyButton" mnemonicParsing="false" styleClass="default-choose-button" text="Apply" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
      <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="default-button" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
+      <Label layoutX="20.0" layoutY="64.0" styleClass="default-label" text="Auto-Save:" />
+      <CheckBox fx:id="autoSave" layoutX="121.0" layoutY="66.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="19.0" styleClass="default-check-box" />
 
    </children>
 </AnchorPane>

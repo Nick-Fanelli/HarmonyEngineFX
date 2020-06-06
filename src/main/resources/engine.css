@@ -83,6 +83,17 @@
     -fx-background-color: -fx-default-dark, -fx-default-dark;
 }
 
+.default-check-box .box {
+    -fx-background-color: -fx-default-dark;
+    -fx-border-color: -fx-default-dark;
+    -fx-border-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: -fx-default-text-fill;
+}
+
 .anchor-section {
     -fx-background-color: -fx-default-medium;
 }

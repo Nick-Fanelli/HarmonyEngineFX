@@ -16,14 +16,15 @@ public class GlobalData implements Serializable {
     public static final String GLOBAL_PREFERENCES_FILENAME = "globalPreferences.dat";
     public static final String GLOBAL_DATA_LOCATION =  System.getProperty("user.home") + File.separator
             + ".harmony" + File.separator + Launcher.GITHUB_VERSION_STRING.replaceAll("version-", "") + File.separator;
-
     public static final String GLOBAL_PREFERENCES_LOCATION = GLOBAL_DATA_LOCATION + File.separator + GLOBAL_PREFERENCES_FILENAME;
     public static HashMap<String, String> dataContext = new HashMap<>();
 
     public static void setDefaults() {
         GlobalData.setTheme(Theme.LIGHT);
+        GlobalData.setAutoSave(true);
     }
 
+    // Theme
     public static final String THEME_LOCATION = "theme";
     public enum Theme {
         LIGHT("Default Light"),
@@ -39,6 +40,11 @@ public class GlobalData implements Serializable {
     }
     public static void setTheme(Theme theme) { dataContext.put(THEME_LOCATION, theme.name()); }
     public static Theme getTheme() { return Theme.valueOf(dataContext.get(THEME_LOCATION)); }
+
+    // Auto-Save
+    public static final String AUTO_SAVE_LOCATION = "autosave";
+    public static void setAutoSave(boolean value) { dataContext.put(AUTO_SAVE_LOCATION, Boolean.toString(value)); }
+    public static boolean getAutoSave() { return Boolean.parseBoolean(dataContext.get(AUTO_SAVE_LOCATION)); }
 
     public static void save() {
         try {

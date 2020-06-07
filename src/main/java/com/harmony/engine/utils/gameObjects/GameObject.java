@@ -9,6 +9,7 @@ public class GameObject implements Serializable {
 
     public String name;
     public Texture texture = null;
+    public GameObject parent = null;
     public Vector2f position = new Vector2f();
 
     public GameObject(String name) {

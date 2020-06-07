@@ -11,13 +11,12 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,12 +29,14 @@ public class Editor {
     private static GridPane objectsPane;
     private static TreeView<String> hierarchy;
 
-    private static HashMap<Integer, GameObject> gameObjects = new HashMap<>();
+    private final static HashMap<TreeItem<String>, GameObject> gameObjects = new HashMap<>();
 
-    private static Vector2f mousePosition = new Vector2f();
+    private final static Vector2f mousePosition = new Vector2f();
 
     private static double deltaScale = 1;
     private static int selectedObject = -1;
+
+    private static GraphicsContext g;
 
     public Editor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy) {
         Editor.canvas = canvas;
@@ -48,6 +49,8 @@ public class Editor {
 
         canvas.widthProperty().addListener(event -> update());
         canvas.heightProperty().addListener(event -> update());
+
+        g = canvas.getGraphicsContext2D();
 
         objectsPane.setHgap(5);
         objectsPane.setVgap(5);
@@ -69,13 +72,11 @@ public class Editor {
 
         hierarchy.setOnDragDropped(event -> {
             if(hierarchy.getSelectionModel().getSelectedIndex() < 0) return;
-            Dragboard db = event.getDragboard();
-
             boolean success = false;
 
             if (copiedGameObject != null) {
                 System.out.println(copiedGameObject.name);
-                // TODO: ADD THE OBJECT TO THE HIERARCHY.
+                addObjectToSelectedIndex(copiedGameObject);
                 copiedGameObject = null;
                 success = true;
             }
@@ -121,21 +122,19 @@ public class Editor {
         double width = canvas.getWidth();
         double height = canvas.getHeight();
 
-        GraphicsContext g = canvas.getGraphicsContext2D();
         g.clearRect(0, 0, width, height);
 
         if(deltaScale != 1) {
             g.moveTo((int) mousePosition.x, (int) mousePosition.y);
-            g.scale(deltaScale, deltaScale);
+            canvas.setScaleX(canvas.getScaleX() * deltaScale);
+            canvas.setScaleY(canvas.getScaleY() * deltaScale);
         }
 
-        for (Map.Entry<Integer, GameObject> integerGameObjectEntry : gameObjects.entrySet()) {
-            GameObject object = integerGameObjectEntry.getValue();
+        for(Map.Entry<TreeItem<String>, GameObject> item : gameObjects.entrySet()) {
+            if(item.getValue().texture == null) continue;
 
-            if (object.texture == null) continue;
-
-            g.drawImage(EngineController.loadTexturesImage(object.texture.path),
-                    editorCamera.x + object.position.x, editorCamera.y + object.position.y);
+            g.drawImage(EngineController.loadTexturesImage(item.getValue().texture.path), editorCamera.x
+                    + item.getValue().position.x, editorCamera.y + item.getValue().position.y);
         }
 
         deltaScale = 1;
@@ -168,19 +167,27 @@ public class Editor {
     }
 
     public static void addObjectToSelectedIndex(GameObject gameObject) {
-
+        gameObject.parent = getGameObject(hierarchy.getSelectionModel().getSelectedItem());
+        addGameObject(hierarchy.getSelectionModel().getSelectedItem(), new TreeItem<>(gameObject.name), gameObject);
     }
 
-    public static void addGameObject(int index, GameObject gameObject) {
-        gameObjects.put(index, gameObject);
+    public static void addGameObject(TreeItem<String> parent, TreeItem<String> pointer, GameObject gameObject) {
+        parent.getChildren().add(pointer);
+        gameObjects.put(pointer, gameObject);
+
+        if (gameObject.texture != null) {
+            g.drawImage(EngineController.loadTexturesImage(gameObject.texture.path), editorCamera.x
+                    + gameObject.position.x, editorCamera.y + gameObject.position.y);
+        }
+
         Editor.draw();
     }
 
-    public static void removeGameObject(int index) {
-        gameObjects.remove(index);
+    public static void removeGameObject(TreeItem<String> pointer) {
+        gameObjects.remove(pointer);
     }
 
-    public static GameObject getGameObject(int index) {
-        return gameObjects.get(index);
+    public static GameObject getGameObject(TreeItem<String> pointer) {
+        return gameObjects.get(pointer);
     }
 }

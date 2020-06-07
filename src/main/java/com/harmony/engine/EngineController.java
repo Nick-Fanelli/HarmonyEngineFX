@@ -118,6 +118,12 @@ public class EngineController {
         saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
         documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(this, tabBar.getSelectionModel().getSelectedItem()));
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
+
+        tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
+            if(t1 == editorTab) Editor.update();
+            else if(t1 == gameObjectsTab) synchronizeGameObjects();
+            else if(t1 == texturesTab) synchronizeTextures();
+        });
     }
 
     public static void setStatusLabel(String status, Color color) {
@@ -326,9 +332,5 @@ public class EngineController {
     // Editor Methods
     private void initEditorTab() {
         new Editor(editorCanvas, editorPane, objectsPane, hierarchy);
-
-        tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
-            if(t1 == editorTab) Editor.update();
-        });
     }
 }

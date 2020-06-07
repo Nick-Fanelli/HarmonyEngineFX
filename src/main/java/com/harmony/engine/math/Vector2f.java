@@ -35,8 +35,12 @@ public class Vector2f implements Serializable {
         return new Vector2f(this.x, this.y);
     }
 
-    @Override
-    public String toString() {
+    @Override public String toString() {
         return String.format("X: %s, Y: %s", this.x, this.y);
+    }
+
+    public void add(float x, float y) {
+        this.x += x;
+        this.y += y;
     }
 }

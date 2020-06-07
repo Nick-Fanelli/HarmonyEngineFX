@@ -9,9 +9,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -22,6 +24,8 @@ import java.util.Map;
 
 public class Editor {
 
+    public static final float MINIMUM_ZOOM_DISTANCE = 0.01f;
+
     public static Vector2f editorCamera = new Vector2f();
 
     private static Canvas canvas;
@@ -29,12 +33,14 @@ public class Editor {
     private static GridPane objectsPane;
     private static TreeView<String> hierarchy;
 
+    private static TreeItem<String> root;
+
     private final static HashMap<TreeItem<String>, GameObject> gameObjects = new HashMap<>();
 
     private final static Vector2f mousePosition = new Vector2f();
 
-    private static double deltaScale = 1;
-    private static int selectedObject = -1;
+    private static double scale = 1;
+    private static GameObject selectedObject = null;
 
     private static GraphicsContext g;
 
@@ -70,21 +76,40 @@ public class Editor {
             event.consume();
         });
 
+        canvas.setOnDragOver(event -> {
+            if(event.getGestureSource() != canvas && copiedGameObject != null) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+        });
+
         hierarchy.setOnDragDropped(event -> {
             if(hierarchy.getSelectionModel().getSelectedIndex() < 0) return;
             boolean success = false;
 
             if (copiedGameObject != null) {
-                System.out.println(copiedGameObject.name);
                 addObjectToSelectedIndex(copiedGameObject);
                 copiedGameObject = null;
                 success = true;
             }
 
             event.setDropCompleted(success);
-
             event.consume();
         });
+
+        canvas.setOnDragDropped(event -> {
+            boolean success = false;
+
+            if(copiedGameObject != null) {
+                copiedGameObject.position.set(mousePosition.x + editorCamera.x, mousePosition.y + editorCamera.y);
+                addObjectToSelectedIndex(copiedGameObject);
+                copiedGameObject = null;
+                success = true;
+            }
+
+            event.setDropCompleted(success);
+            event.consume();
+        });
+
 
     }
 
@@ -122,27 +147,32 @@ public class Editor {
         double width = canvas.getWidth();
         double height = canvas.getHeight();
 
+        g = canvas.getGraphicsContext2D();
         g.clearRect(0, 0, width, height);
-
-        if(deltaScale != 1) {
-            g.moveTo((int) mousePosition.x, (int) mousePosition.y);
-            canvas.setScaleX(canvas.getScaleX() * deltaScale);
-            canvas.setScaleY(canvas.getScaleY() * deltaScale);
-        }
 
         for(Map.Entry<TreeItem<String>, GameObject> item : gameObjects.entrySet()) {
             if(item.getValue().texture == null) continue;
 
-            g.drawImage(EngineController.loadTexturesImage(item.getValue().texture.path), editorCamera.x
-                    + item.getValue().position.x, editorCamera.y + item.getValue().position.y);
+            Image image = EngineController.loadTexturesImage(item.getValue().texture.path);
+            if(image == null) continue;
+
+            g.drawImage(image, editorCamera.x + item.getValue().position.x, editorCamera.y +
+                            item.getValue().position.y, image.getWidth() * scale, image.getHeight() * scale);
         }
 
-        deltaScale = 1;
+        if(selectedObject != null) {
+            Image image = EngineController.loadTexturesImage(selectedObject.texture.path);
+
+            if(image == null) return;
+
+            g.setFill(Color.AQUAMARINE);
+            g.fillRect(0, 0, 10, 10);
+        }
     }
 
     private void handleInput() {
         canvas.setOnScroll(scrollEvent -> {
-            deltaScale += scrollEvent.getDeltaY() * 0.002;
+            scale = Math.max(scale + scrollEvent.getDeltaY() * 0.002, MINIMUM_ZOOM_DISTANCE);
             Editor.draw();
         });
 
@@ -152,17 +182,30 @@ public class Editor {
         });
 
         canvas.setOnMouseDragged(mouseEvent -> {
+            if(mouseEvent.getButton() == MouseButton.MIDDLE) {
+                editorCamera.add((float) mouseEvent.getX() - mousePosition.x, (float) mouseEvent.getY() - mousePosition.y);
+                Editor.draw();
+            }
+
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
             Status.setMousePosition(mousePosition);
         });
 
         canvas.setOnMouseExited(mouseEvent -> Status.setMousePosition(null));
+
+        hierarchy.getSelectionModel().selectedItemProperty().addListener((observableValue, selectionMode, t1) -> {
+            if(t1 == root) selectedObject = null;
+            else selectedObject = gameObjects.get(t1);
+
+            Editor.draw();
+        });
     }
 
     private void initializeHierarchy() {
-        TreeItem<String> root = new TreeItem<>();
+        root = new TreeItem<>();
         root.setValue(ProjectData.projectName);
 
+        hierarchy.setShowRoot(true);
         hierarchy.setRoot(root);
     }
 
@@ -172,7 +215,11 @@ public class Editor {
     }
 
     public static void addGameObject(TreeItem<String> parent, TreeItem<String> pointer, GameObject gameObject) {
-        parent.getChildren().add(pointer);
+        if(parent != null)
+            parent.getChildren().add(pointer);
+        else
+            root.getChildren().add(pointer);
+
         gameObjects.put(pointer, gameObject);
 
         if (gameObject.texture != null) {

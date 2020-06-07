@@ -29,6 +29,9 @@ public class Editor implements Runnable {
     public static Vector2f editorCamera = new Vector2f();
 
     private static Thread editorThread;
+    private static Runnable editorManager;
+    private static Runnable hierarchyManager;
+
     private static Canvas canvas;
     private static AnchorPane editorPane;
     private static GridPane objectsPane;
@@ -40,7 +43,6 @@ public class Editor implements Runnable {
 
     private final static Vector2f mousePosition = new Vector2f();
 
-    private static double scale = 1;
     private static GameObject selectedObject = null;
 
     private static GraphicsContext g;
@@ -50,6 +52,9 @@ public class Editor implements Runnable {
         Editor.editorPane = editorPane;
         Editor.objectsPane = objectsPane;
         Editor.hierarchy = hierarchy;
+
+        editorManager = this::handleInput;
+        hierarchyManager = this::initializeHierarchy;
 
         if(editorThread != null) return;
 
@@ -70,8 +75,8 @@ public class Editor implements Runnable {
         objectsPane.setHgap(5);
         objectsPane.setVgap(5);
 
-        handleInput();
-        initializeHierarchy();
+        editorManager.run();
+        hierarchyManager.run();
 
         hierarchy.setOnDragOver(event -> {
             if(event.getGestureSource() != hierarchy && copiedGameObject != null) {
@@ -164,7 +169,7 @@ public class Editor implements Runnable {
             if(image == null) continue;
 
             g.drawImage(image, editorCamera.x + item.getValue().position.x, editorCamera.y +
-                            item.getValue().position.y, image.getWidth() * scale, image.getHeight() * scale);
+                            item.getValue().position.y, image.getWidth(), image.getHeight());
         }
 
         if(selectedObject != null) {
@@ -174,14 +179,18 @@ public class Editor implements Runnable {
 
             g.setStroke(Color.BLUE);
             g.strokeRect(selectedObject.position.x + editorCamera.x, selectedObject.position.y + editorCamera.y,
-                    image.getWidth() * scale, image.getHeight() * scale);
+                    image.getWidth(), image.getHeight());
         }
     }
 
+    private float xDiff = 0;
+    private float yDiff = 0;
+
     private void handleInput() {
         canvas.setOnScroll(scrollEvent -> {
-            scale = Math.max(scale + scrollEvent.getDeltaY() * 0.002, MINIMUM_ZOOM_DISTANCE);
-            Editor.draw();
+            // TODO: Add in the zoom again
+//            scale = Math.max(scale + scrollEvent.getDeltaY() * 0.002, MINIMUM_ZOOM_DISTANCE);
+//            Editor.draw();
         });
 
         canvas.setOnMouseMoved(mouseEvent -> {
@@ -197,6 +206,23 @@ public class Editor implements Runnable {
 
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
             Status.setMousePosition(mousePosition);
+
+           if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                if (selectedObject == null) return;
+
+                Image image = EngineController.loadTexturesImage(selectedObject.texture.path);
+                if(image == null) return;
+
+                if(mousePosition.x >= selectedObject.position.x + editorCamera.x)
+                    if(mousePosition.y >= selectedObject.position.y + editorCamera.y)
+                        if(mousePosition.x <= selectedObject.position.x + editorCamera.x + image.getWidth())
+                            if(mousePosition.y <= selectedObject.position.y + editorCamera.y + image.getHeight()) {
+                                selectedObject.position.x = mousePosition.x - xDiff;
+                                selectedObject.position.y = mousePosition.y - yDiff;
+                                Editor.draw();
+                            }
+
+            }
         });
 
         canvas.setOnMouseExited(mouseEvent -> Status.setMousePosition(null));
@@ -214,13 +240,21 @@ public class Editor implements Runnable {
 
                     if(mousePosition.x >= item.getValue().position.x + editorCamera.x)
                         if(mousePosition.y >= item.getValue().position.y + editorCamera.y)
-                            if(mousePosition.x <= item.getValue().position.x + editorCamera.x + image.getWidth() * scale)
-                                if(mousePosition.y <= item.getValue().position.y + editorCamera.y + image.getHeight() * scale) {
+                            if(mousePosition.x <= item.getValue().position.x + editorCamera.x + image.getWidth())
+                                if(mousePosition.y <= item.getValue().position.y + editorCamera.y + image.getHeight()) {
                                     selectedObject = item.getValue();
+
+                                    xDiff = mousePosition.x - selectedObject.position.x;
+                                    yDiff = mousePosition.y - selectedObject.position.y;
+
                                     Editor.draw();
                                     return;
                                 }
+
                 }
+
+                selectedObject = null;
+                Editor.draw();
             }
         });
 

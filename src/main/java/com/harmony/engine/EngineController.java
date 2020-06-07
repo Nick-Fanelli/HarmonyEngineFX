@@ -31,7 +31,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URI;
 
-public class EngineController {
+public class EngineController implements Runnable {
+
+    private static Thread engineThread;
 
     // Misc.
     public TabPane tabBar;
@@ -93,6 +95,14 @@ public class EngineController {
 
     @FXML
     public void initialize() {
+        // Start Engine Thread
+        if(engineThread != null) return;
+        engineThread = new Thread(this, "Harmony:EngineThread");
+        engineThread.start();
+    }
+
+    @Override
+    public void run() {
         initMiscMethods();
 
         initProjectTab();

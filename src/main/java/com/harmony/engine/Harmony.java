@@ -14,6 +14,8 @@ import java.io.File;
 
 public class Harmony extends Application {
 
+    private static Thread coreThread;
+
     public static File directory;
     public static Stage staticStage;
 
@@ -39,12 +41,10 @@ public class Harmony extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Harmony.staticStage = stage;
-
         Parent root = FXMLLoader.load(Harmony.class.getResource("/engine.fxml"));
 
         Scene scene = new Scene(root, 1280, 720);
-        staticScene = scene;
+        Harmony.staticScene = scene;
 
         GlobalData.load();
 

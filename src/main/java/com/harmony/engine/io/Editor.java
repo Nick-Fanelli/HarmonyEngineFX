@@ -22,12 +22,13 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Editor {
+public class Editor implements Runnable {
 
     public static final float MINIMUM_ZOOM_DISTANCE = 0.01f;
 
     public static Vector2f editorCamera = new Vector2f();
 
+    private static Thread editorThread;
     private static Canvas canvas;
     private static AnchorPane editorPane;
     private static GridPane objectsPane;
@@ -50,6 +51,14 @@ public class Editor {
         Editor.objectsPane = objectsPane;
         Editor.hierarchy = hierarchy;
 
+        if(editorThread != null) return;
+
+        editorThread = new Thread(this, "Harmony:EditorThread");
+        editorThread.start();
+    }
+
+    @Override
+    public void run() {
         canvas.widthProperty().bind(editorPane.widthProperty());
         canvas.heightProperty().bind(editorPane.heightProperty());
 
@@ -109,8 +118,6 @@ public class Editor {
             event.setDropCompleted(success);
             event.consume();
         });
-
-
     }
 
     private static GameObject copiedGameObject = null;
@@ -193,6 +200,29 @@ public class Editor {
         });
 
         canvas.setOnMouseExited(mouseEvent -> Status.setMousePosition(null));
+
+        canvas.setOnMousePressed(mouseEvent -> {
+            if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                for(Map.Entry<TreeItem<String>, GameObject> item : gameObjects.entrySet()) {
+                    if(item.getValue().texture == null) continue;
+
+                    Image image = EngineController.loadTexturesImage(item.getValue().texture.path);
+                    if(image == null) continue;
+
+                    if(item.getValue().position.x + editorCamera.x > canvas.getWidth() ||
+                       item.getValue().position.y + editorCamera.y > canvas.getHeight()) continue;
+
+                    if(mousePosition.x >= item.getValue().position.x + editorCamera.x)
+                        if(mousePosition.y >= item.getValue().position.y + editorCamera.y)
+                            if(mousePosition.x <= item.getValue().position.x + editorCamera.x + image.getWidth() * scale)
+                                if(mousePosition.y <= item.getValue().position.y + editorCamera.y + image.getHeight() * scale) {
+                                    selectedObject = item.getValue();
+                                    Editor.draw();
+                                    return;
+                                }
+                }
+            }
+        });
 
         hierarchy.getSelectionModel().selectedItemProperty().addListener((observableValue, selectionMode, t1) -> {
             if(t1 == root) selectedObject = null;

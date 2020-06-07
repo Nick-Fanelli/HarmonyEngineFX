@@ -165,8 +165,9 @@ public class Editor {
 
             if(image == null) return;
 
-            g.setFill(Color.AQUAMARINE);
-            g.fillRect(0, 0, 10, 10);
+            g.setStroke(Color.BLUE);
+            g.strokeRect(selectedObject.position.x + editorCamera.x, selectedObject.position.y + editorCamera.y,
+                    image.getWidth() * scale, image.getHeight() * scale);
         }
     }
 

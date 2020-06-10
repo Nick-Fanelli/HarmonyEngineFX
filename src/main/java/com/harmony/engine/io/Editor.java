@@ -11,10 +11,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -39,7 +36,7 @@ public class Editor implements Runnable {
 
     private static TreeItem<String> root;
 
-    private final static HashMap<TreeItem<String>, GameObject> gameObjects = new HashMap<>();
+    private static HashMap<TreeItem<String>, GameObject> gameObjects = new HashMap<>();
 
     private final static Vector2f mousePosition = new Vector2f();
 
@@ -53,9 +50,6 @@ public class Editor implements Runnable {
         Editor.objectsPane = objectsPane;
         Editor.hierarchy = hierarchy;
 
-        editorManager = this::handleInput;
-        hierarchyManager = this::initializeHierarchy;
-
         if(editorThread != null) return;
 
         editorThread = new Thread(this, "Harmony:EditorThread");
@@ -64,6 +58,10 @@ public class Editor implements Runnable {
 
     @Override
     public void run() {
+        // Handle Sub-Threads
+        editorManager    = this::handleInput;
+        hierarchyManager = this::initializeHierarchy;
+
         canvas.widthProperty().bind(editorPane.widthProperty());
         canvas.heightProperty().bind(editorPane.heightProperty());
 
@@ -114,7 +112,7 @@ public class Editor implements Runnable {
             boolean success = false;
 
             if(copiedGameObject != null) {
-                copiedGameObject.position.set(mousePosition.x + editorCamera.x, mousePosition.y + editorCamera.y);
+                copiedGameObject.position.set(copiedGameObject.position.x + editorCamera.x, copiedGameObject.position.y + editorCamera.y);
                 addObjectToSelectedIndex(copiedGameObject);
                 copiedGameObject = null;
                 success = true;
@@ -128,6 +126,8 @@ public class Editor implements Runnable {
     private static GameObject copiedGameObject = null;
 
     public static void update() {
+        objectsPane.getChildren().removeAll(objectsPane.getChildren());
+
         for(int i = 0; i < ProjectData.gameObjects.size(); i++) {
             ImageView texture = new ImageView(EngineController.loadTexturesImage(ProjectData.gameObjects.get(i).texture.path));
 
@@ -243,6 +243,7 @@ public class Editor implements Runnable {
                             if(mousePosition.x <= item.getValue().position.x + editorCamera.x + image.getWidth())
                                 if(mousePosition.y <= item.getValue().position.y + editorCamera.y + image.getHeight()) {
                                     selectedObject = item.getValue();
+                                    hierarchy.getSelectionModel().select(item.getKey());
 
                                     xDiff = mousePosition.x - selectedObject.position.x;
                                     yDiff = mousePosition.y - selectedObject.position.y;
@@ -270,20 +271,27 @@ public class Editor implements Runnable {
         root = new TreeItem<>();
         root.setValue(ProjectData.projectName);
 
+        gameObjects.clear();
+
+        for(Map.Entry<String, GameObject> entry : ProjectData.hierarchy.entrySet())
+            addGameObject(entry.getKey(), entry.getValue());
+
         hierarchy.setShowRoot(true);
         hierarchy.setRoot(root);
     }
 
     public static void addObjectToSelectedIndex(GameObject gameObject) {
         gameObject.parent = getGameObject(hierarchy.getSelectionModel().getSelectedItem());
-        addGameObject(hierarchy.getSelectionModel().getSelectedItem(), new TreeItem<>(gameObject.name), gameObject);
+        addGameObject(new TreeItem<>(gameObject.name), gameObject);
     }
 
-    public static void addGameObject(TreeItem<String> parent, TreeItem<String> pointer, GameObject gameObject) {
-        if(parent != null)
-            parent.getChildren().add(pointer);
-        else
-            root.getChildren().add(pointer);
+    public static void addGameObject(String pointer, GameObject gameObject) {
+        TreeItem<String> p = new TreeItem<>(pointer);
+        addGameObject(p, gameObject);
+    }
+
+    public static void addGameObject(TreeItem<String> pointer, GameObject gameObject) {
+        root.getChildren().add(pointer);
 
         gameObjects.put(pointer, gameObject);
 
@@ -302,4 +310,7 @@ public class Editor implements Runnable {
     public static GameObject getGameObject(TreeItem<String> pointer) {
         return gameObjects.get(pointer);
     }
+
+    public static HashMap<TreeItem<String>, GameObject> getHierarchy() { return gameObjects; }
+    public static void setHierarchy(HashMap<TreeItem<String>, GameObject> buffer) { Editor.gameObjects = buffer; }
 }

@@ -2,6 +2,7 @@ package com.harmony.engine.utils.textures;
 
 import com.harmony.engine.EngineController;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.utils.gameObjects.GameObjectController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,7 +33,11 @@ public class SelectTextureController {
         chooseButton.setOnMouseClicked(mouseEvent -> {
             if(selectedTexture == null) return;
 
-            TextureUtils.staticGameObject.texture = selectedTexture;
+            if(TextureUtils.staticGameObject != null)
+                TextureUtils.staticGameObject.texture = selectedTexture;
+            else
+                GameObjectController.setTexture(selectedTexture);
+
             EngineController.synchronizeGameObjects();
             TextureUtils.close();
         });

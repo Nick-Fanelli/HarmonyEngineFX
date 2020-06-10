@@ -14,12 +14,19 @@
                         <Font size="16.0" />
                     </font>
                 </Label>
-                <TextField fx:id="nameField" layoutX="64.0" promptText="GameObject Name" styleClass="default-text-field" />
+                <TextField fx:id="nameField" layoutX="80.0" promptText="GameObject Name" styleClass="default-text-field" />
             </children>
         </Group>
 
 
         <Button fx:id="cancelButton" cancelButton="true" layoutX="450.0" layoutY="359.0" mnemonicParsing="false" styleClass="default-button" text="Cancel" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="95.0" />
         <Button fx:id="chooseButton" layoutX="515.0" layoutY="359.0" mnemonicParsing="false" styleClass="default-choose-button" text="Choose" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="18.0" />
+        <Label layoutX="27.0" layoutY="66.0" styleClass="default-label" text="Texture:" textFill="#eeeeee" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="66.0">
+           <font>
+              <Font size="16.0" />
+           </font>
+        </Label>
+        <TextField fx:id="textureField" layoutX="110.0" layoutY="63.0" promptText="Texture" styleClass="default-text-field" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="63.0" />
+      <Button fx:id="chooseTextureButton" layoutX="315.0" layoutY="63.0" mnemonicParsing="false" styleClass="default-button" text="Choose Texture" AnchorPane.leftAnchor="315.0" AnchorPane.topAnchor="63.0" />
     </children>
 </AnchorPane>

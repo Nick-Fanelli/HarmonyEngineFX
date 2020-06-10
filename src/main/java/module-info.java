@@ -5,8 +5,12 @@ module com.harmony {
     requires javafx.fxml;
     requires javafx.swing;
 
+    // Kotlin Dependiences
+    requires kotlin.stdlib;
+
     // Open to JavaFX
     opens com.harmony.engine to javafx.fxml;
+
 
     // Exported Src Directories
     exports com.harmony.engine;

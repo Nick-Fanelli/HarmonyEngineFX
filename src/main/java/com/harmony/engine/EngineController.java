@@ -316,7 +316,10 @@ public class EngineController implements Runnable {
             if (index < 0) return;
 
             // Put The New Data In The Data Buffer
-            ProjectData.gameObjects.get(index).name = gameObjectNameField.getText().trim();
+            GameObject bufferObject = ProjectData.gameObjects.get(index);
+
+            bufferObject.name = gameObjectNameField.getText().trim();
+            bufferObject.position.set(Float.parseFloat(gameObjectPosX.getText()), Float.parseFloat(gameObjectPosY.getText()));
 
             // Update The Static Game Objects List
             staticGameObjectsList.getItems().set(index, gameObjectNameField.getText().trim());

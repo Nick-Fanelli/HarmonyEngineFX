@@ -9,10 +9,12 @@ import java.net.URI;
 
 public class Documentation {
 
+    public static final String GITHUB_LOCATION = "https://github.com/HarmonyEngines/HarmonyDocumentation";
+
     public enum Location {
-        PROJECT_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/ProjectTab.md#project-tab", Launcher.GITHUB_VERSION_STRING)),
-        TEXTURES_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/TexturesTab.md#textures-tab", Launcher.GITHUB_VERSION_STRING)),
-        GAME_OBJECTS_TAB(String.format("https://github.com/HarmonyEngines/HarmonyDocumentation/blob/%s/GameObjectsTab.md#game-objects-tab", Launcher.GITHUB_VERSION_STRING));
+        PROJECT_TAB(String.format("%s/blob/%s/ProjectTab.md#project-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
+        TEXTURES_TAB(String.format("%s/blob/%s/TexturesTab.md#textures-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
+        GAME_OBJECTS_TAB(String.format("%s/blob/%s/GameObjectsTab.md#game-objects-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING));
 
         public String url;
 

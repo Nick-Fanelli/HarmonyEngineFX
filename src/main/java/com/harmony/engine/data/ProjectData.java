@@ -1,5 +1,6 @@
 package com.harmony.engine.data;
 
+import com.harmony.engine.Launcher;
 import com.harmony.engine.io.Editor;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class ProjectData {
 
     public static String projectName;
+    public static String harmonyVersionID;
     public static String author;
     public static String versionID;
 
@@ -34,6 +36,7 @@ public class ProjectData {
 
     public static void reset() {
         projectName = "";
+        harmonyVersionID = "";
         author = "";
         versionID = "";
         textures.clear();
@@ -74,6 +77,7 @@ public class ProjectData {
 
     public static void addAttributes(Element rootElement, Document document) {
         rootElement.appendChild(createElement(document, VALUE, "ProjectName", projectName));
+        rootElement.appendChild(createElement(document, VALUE, "HarmonyVersion", Launcher.GITHUB_VERSION_STRING));
         rootElement.appendChild(createElement(document, VALUE, "Author", author));
         rootElement.appendChild(createElement(document, VALUE, "VersionID", versionID));
 
@@ -190,6 +194,9 @@ public class ProjectData {
                 switch (eElement.getAttribute("name")) {
                     case "ProjectName":
                         projectName = eElement.getAttribute("value");
+                        break;
+                    case "HarmonyVersion":
+                        harmonyVersionID = eElement.getAttribute("value");
                         break;
                     case "Author":
                         author = eElement.getAttribute("value");

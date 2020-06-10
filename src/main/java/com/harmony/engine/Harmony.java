@@ -31,6 +31,13 @@ public class Harmony extends Application {
         Harmony.directory = directory;
         ProjectData.load(directory);
 
+        if(!ProjectData.harmonyVersionID.equals(Launcher.GITHUB_VERSION_STRING)) {
+            // TODO: DO SOMETHING MORE
+            System.err.println("Harmony Warning -> The current version of the project does not match the current version of the engine\n"
+                    + "\tProject Version: " + ProjectData.harmonyVersionID + "\n"
+                    + "\tEngine Version: " + Launcher.GITHUB_VERSION_STRING);
+        }
+
         if(Launcher.staticStage != null) {
             new Harmony().start(Launcher.staticStage);
         } else {

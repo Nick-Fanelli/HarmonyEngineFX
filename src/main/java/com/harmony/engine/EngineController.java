@@ -25,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
+import javax.print.Doc;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -167,10 +168,11 @@ public class EngineController implements Runnable {
 
         openDocumentationButton.setOnMouseClicked(mouseEvent -> {
             try {
-                System.out.println("Hey");
+                System.out.println("Harmony -> Opening Full Documentation in Default Web Browser...");
                 Desktop.getDesktop().browse(URI.create("https://github.com/HarmonyEngines/HarmonyDocumentation/tree/" + Launcher.GITHUB_VERSION_STRING));
             } catch (Exception e) {
                 System.err.println("Could not load the documentation at branch: " + Launcher.GITHUB_VERSION_STRING);
+                System.err.println("If the documentation branch doesn't work navigate to: " + Documentation.GITHUB_LOCATION);
             }
         });
     }

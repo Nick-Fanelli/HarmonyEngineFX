@@ -248,7 +248,6 @@ public class EngineController implements Runnable {
             textureImageView.setImage(new Image(new FileInputStream(new File(Harmony.directory.getPath() + path))));
             textureLocationField.setStyle("-fx-text-fill: #eeeeee;");
         } catch (FileNotFoundException e) {
-            // TODO: Error Pop-Up on the screen
             System.err.println("Harmony -> Could not load resource(s): " + path);
             textureImageView.setImage(new Image(EngineController.class.getResourceAsStream("/images/image-not-found.png")));
             textureLocationField.setStyle("-fx-text-fill: red;");

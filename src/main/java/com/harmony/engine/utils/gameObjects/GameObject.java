@@ -9,11 +9,19 @@ public class GameObject implements Serializable {
 
     public String name;
     public Texture texture = null;
-    public GameObject parent = null;
     public Vector2f position = new Vector2f();
 
     public GameObject(String name) {
         this.name = name;
+    }
+
+    public GameObject copy() {
+        GameObject gameObject = new GameObject(name);
+
+        gameObject.texture = texture;
+        gameObject.position = position;
+
+        return gameObject;
     }
 
 }

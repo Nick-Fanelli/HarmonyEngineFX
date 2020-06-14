@@ -11,7 +11,10 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -141,7 +144,7 @@ public class Editor implements Runnable {
                 Dragboard db = texture.startDragAndDrop(TransferMode.ANY);
 
                 ClipboardContent content = new ClipboardContent();
-                copiedGameObject = ProjectData.gameObjects.get(finalI);
+                copiedGameObject = ProjectData.gameObjects.get(finalI).copy();
                 content.putString("GameObject:" + ProjectData.gameObjects.get(finalI));
                 content.putImage(EngineController.loadTexturesImage(ProjectData.gameObjects.get(finalI).texture.path));
                 db.setContent(content);
@@ -270,18 +273,25 @@ public class Editor implements Runnable {
     private void initializeHierarchy() {
         root = new TreeItem<>();
         root.setValue(ProjectData.projectName);
+        root.setExpanded(true);
 
         gameObjects.clear();
 
-        for(Map.Entry<String, GameObject> entry : ProjectData.hierarchy.entrySet())
-            addGameObject(entry.getKey(), entry.getValue());
+        for (GameObject object : ProjectData.hierarchy) addGameObject(object.name, object);
 
         hierarchy.setShowRoot(true);
         hierarchy.setRoot(root);
+
+        hierarchy.setCellFactory(stringTreeView -> new HandledTreeCell());
+        hierarchy.setEditable(true);
+
+        hierarchy.setOnEditCommit(stringEditEvent -> {
+            if(stringEditEvent.getNewValue().isEmpty()) return;
+            gameObjects.get(hierarchy.getSelectionModel().getSelectedItem()).name = stringEditEvent.getNewValue();
+        });
     }
 
-    public static void addObjectToSelectedIndex(GameObject gameObject) {
-        gameObject.parent = getGameObject(hierarchy.getSelectionModel().getSelectedItem());
+        public static void addObjectToSelectedIndex(GameObject gameObject) {
         addGameObject(new TreeItem<>(gameObject.name), gameObject);
     }
 

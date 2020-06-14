@@ -32,7 +32,7 @@ public class ProjectData {
 
     public static ArrayList<Texture> textures = new ArrayList<>();
     public static ArrayList<GameObject> gameObjects = new ArrayList<>();
-    public static HashMap<String, GameObject> hierarchy = new HashMap<>();
+    public static ArrayList<GameObject> hierarchy = new ArrayList<>();
 
     public static void reset() {
         projectName = "";
@@ -143,7 +143,9 @@ public class ProjectData {
     public static Element createGameObjectElement(Document document, GameObject gameObject) {
         Element node = document.createElement(GAME_OBJECT);
 
-        node.setAttribute("data", DataUtils.saveGameObject(gameObject));
+        Element[] children = DataUtils.saveGameObject(document, gameObject);
+
+        for(Element child : children) node.appendChild(child);
 
         return node;
     }
@@ -151,10 +153,7 @@ public class ProjectData {
     public static Element createHObjectElement(Document document, Map.Entry<TreeItem<String>, GameObject> entry) {
         Element node = createContainerElement(document, H_OBJECT);
 
-        Element oElement = createGameObjectElement(document, entry.getValue());
-
-        node.setAttribute("key", entry.getKey().getValue());
-        node.setAttribute("gameObject", oElement.getAttribute("data"));
+        node.appendChild(createGameObjectElement(document, entry.getValue()));
 
         return node;
     }
@@ -231,9 +230,13 @@ public class ProjectData {
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
 
-                GameObject gameObject = DataUtils.loadGameObject(eElement.getAttribute("data"));
+                if(eElement.getParentNode().getNodeType() == Node.ELEMENT_NODE) {
+                    Element pElement = (Element) eElement.getParentNode();
 
-                if(gameObject != null) gameObjects.add(gameObject);
+                    if(pElement.getTagName().equals("GameObjects"))
+                        gameObjects.add(DataUtils.loadGameObject(eElement));
+                }
+
             }
         }
     }
@@ -245,7 +248,22 @@ public class ProjectData {
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
 
-                hierarchy.put(eElement.getAttribute("key"), DataUtils.loadGameObject(eElement.getAttribute("gameObject")));
+                Node oNode = null;
+
+                for(int j = 0; j < eElement.getChildNodes().getLength(); j++) {
+                    if(eElement.getChildNodes().item(j).getNodeName().equals(GAME_OBJECT))
+                        oNode = eElement.getChildNodes().item(j);
+                }
+
+                if(oNode == null) return;
+
+                if(oNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element oElement = (Element) oNode;
+
+                    if(oElement.getTagName().equals("gameObject")) {
+                        hierarchy.add(DataUtils.loadGameObject(oElement));
+                    }
+                }
             }
         }
     }

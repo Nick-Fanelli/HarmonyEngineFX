@@ -287,8 +287,9 @@ public class Editor implements Runnable {
         hierarchy.setShowRoot(true);
         hierarchy.setRoot(root);
 
-        hierarchy.setCellFactory(stringTreeView -> new HandledTreeCell());
         hierarchy.setEditable(true);
+
+        hierarchy.setContextMenu(new HierarchyItemContext());
 
         hierarchy.setOnEditCommit(stringEditEvent -> {
             if(stringEditEvent.getNewValue().isEmpty()) return;
@@ -319,7 +320,12 @@ public class Editor implements Runnable {
     }
 
     public static void removeGameObject(TreeItem<String> pointer) {
+        GameObject object = gameObjects.get(pointer);
+        if(selectedObject == object) selectedObject = null;
+
         gameObjects.remove(pointer);
+        root.getChildren().remove(pointer);
+        Editor.draw();
     }
 
     public static GameObject getGameObject(TreeItem<String> pointer) {
@@ -328,4 +334,11 @@ public class Editor implements Runnable {
 
     public static HashMap<TreeItem<String>, GameObject> getHierarchy() { return gameObjects; }
     public static void setHierarchy(HashMap<TreeItem<String>, GameObject> buffer) { Editor.gameObjects = buffer; }
+
+    public static void deleteSelectedGameObject() {
+        TreeItem<String> key = hierarchy.getSelectionModel().getSelectedItem();
+        if(key == null) return;
+
+        removeGameObject(key);
+    }
 }

@@ -1,6 +1,7 @@
 package com.harmony.engine.io;
 
 import com.harmony.engine.EngineController;
+import com.harmony.engine.Harmony;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.Status;
@@ -11,10 +12,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -202,24 +200,31 @@ public class Editor implements Runnable {
         });
 
         canvas.setOnMouseDragged(mouseEvent -> {
-            if(mouseEvent.getButton() == MouseButton.MIDDLE) {
+            if (mouseEvent.getButton() == MouseButton.MIDDLE) {
                 editorCamera.add((float) mouseEvent.getX() - mousePosition.x, (float) mouseEvent.getY() - mousePosition.y);
                 Editor.draw();
             }
 
+            Vector2f oldPosition = mousePosition.copy();
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
             Status.setMousePosition(mousePosition);
 
-           if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+            if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                if(Harmony.altDown) {
+                    editorCamera.add((float) mouseEvent.getX() - oldPosition.x, (float) mouseEvent.getY() - oldPosition.y);
+                    Editor.draw();
+                    return;
+                }
+
                 if (selectedObject == null) return;
 
                 Image image = EngineController.loadTexturesImage(selectedObject.texture.path);
-                if(image == null) return;
+                if (image == null) return;
 
-                if(mousePosition.x >= selectedObject.position.x + editorCamera.x)
-                    if(mousePosition.y >= selectedObject.position.y + editorCamera.y)
-                        if(mousePosition.x <= selectedObject.position.x + editorCamera.x + image.getWidth())
-                            if(mousePosition.y <= selectedObject.position.y + editorCamera.y + image.getHeight()) {
+                if (mousePosition.x >= selectedObject.position.x + editorCamera.x)
+                    if (mousePosition.y >= selectedObject.position.y + editorCamera.y)
+                        if (mousePosition.x <= selectedObject.position.x + editorCamera.x + image.getWidth())
+                            if (mousePosition.y <= selectedObject.position.y + editorCamera.y + image.getHeight()) {
                                 selectedObject.position.x = mousePosition.x - xDiff;
                                 selectedObject.position.y = mousePosition.y - yDiff;
                                 Editor.draw();
@@ -231,20 +236,20 @@ public class Editor implements Runnable {
         canvas.setOnMouseExited(mouseEvent -> Status.setMousePosition(null));
 
         canvas.setOnMousePressed(mouseEvent -> {
-            if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-                for(Map.Entry<TreeItem<String>, GameObject> item : gameObjects.entrySet()) {
-                    if(item.getValue().texture == null) continue;
+            if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                for (Map.Entry<TreeItem<String>, GameObject> item : gameObjects.entrySet()) {
+                    if (item.getValue().texture == null) continue;
 
                     Image image = EngineController.loadTexturesImage(item.getValue().texture.path);
-                    if(image == null) continue;
+                    if (image == null) continue;
 
-                    if(item.getValue().position.x + editorCamera.x > canvas.getWidth() ||
-                       item.getValue().position.y + editorCamera.y > canvas.getHeight()) continue;
+                    if (item.getValue().position.x + editorCamera.x > canvas.getWidth() ||
+                            item.getValue().position.y + editorCamera.y > canvas.getHeight()) continue;
 
-                    if(mousePosition.x >= item.getValue().position.x + editorCamera.x)
-                        if(mousePosition.y >= item.getValue().position.y + editorCamera.y)
-                            if(mousePosition.x <= item.getValue().position.x + editorCamera.x + image.getWidth())
-                                if(mousePosition.y <= item.getValue().position.y + editorCamera.y + image.getHeight()) {
+                    if (mousePosition.x >= item.getValue().position.x + editorCamera.x)
+                        if (mousePosition.y >= item.getValue().position.y + editorCamera.y)
+                            if (mousePosition.x <= item.getValue().position.x + editorCamera.x + image.getWidth())
+                                if (mousePosition.y <= item.getValue().position.y + editorCamera.y + image.getHeight()) {
                                     selectedObject = item.getValue();
                                     hierarchy.getSelectionModel().select(item.getKey());
 
@@ -263,7 +268,7 @@ public class Editor implements Runnable {
         });
 
         hierarchy.getSelectionModel().selectedItemProperty().addListener((observableValue, selectionMode, t1) -> {
-            if(t1 == root) selectedObject = null;
+            if (t1 == root) selectedObject = null;
             else selectedObject = gameObjects.get(t1);
 
             Editor.draw();

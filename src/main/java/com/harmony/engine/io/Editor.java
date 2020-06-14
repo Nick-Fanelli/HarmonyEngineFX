@@ -6,6 +6,8 @@ import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TreeItem;
@@ -17,8 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Editor implements Runnable {
 
@@ -352,4 +353,10 @@ public class Editor implements Runnable {
 
         removeGameObject(key);
     }
+
+    public static void moveSelectedObjectUp() {
+       // TODO: Make Work
+    }
+
+
 }

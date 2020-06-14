@@ -143,6 +143,7 @@ public class Editor implements Runnable {
 
                 ClipboardContent content = new ClipboardContent();
                 copiedGameObject = ProjectData.gameObjects.get(finalI).copy();
+                System.out.println(ProjectData.gameObjects.get(finalI) + " " + copiedGameObject);
                 content.putString("GameObject:" + ProjectData.gameObjects.get(finalI));
                 content.putImage(EngineController.loadTexturesImage(ProjectData.gameObjects.get(finalI).texture.path));
                 db.setContent(content);
@@ -237,6 +238,17 @@ public class Editor implements Runnable {
 
         canvas.setOnMousePressed(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                if(selectedObject != null) {
+                    Image image = EngineController.loadTexturesImage(selectedObject.texture.path);
+                    if(image == null) return;
+                    if (mousePosition.x >= selectedObject.position.x + editorCamera.x)
+                        if (mousePosition.y >= selectedObject.position.y + editorCamera.y)
+                            if (mousePosition.x <= selectedObject.position.x + editorCamera.x + image.getWidth())
+                                if (mousePosition.y <= selectedObject.position.y + editorCamera.y + image.getHeight()) {
+                                    return;
+                                }
+                }
+
                 for (Map.Entry<TreeItem<String>, GameObject> item : gameObjects.entrySet()) {
                     if (item.getValue().texture == null) continue;
 
@@ -287,9 +299,8 @@ public class Editor implements Runnable {
         hierarchy.setShowRoot(true);
         hierarchy.setRoot(root);
 
-        hierarchy.setEditable(true);
-
         hierarchy.setContextMenu(new HierarchyItemContext());
+        hierarchy.setEditable(true);
 
         hierarchy.setOnEditCommit(stringEditEvent -> {
             if(stringEditEvent.getNewValue().isEmpty()) return;
@@ -325,7 +336,7 @@ public class Editor implements Runnable {
 
         gameObjects.remove(pointer);
         root.getChildren().remove(pointer);
-        Editor.draw();
+        Editor.update();
     }
 
     public static GameObject getGameObject(TreeItem<String> pointer) {

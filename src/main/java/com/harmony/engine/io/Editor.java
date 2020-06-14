@@ -355,7 +355,37 @@ public class Editor implements Runnable {
     }
 
     public static void moveSelectedObjectUp() {
-       // TODO: Make Work
+        TreeItem<String> key = hierarchy.getSelectionModel().getSelectedItem();
+        if(key == null) return;
+
+        TreeItem<String> parent = key.getParent();
+        TreeItem<String>[] array = new TreeItem[parent.getChildren().size()];
+
+        int index = Integer.MIN_VALUE;
+
+        for(int i = 0; i < array.length; i++) {
+            if(parent.getChildren().get(i) == key) { index = i; break; }
+        }
+
+        if(index == Integer.MIN_VALUE) return;
+
+        for(int i = 0; i < array.length; i++) {
+            if(i < index - 1) array[i] = parent.getChildren().get(i);
+
+            else if(i == index - 1) {
+                array[i] = key;
+                array[i + 1] = parent.getChildren().get(i);
+            }
+        }
+
+        for(int i = index + 1; i < array.length; i++) {
+            array[i] = parent.getChildren().get(i);
+        }
+
+        parent.getChildren().setAll(Arrays.asList(array));
+
+        hierarchy.getSelectionModel().select(key);
+        Editor.update();
     }
 
 

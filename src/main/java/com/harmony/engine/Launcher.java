@@ -11,10 +11,13 @@ import javafx.stage.Stage;
 public class Launcher extends Application {
 
     public static final int[] VERSION_ID = new int[] {
-            1, 0, 0
+            1, 0
     };
 
-    public static final String GITHUB_VERSION_STRING = "version-1.0";
+    public static final String GITHUB_VERSION_STRING = "version-" + VERSION_ID[0] + "." + VERSION_ID[1];
+
+    public static final LaunchType LAUNCH_TYPE = LaunchType.SNAPSHOT;
+    public enum LaunchType { Version, SNAPSHOT }
 
     public static Stage staticStage;
     public static Scene staticScene;

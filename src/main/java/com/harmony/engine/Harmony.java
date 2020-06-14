@@ -14,15 +14,15 @@ import java.io.File;
 
 public class Harmony extends Application {
 
-    private static Thread coreThread;
-
     public static File directory;
     public static Stage staticStage;
 
     private static Scene staticScene;
 
-    private boolean controlDown = false;
-    private boolean sDown = false;
+    public static boolean controlDown = false;
+    public static boolean sDown = false;
+    public static boolean altDown = false;
+
     public static boolean saving = false;
 
     public static void main(String[] args) throws Exception { open(new File("/Users/nick227889/Dev/Game")); }
@@ -32,7 +32,6 @@ public class Harmony extends Application {
         ProjectData.load(directory);
 
         if(!ProjectData.harmonyVersionID.equals(Launcher.GITHUB_VERSION_STRING)) {
-            // TODO: DO SOMETHING MORE
             System.err.println("Harmony Warning -> The current version of the project does not match the current version of the engine\n"
                     + "\tProject Version: " + ProjectData.harmonyVersionID + "\n"
                     + "\tEngine Version: " + Launcher.GITHUB_VERSION_STRING);
@@ -69,24 +68,29 @@ public class Harmony extends Application {
         stage.setOnCloseRequest(event -> closeApplication());
 
         scene.setOnKeyPressed(keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.CONTROL || keyEvent.getCode() == KeyCode.COMMAND) {
-                controlDown = true;
-            } else if(keyEvent.getCode() == KeyCode.S) {
-                sDown = true;
+            switch (keyEvent.getCode()) {
+                case CONTROL:
+                case COMMAND:
+                    controlDown = true;     break;
+                case S: sDown = true;       break;
+                case ALT: altDown = true;   break;
             }
 
             if(controlDown && sDown && !saving) {
                 saving = true;
+                System.out.println("Harmony -> Saving...");
                 ProjectData.save(Harmony.directory);
                 saving = false;
             }
         });
 
         scene.setOnKeyReleased(keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.CONTROL || keyEvent.getCode() == KeyCode.COMMAND) {
-                controlDown = false;
-            } else if(keyEvent.getCode() == KeyCode.S) {
-                sDown = false;
+            switch (keyEvent.getCode()) {
+                case CONTROL:
+                case COMMAND:
+                    controlDown = false;        break;
+                case S: sDown = false;          break;
+                case ALT: altDown = false;      break;
             }
         });
     }

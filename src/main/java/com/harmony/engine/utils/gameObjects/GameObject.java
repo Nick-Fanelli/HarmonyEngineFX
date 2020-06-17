@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 public class GameObject implements Serializable {
 
+    // Reminder if this is updated update the DataUtils class
+
     public String name;
     public Texture texture = null;
     public Vector2f position = new Vector2f();

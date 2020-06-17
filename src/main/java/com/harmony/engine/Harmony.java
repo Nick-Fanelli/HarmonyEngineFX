@@ -22,6 +22,7 @@ public class Harmony extends Application {
     public static boolean controlDown = false;
     public static boolean sDown = false;
     public static boolean altDown = false;
+    public static boolean shiftDown = false;
 
     public static boolean saving = false;
 
@@ -71,9 +72,10 @@ public class Harmony extends Application {
             switch (keyEvent.getCode()) {
                 case CONTROL:
                 case COMMAND:
-                    controlDown = true;     break;
-                case S: sDown = true;       break;
-                case ALT: altDown = true;   break;
+                    controlDown = true;         break;
+                case S: sDown = true;           break;
+                case ALT: altDown = true;       break;
+                case SHIFT: shiftDown = true;   break;
             }
 
             if(controlDown && sDown && !saving) {
@@ -91,6 +93,7 @@ public class Harmony extends Application {
                     controlDown = false;        break;
                 case S: sDown = false;          break;
                 case ALT: altDown = false;      break;
+                case SHIFT: shiftDown = true;   break;
             }
         });
     }

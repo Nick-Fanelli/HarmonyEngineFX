@@ -4,6 +4,7 @@ import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
 import com.harmony.engine.io.Editor;
+import com.harmony.engine.io.NewEditor;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.gameObjects.GameObjectUtils;
@@ -131,7 +132,7 @@ public class EngineController implements Runnable {
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
 
         tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
-            if(t1 == editorTab) Editor.update();
+            if(t1 == editorTab) NewEditor.update();
             else if(t1 == gameObjectsTab) synchronizeGameObjects();
             else if(t1 == texturesTab) synchronizeTextures();
         });
@@ -345,6 +346,6 @@ public class EngineController implements Runnable {
 
     // Editor Methods
     private void initEditorTab() {
-        new Editor(editorCanvas, editorPane, objectsPane, hierarchy);
+        new NewEditor(editorCanvas, editorPane, objectsPane, hierarchy);
     }
 }

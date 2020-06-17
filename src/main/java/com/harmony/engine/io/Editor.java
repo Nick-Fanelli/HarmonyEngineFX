@@ -3,11 +3,10 @@ package com.harmony.engine.io;
 import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.hierarchy.HierarchyItemContext;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TreeItem;
@@ -114,7 +113,6 @@ public class Editor implements Runnable {
             boolean success = false;
 
             if(copiedGameObject != null) {
-                copiedGameObject.position.set(copiedGameObject.position.x + editorCamera.x, copiedGameObject.position.y + editorCamera.y);
                 addObjectToSelectedIndex(copiedGameObject);
                 copiedGameObject = null;
                 success = true;
@@ -144,7 +142,6 @@ public class Editor implements Runnable {
 
                 ClipboardContent content = new ClipboardContent();
                 copiedGameObject = ProjectData.gameObjects.get(finalI).copy();
-                System.out.println(ProjectData.gameObjects.get(finalI) + " " + copiedGameObject);
                 content.putString("GameObject:" + ProjectData.gameObjects.get(finalI));
                 content.putImage(EngineController.loadTexturesImage(ProjectData.gameObjects.get(finalI).texture.path));
                 db.setContent(content);
@@ -352,6 +349,12 @@ public class Editor implements Runnable {
         if(key == null) return;
 
         removeGameObject(key);
+    }
+
+    public static void findSelectedObject() {
+        if(selectedObject == null) return;
+        editorCamera.set(selectedObject.position);
+        Editor.draw();
     }
 
     public static void moveSelectedObjectUp() {

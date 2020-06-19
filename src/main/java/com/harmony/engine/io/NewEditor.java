@@ -2,6 +2,7 @@ package com.harmony.engine.io;
 
 import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
+import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.hierarchy.HierarchyItemContext;
 import com.harmony.engine.math.Vector2f;
@@ -50,7 +51,6 @@ public class NewEditor implements Runnable {
     private static TreeItem<String> root;
 
     // Preferences
-    public static float panMultipler = 1f;
 
     public NewEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy) {
         NewEditor.canvas = canvas;
@@ -224,8 +224,8 @@ public class NewEditor implements Runnable {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
                 // Fill-In
             } else if(mouseEvent.getButton() == MouseButton.MIDDLE) {
-                editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * panMultipler,
-                                 (float) (mouseEvent.getY() - mousePosition.y) * panMultipler);
+                editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),
+                                 (float) (mouseEvent.getY() - mousePosition.y) * (float) GlobalData.getPanMultipler());
                 NewEditor.draw();
             }
 
@@ -270,7 +270,7 @@ public class NewEditor implements Runnable {
         g = canvas.getGraphicsContext2D();
         g.clearRect(0, 0, width, height);
 
-        g.setFill(Color.web("35406C"));
+        g.setFill(Color.web(GlobalData.getEditorBackgroundColor()));
         g.fillRect(0, 0, width, height);
 
         // Draw the game objects
@@ -291,7 +291,6 @@ public class NewEditor implements Runnable {
 
         // Draw the selection boxes
         for(TreeItem<String> selection : selectionModel.model) {
-            // TODO: Make sure the game object is on the scene
             GameObject object = gameObjects.get(selection);
 
             if(object == null) continue;
@@ -304,7 +303,7 @@ public class NewEditor implements Runnable {
                     object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
                 continue;
 
-            g.setStroke(Color.RED);
+            g.setStroke(Color.web(GlobalData.getEditorOutlineColor()));
             g.strokeRect(object.position.x + editorCamera.x, object.position.y + editorCamera.y,
                     image.getWidth(), image.getHeight());
         }

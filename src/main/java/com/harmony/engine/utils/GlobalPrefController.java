@@ -4,22 +4,31 @@ import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
 import com.harmony.engine.data.GlobalData;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 
 public class GlobalPrefController {
+
+    public Button cancelButton;
+    public Button applyButton;
+    public Button resetToDefaultsButton;
 
     public ComboBox<String> theme;
     public CheckBox autoSave;
 
-    public Button cancelButton;
-    public Button applyButton;
+    public TextField panMultiplier;
+    public TextField editorBGColor;
+    public TextField editorOutlineColor;
+
+    public ScrollPane scrollPane;
 
     private boolean isThemeChange = false;
 
     @FXML
     public void initialize() {
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // never show a vertical ScrollBar
+        scrollPane.setFitToWidth(true); // set content width to viewport width
+        scrollPane.setPannable(true); // allow scrolling via mouse dragging
+
         setFields();
 
         cancelButton.setOnMouseClicked(event -> {
@@ -34,6 +43,9 @@ public class GlobalPrefController {
             }
 
             GlobalData.setAutoSave(autoSave.isSelected());
+            GlobalData.setPanMultiplier(Double.parseDouble(panMultiplier.getText()));
+            GlobalData.setEditorBackgroundColor(editorBGColor.getText().replaceAll("#", ""));
+            GlobalData.setEditorOutlineColor(editorOutlineColor.getText().replaceAll("#", ""));
 
             if(isThemeChange) {
                 if(Harmony.staticStage != null)
@@ -43,6 +55,11 @@ public class GlobalPrefController {
             }
 
             GlobalData.staticStage.close();
+        });
+
+        resetToDefaultsButton.setOnMouseClicked(mouseEvent -> {
+            GlobalData.setDefaults();
+            this.initialize();
         });
 
         handleChanges();
@@ -57,8 +74,10 @@ public class GlobalPrefController {
         }
 
         theme.getSelectionModel().select(selectedTheme);
-
         autoSave.setSelected(GlobalData.getAutoSave());
+        panMultiplier.setText(Double.toString(GlobalData.getPanMultipler()));
+        editorBGColor.setText(GlobalData.getEditorBackgroundColor());
+        editorOutlineColor.setText(GlobalData.getEditorOutlineColor());
     }
 
     private void handleChanges() {

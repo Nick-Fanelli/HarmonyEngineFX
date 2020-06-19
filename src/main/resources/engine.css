@@ -98,6 +98,14 @@
     -fx-background-color: -fx-default-medium;
 }
 
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
 /* Tab Pane */
 
 .tab-pane > .tab-header-area {

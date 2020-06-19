@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@../engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.GlobalPrefController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@../engine.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.GlobalPrefController">
    <children>
-      <Label styleClass="default-label" text="Theme:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-      <ComboBox fx:id="theme" layoutX="81.0" layoutY="17.0" prefHeight="27.0" prefWidth="150.0" styleClass="default-combo-box" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="17.0" />
-     <Button fx:id="applyButton" mnemonicParsing="false" styleClass="default-choose-button" text="Apply" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-     <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="default-button" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
-      <Label layoutX="20.0" layoutY="64.0" styleClass="default-label" text="Auto-Save:" />
-      <CheckBox fx:id="autoSave" layoutX="121.0" layoutY="66.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="19.0" styleClass="default-check-box" />
+      <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background: transparent;">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="799.0">
+               <children>
+                  <Label layoutX="16.0" layoutY="24.0" style="-fx-font-size: 30px; -fx-font-family: sans-serif;" styleClass="default-label" text="General" />
+                   <Group layoutX="1.0" layoutY="71.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="88.0">
+                       <children>
+                           <Label layoutX="14.0" layoutY="20.0" styleClass="default-label" text="Theme:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0" />
+                           <ComboBox fx:id="theme" layoutX="81.0" layoutY="17.0" prefHeight="27.0" prefWidth="150.0" styleClass="default-combo-box" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="17.0" />
+                           <Label layoutX="14.0" layoutY="65.0" styleClass="default-label" text="Auto-Save:" />
+                           <CheckBox fx:id="autoSave" layoutX="113.0" layoutY="66.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="19.0" styleClass="default-check-box" />
+                       </children>
+                   </Group>
 
+                  <Label layoutX="16.0" layoutY="188.0" style="-fx-font-size: 30px; -fx-font-family: sans-serif;" styleClass="default-label" text="Editor" />
+                   <Group layoutX="15.0" layoutY="243.0" AnchorPane.leftAnchor="15.0">
+                       <children>
+                           <Label layoutY="11.0" styleClass="default-label" text="Pan Multiplier:" />
+                           <TextField fx:id="panMultiplier" layoutX="129.0" layoutY="8.0" prefHeight="27.0" prefWidth="57.0" styleClass="default-text-field" />
+                       </children>
+                   </Group>
+                  <Label layoutX="15.0" layoutY="296.0" styleClass="default-label" text="Editor Background Color:" />
+                  <TextField fx:id="editorBGColor" layoutX="232.0" layoutY="293.0" prefHeight="27.0" prefWidth="63.0" promptText="ffffff" styleClass="default-text-field" />
+                  <Label layoutX="16.0" layoutY="337.0" styleClass="default-label" text="Outline Color:" />
+                  <TextField fx:id="editorOutlineColor" layoutX="138.0" layoutY="334.0" prefHeight="27.0" prefWidth="63.0" promptText="ffffff" styleClass="default-text-field" />
+                  <Button fx:id="resetToDefaultsButton" layoutX="642.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #f55442 #f55442;" styleClass="default-button" text="Reset To Defaults" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+       
+       <Button fx:id="applyButton" mnemonicParsing="false" styleClass="default-choose-button" text="Apply" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+       <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="default-button" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
    </children>
 </AnchorPane>

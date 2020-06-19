@@ -7,9 +7,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class GlobalData implements Serializable {
 
@@ -22,6 +34,9 @@ public class GlobalData implements Serializable {
     public static void setDefaults() {
         GlobalData.setTheme(Theme.LIGHT);
         GlobalData.setAutoSave(true);
+        GlobalData.setPanMultiplier(1f);
+        GlobalData.setEditorBackgroundColor("35406c");
+        GlobalData.setEditorOutlineColor("ff0000");
     }
 
     // Theme
@@ -46,33 +61,98 @@ public class GlobalData implements Serializable {
     public static void setAutoSave(boolean value) { dataContext.put(AUTO_SAVE_LOCATION, Boolean.toString(value)); }
     public static boolean getAutoSave() { return Boolean.parseBoolean(dataContext.get(AUTO_SAVE_LOCATION)); }
 
+    // Pan Multipler
+    public static final String PAN_MULTIPLIER = "panMultiplier";
+    public static void setPanMultiplier(double value) { dataContext.put(PAN_MULTIPLIER, Double.toString(value)); }
+    public static double getPanMultipler() { return Double.parseDouble(dataContext.get(PAN_MULTIPLIER)); }
+
+    // Editor Background Color
+    public static final String EDITOR_BACKGROUND_COLOR = "editorBackgroundColor";
+    public static void setEditorBackgroundColor(String value) { dataContext.put(EDITOR_BACKGROUND_COLOR, value); }
+    public static String getEditorBackgroundColor() { return dataContext.get(EDITOR_BACKGROUND_COLOR); }
+
+    // Editor Background Color
+    public static final String EDITOR_OUTLINE_COLOR = "editorOutlineColor";
+    public static void setEditorOutlineColor(String value) { dataContext.put(EDITOR_OUTLINE_COLOR, value); }
+    public static String getEditorOutlineColor() { return dataContext.get(EDITOR_OUTLINE_COLOR); }
+
     public static void save() {
+        Status.setCurrentStatus(Status.Type.SAVING);
+
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+
         try {
-            FileOutputStream file = new FileOutputStream(new File(GLOBAL_PREFERENCES_LOCATION));
-            ObjectOutputStream out = new ObjectOutputStream(file);
+            builder = dbFactory.newDocumentBuilder();
+            Document document = builder.newDocument();
 
-            out.writeObject(dataContext);
+            Element rootElement = document.createElement("GlobalData");
+            document.appendChild(rootElement);
 
-            out.close();
-            file.close();
-        } catch(IOException e) {
+            GlobalData.addAttributes(rootElement, document); // Add in the elements
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            DOMSource source = new DOMSource(document);
+
+            StreamResult file = new StreamResult(GLOBAL_PREFERENCES_LOCATION);
+
+            transformer.transform(source, file);
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        Status.setCurrentStatus(Status.Type.READY);
+    }
+
+    private static void addAttributes(Element root, Document document) {
+        for(Map.Entry<String, String> entry : dataContext.entrySet()) {
+            root.appendChild(createElement(document, entry.getKey(), entry.getValue()));
         }
     }
 
+    public static final String PREFERENCE_TAG_NAME = "preference";
+
+    private static Element createElement(Document document, String key, String value) {
+        Element node = document.createElement(PREFERENCE_TAG_NAME);
+
+        node.setAttribute("key", key);
+        node.setAttribute("value", value);
+
+        return node;
+    }
+
+
     public static HashMap<String, String> load() {
+
         try {
-            FileInputStream file = new FileInputStream(new File(GLOBAL_PREFERENCES_LOCATION));
-            ObjectInputStream in = new ObjectInputStream(file);
+            File inputFile = new File(GLOBAL_PREFERENCES_LOCATION);
 
-            dataContext = (HashMap<String, String>) in.readObject();
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = dbFactory.newDocumentBuilder();
+            Document document = builder.parse(inputFile);
 
-            in.close();
-            file.close();
+            document.getDocumentElement().normalize();
+
+            // Load in all of the nodes
+            NodeList nList = document.getElementsByTagName(PREFERENCE_TAG_NAME);
+
+            for (int i = 0; i < nList.getLength(); i++) {
+                Node node = nList.item(i);
+
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) node;
+
+                    if(eElement.hasAttribute("key") && eElement.hasAttribute("value")) {
+                        dataContext.put(eElement.getAttribute("key"), eElement.getAttribute("value"));
+                    }
+                }
+            }
 
             return dataContext;
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Harmony -> Setting up globalPreferences.dat");
+        } catch (Exception ignored) {
         }
 
         try {

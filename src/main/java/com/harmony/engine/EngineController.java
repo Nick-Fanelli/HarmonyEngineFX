@@ -236,7 +236,7 @@ public class EngineController implements Runnable {
             if (index < 0) return;
 
             FileChooser chooser = new FileChooser();
-            chooser.setInitialDirectory(new File(Harmony.directory.getPath() + "/Resources/Textures"));
+            chooser.setInitialDirectory(new File(Harmony.directory.getPath() + File.separator + "Resources" + File.separator + "Textures"));
             chooser.setTitle("Choose Texture");
             File selectedFile = chooser.showOpenDialog(Harmony.staticStage);
 

@@ -32,7 +32,7 @@ public class TextureFXMLController {
         locationButton.setOnMouseClicked(mouseEvent -> {
             FileChooser chooser = new FileChooser();
             chooser.setTitle("Choose Texture");
-            chooser.setInitialDirectory(new File(Harmony.directory.getPath() + "/Resources"));
+            chooser.setInitialDirectory(new File(Harmony.directory.getPath() + File.separator + "Resources"));
             File selectedFile = chooser.showOpenDialog(TextureUtils.staticStage);
 
             if(selectedFile != null) {

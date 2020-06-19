@@ -23,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NewEditor implements Runnable {
@@ -94,11 +95,6 @@ public class NewEditor implements Runnable {
         hierarchy.setRoot(root);
 
         hierarchy.setContextMenu(new HierarchyItemContext());
-        hierarchy.setCellFactory(stringTreeView -> {
-            final TreeCell<String> cell = new TreeCell<>();
-
-            return cell;
-        });
     }
 
     private void handleInput() {
@@ -172,7 +168,55 @@ public class NewEditor implements Runnable {
 
         canvas.setOnMousePressed(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                for(int i = 0; i < root.getChildren().size(); i++) {
+                    GameObject object = gameObjects.get(root.getChildren().get(i));
 
+                    Image image = images.get(object).getImage();
+                    if(image == null) continue;
+
+                    // Check to make sure the game object is in bounds.
+                    if(object.position.x + editorCamera.x > canvas.getWidth() || object.position.y + editorCamera.y > canvas.getHeight() ||
+                            object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
+                        continue;
+
+                    if(object.position.x + editorCamera.x <= mousePosition.x &&
+                       object.position.y + editorCamera.y <= mousePosition.y &&
+                       object.position.x + editorCamera.x + image.getWidth() >= mousePosition.x &&
+                       object.position.y + editorCamera.y + image.getHeight() >= mousePosition.y) {
+
+                        if(!Harmony.shiftDown) {
+                            hierarchy.getSelectionModel().clearSelection();
+                            hierarchy.getSelectionModel().select(root.getChildren().get(i));
+                            selectionModel.setSelection(root.getChildren().get(i));
+                        } else {
+                            if(!selectionModel.contains(root.getChildren().get(i))) {
+                                hierarchy.getSelectionModel().select(root.getChildren().get(i));
+                            } else {
+                                ArrayList<TreeItem<String>> list = new ArrayList<>();
+
+                                for(TreeItem<String> item : hierarchy.getSelectionModel().getSelectedItems()) {
+                                    if(item == root.getChildren().get(i)) continue;
+                                    list.add(item);
+                                }
+
+                                hierarchy.getSelectionModel().clearSelection();
+
+                                for(TreeItem<String> item : list) { hierarchy.getSelectionModel().select(item); }
+                            }
+                        }
+
+                        NewEditor.draw();
+
+                        return;
+                    }
+                }
+
+                if(!Harmony.shiftDown) {
+                    selectionModel.clear();
+                    hierarchy.getSelectionModel().clearSelection();
+                }
+
+                NewEditor.draw();
             }
         });
 
@@ -277,6 +321,10 @@ public class NewEditor implements Runnable {
             if(image != null) images.put(gameObject, new ImageView(image));
         }
 
+        selectionModel.setSelection(key);
+        hierarchy.getSelectionModel().clearSelection();
+        hierarchy.getSelectionModel().select(key);
+
         NewEditor.draw();
     }
 
@@ -304,8 +352,6 @@ public class NewEditor implements Runnable {
 
         GameObject object = gameObjects.get(key);
         editorCamera.set(object.position.copy().inverse());
-
-        System.out.println(editorCamera + " " + object.position);
 
         NewEditor.draw();
     }

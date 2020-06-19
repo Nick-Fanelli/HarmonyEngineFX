@@ -93,7 +93,7 @@ public class Harmony extends Application {
                     controlDown = false;        break;
                 case S: sDown = false;          break;
                 case ALT: altDown = false;      break;
-                case SHIFT: shiftDown = true;   break;
+                case SHIFT: shiftDown = false;   break;
             }
         });
     }

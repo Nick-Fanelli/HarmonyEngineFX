@@ -23,6 +23,8 @@ public class SelectionModel {
         for(int i = 0; i < selections.length; i++) { model.remove(selections[i]); }
     }
 
+    public boolean contains(TreeItem<String> item) { return model.contains(item); }
+
     public void clear() { model.clear(); }
 
     @Override

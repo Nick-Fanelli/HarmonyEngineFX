@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -51,6 +50,8 @@ public class Harmony extends Application {
         Parent root = FXMLLoader.load(Harmony.class.getResource("/engine.fxml"));
 
         Scene scene = new Scene(root, 1280, 720);
+
+        Harmony.staticStage = stage;
         Harmony.staticScene = scene;
 
         GlobalData.load();

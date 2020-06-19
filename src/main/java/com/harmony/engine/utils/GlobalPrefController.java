@@ -48,8 +48,10 @@ public class GlobalPrefController {
             GlobalData.setEditorOutlineColor(editorOutlineColor.getText().replaceAll("#", ""));
 
             if(isThemeChange) {
-                if(Harmony.staticStage != null)
+                if(Harmony.staticStage != null) {
                     Harmony.changeTheme();
+                    System.out.println("Hey");
+                }
                 else if(Launcher.staticStage != null)
                     Launcher.changeTheme();
             }

@@ -97,6 +97,8 @@ public class EngineController implements Runnable {
 
     @FXML
     public void initialize() {
+        initMiscMethods();
+
         // Start Engine Thread
         if(engineThread != null) return;
         engineThread = new Thread(this, "Harmony:EngineThread");
@@ -105,8 +107,6 @@ public class EngineController implements Runnable {
 
     @Override
     public void run() {
-        initMiscMethods();
-
         initProjectTab();
         initTexturesTab();
         initGameObjectsTab();

@@ -8,12 +8,12 @@
    <children>
       <Button id="new-proj-btn" fx:id="newProjectButton" layoutX="235.0" layoutY="272.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="New Project" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="272.0" />
       <Button id="new-proj-btn" fx:id="openProjectButton" layoutX="235.0" layoutY="329.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="Open Project" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="329.0" />
-      <Label alignment="CENTER" layoutX="143.0" layoutY="14.0" style="-fx-font-family: Montserrat;" styleClass="call" text="Harmony Engine" textFill="#d0cccc" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="14.0">
+      <Label alignment="CENTER" layoutX="143.0" layoutY="14.0" style="-fx-font-size: 37px;" styleClass="default-label" text="Harmony Engine" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="37.0" />
          </font>
       </Label>
-      <Label fx:id="versionLabel" alignment="CENTER" layoutX="252.0" layoutY="68.0" style="-fx-font-family: Montserrat; -fx-text-fill: lightgray;" text="Version: 0.0.0" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="140.0">
+      <Label fx:id="versionLabel" alignment="CENTER" layoutX="252.0" layoutY="68.0" styleClass="default-label" text="Version: 0.0.0" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="140.0">
          <font>
             <Font size="15.0" />
          </font>

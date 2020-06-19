@@ -166,6 +166,8 @@ public class NewEditor implements Runnable {
             Status.setMousePosition(mousePosition);
         });
 
+        canvas.setOnMouseExited(mouseEvent -> Status.setMousePosition(null));
+
         canvas.setOnMousePressed(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
                 for(int i = 0; i < root.getChildren().size(); i++) {

@@ -77,7 +77,8 @@ public class GlobalData implements Serializable {
     public static String getEditorOutlineColor() { return dataContext.get(EDITOR_OUTLINE_COLOR); }
 
     public static void save() {
-        Status.setCurrentStatus(Status.Type.SAVING);
+        if(Harmony.staticStage != null)
+            Status.setCurrentStatus(Status.Type.SAVING);
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
@@ -104,7 +105,8 @@ public class GlobalData implements Serializable {
             e.printStackTrace();
         }
 
-        Status.setCurrentStatus(Status.Type.READY);
+        if(Harmony.staticStage != null)
+            Status.setCurrentStatus(Status.Type.READY);
     }
 
     private static void addAttributes(Element root, Document document) {

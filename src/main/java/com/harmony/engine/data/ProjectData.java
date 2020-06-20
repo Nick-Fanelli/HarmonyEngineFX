@@ -1,5 +1,6 @@
 package com.harmony.engine.data;
 
+import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
 import com.harmony.engine.io.Editor;
 import com.harmony.engine.utils.Status;
@@ -45,7 +46,8 @@ public class ProjectData {
     }
 
     public static void save(File directory) {
-        Status.setCurrentStatus(Status.Type.SAVING);
+        if(Harmony.staticStage != null)
+            Status.setCurrentStatus(Status.Type.SAVING);
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
@@ -72,7 +74,8 @@ public class ProjectData {
             e.printStackTrace();
         }
 
-        Status.setCurrentStatus(Status.Type.READY);
+        if(Harmony.staticStage != null)
+            Status.setCurrentStatus(Status.Type.READY);
     }
 
     public static void addAttributes(Element rootElement, Document document) {

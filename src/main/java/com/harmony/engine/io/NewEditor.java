@@ -153,7 +153,7 @@ public class NewEditor implements Runnable {
             boolean success = false;
 
             if(copiedGameObject != null) {
-                copiedGameObject.position = editorCamera.copy().add((float) dragEvent.getX() - CANVAS_POSITION_OFFSET,
+                copiedGameObject.position = editorCamera.copy().inverse().add((float) dragEvent.getX() - CANVAS_POSITION_OFFSET,
                         (float) dragEvent.getY() - CANVAS_POSITION_OFFSET);
 
                 addGameObject(copiedGameObject);
@@ -316,7 +316,8 @@ public class NewEditor implements Runnable {
                     object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
                 continue;
 
-            g.setStroke(Color.web(GlobalData.getEditorOutlineColor()));
+            try { g.setStroke(Color.web(GlobalData.getEditorOutlineColor())); }
+            catch (Exception ignored) {}
             g.strokeRect(object.position.x + editorCamera.x, object.position.y + editorCamera.y,
                     image.getWidth(), image.getHeight());
         }
@@ -367,6 +368,8 @@ public class NewEditor implements Runnable {
         selectionModel.clear();
 
         for(TreeItem<String> item : array) removeGameObject(item);
+
+        selectionModel.setSelection(hierarchy.getSelectionModel().getSelectedItem());
     }
 
     public static void findSelectedGameObject() {

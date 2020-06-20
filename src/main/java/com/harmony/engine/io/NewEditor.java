@@ -95,6 +95,8 @@ public class NewEditor implements Runnable {
         hierarchy.setRoot(root);
 
         hierarchy.setContextMenu(new HierarchyItemContext());
+
+        for (GameObject object : ProjectData.hierarchy) addGameObject(object);
     }
 
     private void handleInput() {
@@ -415,4 +417,6 @@ public class NewEditor implements Runnable {
 
         NewEditor.draw();
     }
+
+    public static HashMap<TreeItem<String>, GameObject> getHierarchy() { return gameObjects; }
 }

@@ -37,6 +37,7 @@ public class Harmony extends Application {
                     + "\tEngine Version: " + Launcher.GITHUB_VERSION_STRING);
         }
 
+        // TODO - Deploy: Comment Out
         if(Launcher.staticStage != null) {
             new Harmony().start(Launcher.staticStage);
         } else {

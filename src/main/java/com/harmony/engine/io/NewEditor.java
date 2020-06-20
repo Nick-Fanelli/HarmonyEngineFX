@@ -276,20 +276,10 @@ public class NewEditor implements Runnable {
         g.fillRect(0, 0, width, height);
 
         // Draw the game objects
-        for(int i = 0; i < root.getChildren().size(); i++) {
-            GameObject object = gameObjects.get(root.getChildren().get(i));
-
-            Image image = images.get(object).getImage();
-            if(image == null) continue;
-
-            // Check to make sure the game object is in bounds.
-            if(object.position.x + editorCamera.x > width || object.position.y + editorCamera.y > height ||
-                    object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
-                continue;
-
-            g.drawImage(image, object.position.x + editorCamera.x, object.position.y + editorCamera.y,
-                    image.getWidth(), image.getHeight());
-        }
+        if(GlobalData.getEditorDrawFromTop())
+            for(int i = 0; i < root.getChildren().size(); i++) drawGameObject(gameObjects.get(root.getChildren().get(i)));
+        else
+            for(int i = root.getChildren().size() - 1; i >= 0; i--) drawGameObject(gameObjects.get(root.getChildren().get(i)));
 
         // Draw the selection boxes
         for(TreeItem<String> selection : selectionModel.model) {
@@ -309,6 +299,19 @@ public class NewEditor implements Runnable {
             g.strokeRect(object.position.x + editorCamera.x, object.position.y + editorCamera.y,
                     image.getWidth(), image.getHeight());
         }
+    }
+
+    private static void drawGameObject(GameObject object) {
+        Image image = images.get(object).getImage();
+        if(image == null) return;
+
+        // Check to make sure the game object is in bounds.
+        if(object.position.x + editorCamera.x > canvas.getWidth() || object.position.y + editorCamera.y > canvas.getHeight() ||
+                object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
+            return;
+
+        g.drawImage(image, object.position.x + editorCamera.x, object.position.y + editorCamera.y,
+                image.getWidth(), image.getHeight());
     }
 
     // Game Object Methods

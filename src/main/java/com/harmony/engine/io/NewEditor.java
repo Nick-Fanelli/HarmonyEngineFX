@@ -383,6 +383,35 @@ public class NewEditor implements Runnable {
         root.getChildren().set(keyIndex, target);
 
         hierarchy.getSelectionModel().clearSelection();
+        hierarchy.getSelectionModel().select(key);
+
+        NewEditor.draw();
+    }
+
+    //TODO: update to use parent of game object
+    public static void moveSelectedGameObjectUp() {
+        TreeItem<String> key = hierarchy.getSelectionModel().getSelectedItem();
+        if(key == null) return;
+
+        int keyIndex = Integer.MIN_VALUE;
+
+        for(int i = 0; i < root.getChildren().size(); i++) {
+            if(root.getChildren().get(i) == key) {
+                keyIndex = i;
+                break;
+            }
+        }
+
+        if(keyIndex == Integer.MIN_VALUE) return;
+        if(keyIndex - 1 < 0) return;
+
+        TreeItem<String> target = root.getChildren().get(keyIndex - 1);
+
+        root.getChildren().set(keyIndex - 1, key);
+        root.getChildren().set(keyIndex, target);
+
+        hierarchy.getSelectionModel().clearSelection();
+        hierarchy.getSelectionModel().select(key);
 
         NewEditor.draw();
     }

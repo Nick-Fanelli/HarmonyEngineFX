@@ -32,7 +32,7 @@ public class HierarchyItemContext extends ContextMenu {
     public void handleInput() {
         deleteItem.setOnAction(actionEvent -> NewEditor.deleteSelectedGameObjects());
 
-        moveUp.setOnAction(actionEvent -> Editor.moveSelectedObjectUp());
+        moveUp.setOnAction(actionEvent -> NewEditor.moveSelectedGameObjectUp());
         moveDown.setOnAction(actionEvent -> NewEditor.moveSelectedGameObjectDown());
 
         find.setOnAction(actionEvent -> NewEditor.findSelectedGameObject());

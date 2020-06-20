@@ -10,6 +10,7 @@ import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.SelectionMode;
@@ -49,6 +50,8 @@ public class NewEditor implements Runnable {
 
     private static final SelectionModel selectionModel = new SelectionModel();
     private static TreeItem<String> root;
+
+    public static boolean interactingWithCanvas = false;
 
     // Preferences
 
@@ -168,7 +171,12 @@ public class NewEditor implements Runnable {
             Status.setMousePosition(mousePosition);
         });
 
-        canvas.setOnMouseExited(mouseEvent -> Status.setMousePosition(null));
+        canvas.setOnMouseEntered(mouseEvent -> interactingWithCanvas = true);
+
+        canvas.setOnMouseExited(mouseEvent -> {
+            Status.setMousePosition(null);
+            interactingWithCanvas = false;
+        });
 
         canvas.setOnMousePressed(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -221,19 +229,29 @@ public class NewEditor implements Runnable {
                 }
 
                 NewEditor.draw();
-            }
+            } else if(mouseEvent.getButton() == MouseButton.MIDDLE)
+                Harmony.triggerHand(true);
+        });
+
+        canvas.setOnMouseReleased(mouseEvent -> {
+            if(mouseEvent.getButton() == MouseButton.MIDDLE) Harmony.triggerHand(false);
         });
 
         canvas.setOnMouseDragged(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-                // Fill-In
+                if(Harmony.altDown) {
+                    editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),
+                            (float) (mouseEvent.getY() - mousePosition.y) * (float) GlobalData.getPanMultipler());
+                } else {
+
+                }
             } else if(mouseEvent.getButton() == MouseButton.MIDDLE) {
                 editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),
                                  (float) (mouseEvent.getY() - mousePosition.y) * (float) GlobalData.getPanMultipler());
-                NewEditor.draw();
             }
 
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
+            NewEditor.draw();
         });
     }
 
@@ -274,7 +292,8 @@ public class NewEditor implements Runnable {
         g = canvas.getGraphicsContext2D();
         g.clearRect(0, 0, width, height);
 
-        g.setFill(Color.web(GlobalData.getEditorBackgroundColor()));
+        try { g.setFill(Color.web(GlobalData.getEditorBackgroundColor())); }
+        catch (Exception ignored) {}
         g.fillRect(0, 0, width, height);
 
         // Draw the game objects

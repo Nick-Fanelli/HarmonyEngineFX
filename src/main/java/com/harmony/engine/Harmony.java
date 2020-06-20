@@ -2,9 +2,11 @@ package com.harmony.engine;
 
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.NewEditor;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,9 +16,9 @@ import java.io.File;
 public class Harmony extends Application {
 
     public static File directory;
-    public static Stage staticStage;
 
-    private static Scene staticScene;
+    public static Stage staticStage;
+    public static Scene staticScene;
 
     public static boolean controlDown = false;
     public static boolean sDown = false;
@@ -76,7 +78,10 @@ public class Harmony extends Application {
                 case COMMAND:
                     controlDown = true;         break;
                 case S: sDown = true;           break;
-                case ALT: altDown = true;       break;
+                case ALT:
+                    altDown = true;
+                    triggerHand(true);
+                    break;
                 case SHIFT: shiftDown = true;   break;
             }
 
@@ -94,10 +99,18 @@ public class Harmony extends Application {
                 case COMMAND:
                     controlDown = false;        break;
                 case S: sDown = false;          break;
-                case ALT: altDown = false;      break;
-                case SHIFT: shiftDown = false;   break;
+                case ALT:
+                    altDown = false;
+                    triggerHand(false);
+                    break;
+                case SHIFT: shiftDown = false;  break;
             }
         });
+    }
+
+    public static void triggerHand(boolean value) {
+        if(value && NewEditor.interactingWithCanvas) staticScene.setCursor(Cursor.CLOSED_HAND);
+        else staticScene.setCursor(Cursor.DEFAULT);
     }
 
     private void closeApplication() {

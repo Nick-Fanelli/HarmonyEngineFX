@@ -37,6 +37,7 @@ public class GlobalData implements Serializable {
         GlobalData.setPanMultiplier(1f);
         GlobalData.setEditorBackgroundColor("35406c");
         GlobalData.setEditorOutlineColor("ff0000");
+        GlobalData.setEditorDrawFromTop(true);
     }
 
     // Theme
@@ -75,6 +76,11 @@ public class GlobalData implements Serializable {
     public static final String EDITOR_OUTLINE_COLOR = "editorOutlineColor";
     public static void setEditorOutlineColor(String value) { dataContext.put(EDITOR_OUTLINE_COLOR, value); }
     public static String getEditorOutlineColor() { return dataContext.get(EDITOR_OUTLINE_COLOR); }
+
+    // Editor Draw From Top
+    public static final String EDITOR_DRAW_FROM_TOP = "editorDrawFromTop";
+    public static void setEditorDrawFromTop(boolean value) { dataContext.put(EDITOR_DRAW_FROM_TOP, Boolean.toString(value)); }
+    public static boolean getEditorDrawFromTop() { return Boolean.parseBoolean(dataContext.get(EDITOR_DRAW_FROM_TOP)); }
 
     public static void save() {
         if(Harmony.staticStage != null)
@@ -178,6 +184,8 @@ public class GlobalData implements Serializable {
 
     public static void launchGlobalPreferences() {
         try {
+            if(staticStage != null && staticStage.isShowing()) staticStage.close();
+
             FXMLLoader loader = new FXMLLoader(GlobalData.class.getResource("/utils/globalPreferences.fxml"));
             Parent root = loader.load();
 

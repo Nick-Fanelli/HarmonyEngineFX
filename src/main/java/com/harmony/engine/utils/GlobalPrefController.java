@@ -11,15 +11,17 @@ public class GlobalPrefController {
     public Button cancelButton;
     public Button applyButton;
     public Button resetToDefaultsButton;
+    public ScrollPane scrollPane;
 
+    // General
     public ComboBox<String> theme;
     public CheckBox autoSave;
 
+    // Editor
     public TextField panMultiplier;
     public TextField editorBGColor;
     public TextField editorOutlineColor;
-
-    public ScrollPane scrollPane;
+    public CheckBox editorDrawFromTop;
 
     private boolean isThemeChange = false;
 
@@ -46,6 +48,7 @@ public class GlobalPrefController {
             GlobalData.setPanMultiplier(Double.parseDouble(panMultiplier.getText()));
             GlobalData.setEditorBackgroundColor(editorBGColor.getText().replaceAll("#", ""));
             GlobalData.setEditorOutlineColor(editorOutlineColor.getText().replaceAll("#", ""));
+            GlobalData.setEditorDrawFromTop(editorDrawFromTop.isSelected());
 
             if(isThemeChange) {
                 if(Harmony.staticStage != null)
@@ -78,6 +81,7 @@ public class GlobalPrefController {
         panMultiplier.setText(Double.toString(GlobalData.getPanMultipler()));
         editorBGColor.setText(GlobalData.getEditorBackgroundColor());
         editorOutlineColor.setText(GlobalData.getEditorOutlineColor());
+        editorDrawFromTop.setSelected(GlobalData.getEditorDrawFromTop());
     }
 
     private void handleChanges() {

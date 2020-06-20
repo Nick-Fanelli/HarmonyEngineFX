@@ -140,6 +140,9 @@ public class NewEditor implements Runnable {
         });
     }
 
+    private TreeItem<String> clearItem = null;
+    private boolean shouldClear = false;
+
     private void handleCanvasInput() {
         canvas.setOnDragOver(dragEvent -> {
             if(dragEvent.getGestureSource() != canvas && copiedGameObject != null) {
@@ -197,10 +200,10 @@ public class NewEditor implements Runnable {
                        object.position.y + editorCamera.y + image.getHeight() >= mousePosition.y) {
 
                         if(!Harmony.shiftDown) {
-                            hierarchy.getSelectionModel().clearSelection();
-                            hierarchy.getSelectionModel().select(root.getChildren().get(i));
-                            selectionModel.setSelection(root.getChildren().get(i));
+                            shouldClear = true;
+                            clearItem = root.getChildren().get(i);
                         } else {
+                            shouldClear = false;
                             if(!selectionModel.contains(root.getChildren().get(i))) {
                                 hierarchy.getSelectionModel().select(root.getChildren().get(i));
                             } else {
@@ -226,6 +229,7 @@ public class NewEditor implements Runnable {
                 if(!Harmony.shiftDown) {
                     selectionModel.clear();
                     hierarchy.getSelectionModel().clearSelection();
+                    shouldClear = false;
                 }
 
                 NewEditor.draw();
@@ -235,15 +239,52 @@ public class NewEditor implements Runnable {
 
         canvas.setOnMouseReleased(mouseEvent -> {
             if(mouseEvent.getButton() == MouseButton.MIDDLE) Harmony.triggerHand(false);
+            else if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                if(shouldClear) {
+                    hierarchy.getSelectionModel().clearSelection();
+                    hierarchy.getSelectionModel().select(clearItem);
+                    selectionModel.setSelection(clearItem);
+                }
+            }
         });
 
         canvas.setOnMouseDragged(mouseEvent -> {
+            shouldClear = false;
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
                 if(Harmony.altDown) {
                     editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),
                             (float) (mouseEvent.getY() - mousePosition.y) * (float) GlobalData.getPanMultipler());
                 } else {
+                    GameObject selectedObject = null;
 
+                    for (TreeItem<String> item : selectionModel.model) {
+                        GameObject object = gameObjects.get(item);
+                        if (object == null) continue;
+
+                        Image image = images.get(object).getImage();
+                        if (image == null) continue;
+
+                        // Check to make sure the game object is in bounds.
+                        if (object.position.x + editorCamera.x > canvas.getWidth() || object.position.y + editorCamera.y > canvas.getHeight() ||
+                                object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
+                            continue;
+
+                        if (object.position.x + editorCamera.x <= mousePosition.x &&
+                                object.position.y + editorCamera.y <= mousePosition.y &&
+                                object.position.x + editorCamera.x + image.getWidth() >= mousePosition.x &&
+                                object.position.y + editorCamera.y + image.getHeight() >= mousePosition.y) {
+                            selectedObject = object;
+                            break;
+                        }
+                    }
+
+                    if(selectedObject != null) {
+                        for(TreeItem<String> item : selectionModel.model) {
+                            GameObject object = gameObjects.get(item);
+                            object.position.x = (float) mouseEvent.getX() - (mousePosition.x - object.position.x);
+                            object.position.y = (float) mouseEvent.getY() - (mousePosition.y - object.position.y);
+                        }
+                    }
                 }
             } else if(mouseEvent.getButton() == MouseButton.MIDDLE) {
                 editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),

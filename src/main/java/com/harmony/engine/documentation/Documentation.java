@@ -15,7 +15,7 @@ public class Documentation {
         PROJECT_TAB(String.format("%s/blob/%s/ProjectTab.md#project-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
         TEXTURES_TAB(String.format("%s/blob/%s/TexturesTab.md#textures-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
         GAME_OBJECTS_TAB(String.format("%s/blob/%s/GameObjectsTab.md#game-objects-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
-        EDITOR_TAB(String.format("%s/blob/%s/EditorTab.md#editor-tab"), GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING));
+        EDITOR_TAB(String.format("%s/blob/%s/EditorTab.md#editor-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING));
 
         public String url;
 

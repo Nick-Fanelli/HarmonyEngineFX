@@ -6,7 +6,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class Launcher extends Application {
 
@@ -24,6 +27,11 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        List<String> fontFamilies = Font.getFamilies();
+        for (String fontFamily: fontFamilies) {
+            Font.font(fontFamily);
+        }
+
         configureSystemProperties();
         staticStage = stage;
 
@@ -47,6 +55,7 @@ public class Launcher extends Application {
         });
 
         stage.show();
+
     }
 
     public static void configureSystemProperties() {

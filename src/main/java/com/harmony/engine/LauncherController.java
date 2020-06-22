@@ -65,7 +65,11 @@ public class LauncherController {
             alert.setContentText("All files in the directory: " + directory.getPath() + ":\n" + listFiles(children)
                     + "\nWill be overridden!");
 
-            ButtonType buttonTypeOverride = new ButtonType("Override");
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/engine.css").toExternalForm());
+            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+
+            ButtonType buttonTypeOverride = new ButtonType("Override", ButtonBar.ButtonData.OK_DONE);
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
             alert.getButtonTypes().setAll(buttonTypeOverride, buttonTypeCancel);
@@ -121,6 +125,10 @@ public class LauncherController {
             alert.setTitle("Error");
             alert.setHeaderText("Error Opening Project Directory");
             alert.setContentText("The selected directory is either not a Harmony Project directory or is corrupted.");
+
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/engine.css").toExternalForm());
+            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
             alert.showAndWait();
 

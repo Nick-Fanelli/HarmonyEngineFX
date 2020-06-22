@@ -9,9 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.List;
 
 public class Harmony extends Application {
 
@@ -19,6 +21,8 @@ public class Harmony extends Application {
 
     public static Stage staticStage;
     public static Scene staticScene;
+
+    private static Runnable inputThread;
 
     public static boolean controlDown = false;
     public static boolean sDown = false;
@@ -50,6 +54,11 @@ public class Harmony extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        List<String> fontFamilies = Font.getFamilies();
+        for (String fontFamily: fontFamilies) {
+            Font.font(fontFamily);
+        }
+
         Parent root = FXMLLoader.load(Harmony.class.getResource("/engine.fxml"));
 
         Scene scene = new Scene(root, 1280, 720);
@@ -72,7 +81,12 @@ public class Harmony extends Application {
 
         stage.setOnCloseRequest(event -> closeApplication());
 
-        scene.setOnKeyPressed(keyEvent -> {
+        inputThread = this::handleInput;
+        inputThread.run();
+    }
+
+    private void handleInput() {
+        staticScene.setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case CONTROL:
                 case COMMAND:
@@ -93,7 +107,7 @@ public class Harmony extends Application {
             }
         });
 
-        scene.setOnKeyReleased(keyEvent -> {
+        staticScene.setOnKeyReleased(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case CONTROL:
                 case COMMAND:

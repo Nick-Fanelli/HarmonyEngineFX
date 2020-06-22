@@ -106,6 +106,35 @@
     -fx-background-color: transparent;
 }
 
+.dialog-pane {
+    -fx-background-color: -fx-default-medium;
+}
+
+.dialog-pane .label {
+    -fx-font-family: Montserrat;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: -fx-default-dark;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-family: Montserrat;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.dialog-pane .button {
+    -fx-background-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: Montserrat;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: -fx-default-extra-light;
+}
+
 /* Tab Pane */
 
 .tab-pane > .tab-header-area {

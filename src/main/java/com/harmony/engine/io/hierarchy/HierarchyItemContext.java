@@ -1,5 +1,7 @@
 package com.harmony.engine.io.hierarchy;
 
+import com.harmony.engine.Harmony;
+import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.io.NewEditor;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;

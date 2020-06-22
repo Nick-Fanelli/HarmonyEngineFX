@@ -135,6 +135,68 @@
     -fx-background-color: -fx-default-extra-light;
 }
 
+context-menu {
+    -fx-background-color: -fx-default-medium;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-border-color: -fx-default-medium;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+}
+
+.menu-item {
+    -fx-background-color: -fx-default-medium;
+    -fx-border-color: -fx-default-medium -fx-default-medium -fx-default-medium -fx-default-medium;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+}
+
+.context-menu > * > .separator > .line {
+    -fx-border-color: -fx-default-dark;
+    -fx-border-insets: 0;
+}
+
+.menu-item .label {
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-border-insets: 0;
+}
+
+.menu-item:focused {
+    -fx-background-color: -fx-default-dark;
+    -fx-cursor: hand;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: -fx-default-medium;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: -fx-default-light;
+}
+
+.tree-view .tree-cell {
+    -fx-background-color: -fx-default-medium;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.tree-view .tree-cell:selected {
+    -fx-background-color: -fx-default-dark;
+    -fx-cursor: hand;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: -fx-default-text-fill;
+}
+
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: -fx-default-text-fill;
+}
+
 /* Tab Pane */
 
 .tab-pane > .tab-header-area {

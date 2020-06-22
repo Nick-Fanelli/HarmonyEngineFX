@@ -14,7 +14,8 @@ public class Documentation {
     public enum Location {
         PROJECT_TAB(String.format("%s/blob/%s/ProjectTab.md#project-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
         TEXTURES_TAB(String.format("%s/blob/%s/TexturesTab.md#textures-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
-        GAME_OBJECTS_TAB(String.format("%s/blob/%s/GameObjectsTab.md#game-objects-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING));
+        GAME_OBJECTS_TAB(String.format("%s/blob/%s/GameObjectsTab.md#game-objects-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
+        EDITOR_TAB(String.format("%s/blob/%s/EditorTab.md#editor-tab"), GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING));
 
         public String url;
 
@@ -43,6 +44,8 @@ public class Documentation {
             return Location.TEXTURES_TAB;
         else if (tab == engineController.gameObjectsTab)
             return Location.GAME_OBJECTS_TAB;
+        else if(tab == engineController.editorTab)
+        	return Location.EDITOR_TAB;
 
         System.err.println("Documentation not handled for tab \"" + tab.getText() + "\"");
         return null;

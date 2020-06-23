@@ -9,9 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.awt.Image;
-import java.net.URL;
 import java.util.List;
 
 public class Launcher extends Application {

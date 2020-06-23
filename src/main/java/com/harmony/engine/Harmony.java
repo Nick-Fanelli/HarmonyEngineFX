@@ -2,7 +2,7 @@ package com.harmony.engine;
 
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
-import com.harmony.engine.io.NewEditor;
+import com.harmony.engine.io.Editor;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -123,7 +123,7 @@ public class Harmony extends Application {
     }
 
     public static void triggerHand(boolean value) {
-        if(value && NewEditor.interactingWithCanvas) staticScene.setCursor(Cursor.CLOSED_HAND);
+        if(value && Editor.interactingWithCanvas) staticScene.setCursor(Cursor.CLOSED_HAND);
         else staticScene.setCursor(Cursor.DEFAULT);
     }
 

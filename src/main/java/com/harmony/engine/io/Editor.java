@@ -9,12 +9,9 @@ import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -23,12 +20,11 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NewEditor implements Runnable {
+public class Editor implements Runnable {
 
     public static final int CANVAS_POSITION_OFFSET = 111;
 
@@ -55,11 +51,11 @@ public class NewEditor implements Runnable {
 
     // Preferences
 
-    public NewEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy) {
-        NewEditor.canvas = canvas;
-        NewEditor.editorPane = editorPane;
-        NewEditor.objectsPane = objectsPane;
-        NewEditor.hierarchy = hierarchy;
+    public Editor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy) {
+        Editor.canvas = canvas;
+        Editor.editorPane = editorPane;
+        Editor.objectsPane = objectsPane;
+        Editor.hierarchy = hierarchy;
 
         if(editorThread != null) return;
 
@@ -136,7 +132,7 @@ public class NewEditor implements Runnable {
             selectionModel.clear();
             for(TreeItem<String> item : list) { if(item != root) selectionModel.addToSelection(item); }
 
-            NewEditor.draw();
+            Editor.draw();
         });
     }
 
@@ -220,7 +216,7 @@ public class NewEditor implements Runnable {
                             }
                         }
 
-                        NewEditor.draw();
+                        Editor.draw();
 
                         return;
                     }
@@ -232,7 +228,7 @@ public class NewEditor implements Runnable {
                     shouldClear = false;
                 }
 
-                NewEditor.draw();
+                Editor.draw();
             } else if(mouseEvent.getButton() == MouseButton.MIDDLE)
                 Harmony.triggerHand(true);
         });
@@ -292,7 +288,7 @@ public class NewEditor implements Runnable {
             }
 
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
-            NewEditor.draw();
+            Editor.draw();
         });
     }
 
@@ -392,7 +388,7 @@ public class NewEditor implements Runnable {
         hierarchy.getSelectionModel().clearSelection();
         hierarchy.getSelectionModel().select(key);
 
-        NewEditor.draw();
+        Editor.draw();
     }
 
     public static void removeGameObject(TreeItem<String> pointer) {
@@ -400,7 +396,7 @@ public class NewEditor implements Runnable {
         images.remove(object);
         gameObjects.remove(pointer);
         root.getChildren().remove(pointer);
-        NewEditor.draw();
+        Editor.draw();
     }
 
     // Utility Methods
@@ -422,7 +418,7 @@ public class NewEditor implements Runnable {
         GameObject object = gameObjects.get(key);
         editorCamera.set(object.position.copy().inverse());
 
-        NewEditor.draw();
+        Editor.draw();
     }
 
     // TODO: update to use parent of game object
@@ -450,7 +446,7 @@ public class NewEditor implements Runnable {
         hierarchy.getSelectionModel().clearSelection();
         hierarchy.getSelectionModel().select(key);
 
-        NewEditor.draw();
+        Editor.draw();
     }
 
     //TODO: update to use parent of game object
@@ -478,7 +474,7 @@ public class NewEditor implements Runnable {
         hierarchy.getSelectionModel().clearSelection();
         hierarchy.getSelectionModel().select(key);
 
-        NewEditor.draw();
+        Editor.draw();
     }
 
     public static HashMap<TreeItem<String>, GameObject> getHierarchy() { return gameObjects; }

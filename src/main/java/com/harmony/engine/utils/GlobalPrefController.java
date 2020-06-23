@@ -3,6 +3,7 @@ package com.harmony.engine.utils;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
 import com.harmony.engine.data.GlobalData;
+import com.harmony.engine.documentation.Documentation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -11,6 +12,7 @@ public class GlobalPrefController {
     public Button cancelButton;
     public Button applyButton;
     public Button resetToDefaultsButton;
+    public Button documentationButton;
     public ScrollPane scrollPane;
 
     // General
@@ -64,6 +66,8 @@ public class GlobalPrefController {
             GlobalData.setDefaults();
             this.initialize();
         });
+
+        documentationButton.setOnMouseClicked(mouseEvent -> Documentation.showDocumentation(Documentation.Location.GLOBAL_PREFERENCES));
 
         handleChanges();
     }

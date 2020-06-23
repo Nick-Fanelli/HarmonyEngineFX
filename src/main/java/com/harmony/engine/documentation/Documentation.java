@@ -12,22 +12,24 @@ public class Documentation {
     public static final String GITHUB_LOCATION = "https://github.com/HarmonyEngines/HarmonyDocumentation";
 
     public enum Location {
-        PROJECT_TAB(String.format("%s/blob/%s/ProjectTab.md#project-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
-        TEXTURES_TAB(String.format("%s/blob/%s/TexturesTab.md#textures-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
-        GAME_OBJECTS_TAB(String.format("%s/blob/%s/GameObjectsTab.md#game-objects-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING)),
-        EDITOR_TAB(String.format("%s/blob/%s/EditorTab.md#editor-tab", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING));
+        PROJECT_TAB(Location.getLocation("ProjectTab.md#project-tab")),
+        TEXTURES_TAB(Location.getLocation("TexturesTab.md#textures-tab")),
+        GAME_OBJECTS_TAB(Location.getLocation("GameObjectsTab.md#game-objects-tab")),
+        EDITOR_TAB(Location.getLocation("EditorTab.md#editor-tab")),
+        GLOBAL_PREFERENCES(Location.getLocation("GlobalPreferences.md#global-preferences"));
 
         public String url;
 
         Location (String url) {
             this.url = url;
         }
+
+        public static String getLocation(String subLocation) {
+            return String.format("%s/blob/%s/%s", GITHUB_LOCATION, Launcher.GITHUB_VERSION_STRING, subLocation);
+        }
     }
 
-    public static void showDocumentation(EngineController engineController, Tab tab) {
-        Location location = Documentation.getDocumentationLocation(engineController, tab);
-        if(location == null) return;
-
+    public static void showDocumentation(Location location) {
         URI uri = URI.create(location.url);
 
         try {
@@ -35,6 +37,12 @@ public class Documentation {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void showDocumentation(EngineController engineController, Tab tab) {
+        Location location = Documentation.getDocumentationLocation(engineController, tab);
+        if(location == null) return;
+        showDocumentation(location);
     }
 
     public static Location getDocumentationLocation(EngineController engineController, Tab tab) {

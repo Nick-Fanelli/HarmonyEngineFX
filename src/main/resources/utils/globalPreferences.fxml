@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@../engine.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.GlobalPrefController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@../engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.GlobalPrefController">
    <children>
       <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background: transparent;">
         <content>
@@ -62,6 +57,7 @@
                         </Group>
                      </children>
                   </Group>
+                  <Button fx:id="documentationButton" layoutX="662.0" layoutY="46.0" mnemonicParsing="false" styleClass="default-button" text="Documentation" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="46.0" />
                </children>
             </AnchorPane>
         </content>

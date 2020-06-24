@@ -2,7 +2,7 @@ package com.harmony.engine.data;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
-import com.harmony.engine.io.Editor;
+import com.harmony.engine.io.editor.StateEditor;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.textures.Texture;
@@ -111,7 +111,7 @@ public class ProjectData {
     private static void addHierarchyAttributes(Element rootElement, Document document) {
         Element hierarchyElement = createContainerElement(document, "Hierarchy");
 
-        for(Map.Entry<TreeItem<String>, GameObject> entry : Editor.getHierarchy().entrySet()) {
+        for(Map.Entry<TreeItem<String>, GameObject> entry : StateEditor.getHierarchy().entrySet()) {
             hierarchyElement.appendChild(createHObjectElement(document, entry));
         }
 

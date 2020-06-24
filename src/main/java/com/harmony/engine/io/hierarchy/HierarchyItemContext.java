@@ -1,6 +1,6 @@
 package com.harmony.engine.io.hierarchy;
 
-import com.harmony.engine.io.Editor;
+import com.harmony.engine.io.editor.StateEditor;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
@@ -46,12 +46,12 @@ public class HierarchyItemContext extends ContextMenu {
     }
 
     public void handleInput() {
-        deleteItem.setOnAction(actionEvent -> Editor.deleteSelectedGameObjects());
+        deleteItem.setOnAction(actionEvent -> StateEditor.deleteSelectedGameObjects());
 
-        moveUp.setOnAction(actionEvent -> Editor.moveSelectedGameObjectUp());
-        moveDown.setOnAction(actionEvent -> Editor.moveSelectedGameObjectDown());
+        moveUp.setOnAction(actionEvent -> StateEditor.moveSelectedGameObjectUp());
+        moveDown.setOnAction(actionEvent -> StateEditor.moveSelectedGameObjectDown());
 
-        find.setOnAction(actionEvent -> Editor.findSelectedGameObject());
+        find.setOnAction(actionEvent -> StateEditor.findSelectedGameObject());
     }
 
 }

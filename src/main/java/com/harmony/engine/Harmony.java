@@ -2,7 +2,7 @@ package com.harmony.engine;
 
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
-import com.harmony.engine.io.Editor;
+import com.harmony.engine.io.editor.StateEditor;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -72,8 +72,8 @@ public class Harmony extends Application {
         scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
         stage.setTitle("Harmony Engine v1.0");
-        stage.setMinHeight(400);
-        stage.setMinWidth(600);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.centerOnScreen();
@@ -123,7 +123,7 @@ public class Harmony extends Application {
     }
 
     public static void triggerHand(boolean value) {
-        if(value && Editor.interactingWithCanvas) staticScene.setCursor(Cursor.CLOSED_HAND);
+        if(value && StateEditor.interactingWithCanvas) staticScene.setCursor(Cursor.CLOSED_HAND);
         else staticScene.setCursor(Cursor.DEFAULT);
     }
 

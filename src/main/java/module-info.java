@@ -4,6 +4,7 @@ module com.harmony {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.swing;
+    requires javafx.web;
 
     // Open to JavaFX
     opens com.harmony.engine to javafx.fxml;
@@ -12,6 +13,7 @@ module com.harmony {
     exports com.harmony.engine;
 
     exports com.harmony.engine.io;
+    exports com.harmony.engine.io.editor;
     exports com.harmony.engine.io.hierarchy;
 
     exports com.harmony.engine.data;

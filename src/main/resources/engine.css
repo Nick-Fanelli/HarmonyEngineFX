@@ -204,7 +204,7 @@ context-menu {
 }
 
 .tab-pane > .tab-header-area > .tab-header-background {
-    -fx-background-color: #E1E1E1, -fx-default-dark;
+    -fx-background-color: -fx-default-dark, -fx-default-dark;
     -fx-background-insets: 0, 0 0 1px 0;
 }
 
@@ -270,4 +270,27 @@ context-menu {
 
 #new-proj-btn:hover {
     -fx-background-color: -fx-default-light;
+}
+
+/* Code Editor */
+/* default text styling */
+#codeArea .text {
+    -fx-fill: -fx-default-text-fill;
+    -fx-font-size: 15px;
+}
+/* Overriding styling for key words */
+#codeArea .keyword {
+    -fx-fill: blue;
+}
+/* Overriding styling for operators */
+#codeArea .operator {
+    -fx-fill: purple;
+}
+
+#codeArea {
+    -fx-background-color: -fx-default-medium;
+}
+
+.lineno {
+ -fx-background-color: -fx-default-dark;
 }

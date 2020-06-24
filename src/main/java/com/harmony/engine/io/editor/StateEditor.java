@@ -1,9 +1,10 @@
-package com.harmony.engine.io;
+package com.harmony.engine.io.editor;
 
 import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.SelectionModel;
 import com.harmony.engine.io.hierarchy.HierarchyItemContext;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.Status;
@@ -24,7 +25,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Editor implements Runnable {
+public class StateEditor implements Runnable {
 
     public static final int CANVAS_POSITION_OFFSET = 111;
 
@@ -51,15 +52,15 @@ public class Editor implements Runnable {
 
     // Preferences
 
-    public Editor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy) {
-        Editor.canvas = canvas;
-        Editor.editorPane = editorPane;
-        Editor.objectsPane = objectsPane;
-        Editor.hierarchy = hierarchy;
+    public StateEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy) {
+        StateEditor.canvas = canvas;
+        StateEditor.editorPane = editorPane;
+        StateEditor.objectsPane = objectsPane;
+        StateEditor.hierarchy = hierarchy;
 
         if(editorThread != null) return;
 
-        editorThread = new Thread(this, "Harmony:EditorThread");
+        editorThread = new Thread(this, "Harmony:StateEditor");
         editorThread.start();
     }
 
@@ -132,7 +133,7 @@ public class Editor implements Runnable {
             selectionModel.clear();
             for(TreeItem<String> item : list) { if(item != root) selectionModel.addToSelection(item); }
 
-            Editor.draw();
+            StateEditor.draw();
         });
     }
 
@@ -216,7 +217,7 @@ public class Editor implements Runnable {
                             }
                         }
 
-                        Editor.draw();
+                        StateEditor.draw();
 
                         return;
                     }
@@ -228,7 +229,7 @@ public class Editor implements Runnable {
                     shouldClear = false;
                 }
 
-                Editor.draw();
+                StateEditor.draw();
             } else if(mouseEvent.getButton() == MouseButton.MIDDLE)
                 Harmony.triggerHand(true);
         });
@@ -288,7 +289,7 @@ public class Editor implements Runnable {
             }
 
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
-            Editor.draw();
+            StateEditor.draw();
         });
     }
 
@@ -388,7 +389,7 @@ public class Editor implements Runnable {
         hierarchy.getSelectionModel().clearSelection();
         hierarchy.getSelectionModel().select(key);
 
-        Editor.draw();
+        StateEditor.draw();
     }
 
     public static void removeGameObject(TreeItem<String> pointer) {
@@ -396,7 +397,7 @@ public class Editor implements Runnable {
         images.remove(object);
         gameObjects.remove(pointer);
         root.getChildren().remove(pointer);
-        Editor.draw();
+        StateEditor.draw();
     }
 
     // Utility Methods
@@ -418,7 +419,7 @@ public class Editor implements Runnable {
         GameObject object = gameObjects.get(key);
         editorCamera.set(object.position.copy().inverse());
 
-        Editor.draw();
+        StateEditor.draw();
     }
 
     // TODO: update to use parent of game object
@@ -446,7 +447,7 @@ public class Editor implements Runnable {
         hierarchy.getSelectionModel().clearSelection();
         hierarchy.getSelectionModel().select(key);
 
-        Editor.draw();
+        StateEditor.draw();
     }
 
     //TODO: update to use parent of game object
@@ -474,7 +475,7 @@ public class Editor implements Runnable {
         hierarchy.getSelectionModel().clearSelection();
         hierarchy.getSelectionModel().select(key);
 
-        Editor.draw();
+        StateEditor.draw();
     }
 
     public static HashMap<TreeItem<String>, GameObject> getHierarchy() { return gameObjects; }

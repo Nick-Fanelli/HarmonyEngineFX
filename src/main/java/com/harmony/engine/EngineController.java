@@ -3,7 +3,8 @@ package com.harmony.engine;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
-import com.harmony.engine.io.Editor;
+import com.harmony.engine.io.editor.CodeEditor;
+import com.harmony.engine.io.editor.StateEditor;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.gameObjects.GameObjectUtils;
@@ -11,15 +12,16 @@ import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
@@ -90,6 +92,10 @@ public class EngineController implements Runnable {
     public GridPane objectsPane;
     public TreeView<String> hierarchy;
 
+    // Code Tab
+    public TreeView<String> codeFileList;
+    public WebView codeView;
+
     @FXML
     public void initialize() {
         initMiscMethods();
@@ -106,6 +112,7 @@ public class EngineController implements Runnable {
         initTexturesTab();
         initGameObjectsTab();
         initEditorTab();
+        initCodeTab();
 
         Status.setCurrentStatus(Status.Type.READY);
     }
@@ -127,7 +134,7 @@ public class EngineController implements Runnable {
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
 
         tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
-            if(t1 == editorTab) Editor.update();
+            if(t1 == editorTab) StateEditor.update();
             else if(t1 == gameObjectsTab) synchronizeGameObjects();
             else if(t1 == texturesTab) synchronizeTextures();
         });
@@ -341,6 +348,9 @@ public class EngineController implements Runnable {
 
     // Editor Methods
     private void initEditorTab() {
-        new Editor(editorCanvas, editorPane, objectsPane, hierarchy);
+        new StateEditor(editorCanvas, editorPane, objectsPane, hierarchy);
     }
+
+    // Code Methods
+    private void initCodeTab() { new CodeEditor(codeFileList, codeView); }
 }

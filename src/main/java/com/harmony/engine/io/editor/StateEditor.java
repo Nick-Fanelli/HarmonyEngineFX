@@ -5,7 +5,7 @@ import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.SelectionModel;
-import com.harmony.engine.io.hierarchy.HierarchyItemContext;
+import com.harmony.engine.io.context.HierarchyItemContext;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;

@@ -26,12 +26,16 @@ public class Status {
         EngineController.setStatusLabel(type.toString(), type.color);
     }
 
+    public static void setUtilityText(String content) {
+        EngineController.staticUtilityLabel.setText(content == null ? "" : content);
+    }
+
     public static void setMousePosition(Vector2f position) {
         if(position == null) {
-            EngineController.staticMousePositionLabel.setText("");
+            setUtilityText(null);
             return;
         }
 
-        EngineController.staticMousePositionLabel.setText(String.format("(%s)", position.toString()));
+        setUtilityText(String.format("(%s)", position.toString()));
     }
 }

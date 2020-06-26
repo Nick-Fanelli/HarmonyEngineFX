@@ -2,6 +2,7 @@ package com.harmony.engine;
 
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.editor.CodeEditor;
 import com.harmony.engine.io.editor.StateEditor;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -101,8 +102,7 @@ public class Harmony extends Application {
 
             if(controlDown && sDown && !saving) {
                 saving = true;
-                System.out.println("Harmony -> Saving...");
-                ProjectData.save(Harmony.directory);
+                save();
                 saving = false;
             }
         });
@@ -120,6 +120,12 @@ public class Harmony extends Application {
                 case SHIFT: shiftDown = false;  break;
             }
         });
+    }
+
+    public static void save() {
+        System.out.println("Harmony -> Saving...");
+        ProjectData.save(Harmony.directory);
+        CodeEditor.saveSelectedScript();
     }
 
     public static void triggerHand(boolean value) {

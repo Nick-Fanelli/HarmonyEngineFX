@@ -1,7 +1,8 @@
 package com.harmony.engine.io.editor;
 
-import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
+import com.harmony.engine.data.DataUtils;
+import com.harmony.engine.utils.Status;
 import javafx.application.Platform;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -9,8 +10,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class CodeEditor implements Runnable {
@@ -20,7 +28,11 @@ public class CodeEditor implements Runnable {
     );
 
     public static final ImageView PYTHON_ICON = new ImageView(
-            new Image(CodeEditor.class.getResource("/images/icons/python-icon.png").toExternalForm(), 18, 18, true, true)
+            new Image(CodeEditor.class.getResource("/images/icons/file/python-icon.png").toExternalForm(), 18, 18, true, true)
+    );
+
+    public static final ImageView TEXT_ICON = new ImageView(
+            new Image(CodeEditor.class.getResource("/images/icons/file/text-icon.png").toExternalForm(), 18, 18, true, true)
     );
 
     private static Thread codeEditorThread = null;
@@ -28,7 +40,7 @@ public class CodeEditor implements Runnable {
     private static Runnable inputRunnable;
 
     private static TreeView<String> codeFileList;
-    private static WebView codeView;
+    private static WebEngine webEngine;
 
     private static TreeItem<String> root = new TreeItem<>("Scripts");
     private static HashMap<TreeItem<String>, File> scripts = new HashMap<>();
@@ -36,7 +48,7 @@ public class CodeEditor implements Runnable {
 
     public CodeEditor(TreeView<String> codeFileList, WebView codeView) {
         CodeEditor.codeFileList = codeFileList;
-        CodeEditor.codeView = codeView;
+        CodeEditor.webEngine = codeView.getEngine();
 
         if(codeEditorThread != null) return;
 
@@ -94,13 +106,14 @@ public class CodeEditor implements Runnable {
                 try {
                     if (child.getName().split("\\.")[1].equals("py"))
                         childItem.setGraphic(CodeEditor.PYTHON_ICON);
+                    else
+                        childItem.setGraphic(CodeEditor.TEXT_ICON);
                 } catch (Exception ignored) {}
             }
         }
     }
 
     private void initializeCodeView() {
-        WebEngine webEngine = codeView.getEngine();
         webEngine.load(CodeEditor.class.getResource("/editor/editor.html").toExternalForm());
     }
 
@@ -111,13 +124,42 @@ public class CodeEditor implements Runnable {
     }
 
     private void selectScript(TreeItem<String> key) {
+        saveSelectedScript();
         File file = scripts.get(key);
         if(file == null || file.isDirectory()) return;
         selectedScript = scripts.get(key);
-        if(selectedScript != null) loadScript(selectedScript);
+        if(selectedScript != null) loadScript(selectedScript, DataUtils.FileType.fromFile(file));
     }
 
-    public static void loadScript(File file) {
-        System.out.println(file.getName());
+    public static void saveSelectedScript() {
+        if(selectedScript != null) {
+            Document document = webEngine.getDocument();
+
+            webEngine.executeScript("var code = editor.getValue();" +
+                    "document.getElementById(\"bufferObject\").innerHTML = code");
+
+            NodeList nList = document.getElementsByTagName("buffer");
+
+            if(nList.getLength() > 0) {
+                Node node = nList.item(0);
+
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(selectedScript));
+                    writer.write(node.getTextContent());
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void loadScript(File file, DataUtils.FileType type) {
+        webEngine.executeScript(
+                "var docSession = new ace.createEditSession(\"" +
+                        DataUtils.readFileForAce(file) + "\", \"ace/mode/" + type.aceKey + "\");\n" +
+                    "editor.setSession(docSession);"
+        );
+        Status.setUtilityText(file.getName());
     }
 }

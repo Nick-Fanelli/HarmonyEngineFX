@@ -38,7 +38,7 @@ public class EngineController implements Runnable {
     public TabPane tabBar;
 
     public static Label staticStatusLabel;
-    public static Label staticMousePositionLabel;
+    public static Label staticUtilityLabel;
     public Label statusLabel;
     public Label mousePositionLabel;
 
@@ -120,7 +120,7 @@ public class EngineController implements Runnable {
     // Misc Methods
     private void initMiscMethods() {
         staticStatusLabel = statusLabel;
-        staticMousePositionLabel = mousePositionLabel;
+        staticUtilityLabel = mousePositionLabel;
 
         Status.setCurrentStatus(Status.Type.STAND_BY);
 

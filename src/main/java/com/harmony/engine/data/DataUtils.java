@@ -7,6 +7,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.*;
+
 public class DataUtils {
 
     // Game Object Utils
@@ -74,5 +76,63 @@ public class DataUtils {
         float y = Float.parseFloat(data.getAttribute("y"));
 
         return new Vector2f(x, y);
+    }
+
+    // File Utils
+    public enum FileType {
+        PYTHON("python"),
+        TEXT("plain_text");
+
+        public String aceKey;
+        FileType(String aceKey) { this.aceKey = aceKey; }
+
+        public static FileType fromExtension(String extension) {
+            switch (extension) {
+                case "py":
+                    return PYTHON;
+                case "txt":
+                    return TEXT;
+            }
+
+            return TEXT;
+        }
+
+        public static FileType fromFile(File file) {
+            String[] split = file.getName().split("\\.");
+            if(split.length > 1) return fromExtension(split[split.length - 1]);
+            return TEXT;
+        }
+    }
+
+    public static String readFile(File file) {
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            String line;
+
+            while((line = reader.readLine()) != null) { builder.append(line).append("\n"); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return builder.toString();
+    }
+
+    public static String readFileForAce(File file) {
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            String line;
+
+            while((line = reader.readLine()) != null) { builder.append(line).append("\\n"); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return builder.toString();
     }
 }

@@ -55,19 +55,17 @@ public class EngineController implements Runnable {
     public Button openDocumentationButton;
 
     // Textures Tab
-    public static ListView<String> staticTexturesList;
-
     public Tab texturesTab;
-    public ListView<String> texturesList;
-    public Button newTextureButton;
-    public Button deleteTextureButton;
-
-    public AnchorPane textureInteractables;
-    public TextField textureField;
-    public TextField textureLocationField;
-    public ImageView textureImageView;
-    public Button saveTextureButton;
-    public Button chooseTextureButton;
+//    public ListView<String> texturesList;
+//    public Button newTextureButton;
+//    public Button deleteTextureButton;
+//
+//    public AnchorPane textureInteractables;
+//    public TextField textureField;
+//    public TextField textureLocationField;
+//    public ImageView textureImageView;
+//    public Button saveTextureButton;
+//    public Button chooseTextureButton;
 
     // GameObjects Tab
     public static ListView<String> staticGameObjectsList;
@@ -136,7 +134,7 @@ public class EngineController implements Runnable {
         tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
             if(t1 == editorTab) StateEditor.update();
             else if(t1 == gameObjectsTab) synchronizeGameObjects();
-            else if(t1 == texturesTab) synchronizeTextures();
+//            else if(t1 == texturesTab) synchronizeTextures();
         });
     }
 
@@ -182,82 +180,9 @@ public class EngineController implements Runnable {
 
     // Textures Methods
     private void initTexturesTab() {
-        EngineController.staticTexturesList = texturesList;
-        textureInteractables.setVisible(false);
 
-        EngineController.synchronizeTextures();
-        handleTextureElements();
     }
-    private void handleTextureElements() {
-        newTextureButton.setOnMouseClicked(mouseEvent -> {
-            TextureUtils.createTexture();
-        });
 
-        deleteTextureButton.setOnMouseClicked(mouseEvent -> {
-            int id = staticTexturesList.getSelectionModel().getSelectedIndex();
-            staticTexturesList.getItems().remove(id);
-            ProjectData.textures.remove(id);
-            EngineController.synchronizeTextures();
-        });
-
-        staticTexturesList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-            int index = staticTexturesList.getSelectionModel().getSelectedIndex();
-
-            if (index < 0) {
-                textureInteractables.setVisible(false);
-                return;
-            } else {
-                textureInteractables.setVisible(true);
-            }
-
-            Texture texture = ProjectData.textures.get(index);
-
-            textureField.setText(texture.name);
-            textureLocationField.setText(texture.path);
-
-            setTexturesImage(texture.path);
-        });
-
-        saveTextureButton.setOnMouseClicked(mouseEvent -> {
-            int index = staticTexturesList.getSelectionModel().getSelectedIndex();
-
-            if (index < 0) return;
-
-            // Put The New Data In The Data Buffer
-            ProjectData.textures.get(index).name = textureField.getText().trim();
-            ProjectData.textures.get(index).path = textureLocationField.getText().trim().replaceAll(Harmony.directory.getPath(), "");
-
-            // Update The Static Textures List
-            staticTexturesList.getItems().set(index, textureField.getText().trim());
-            staticTexturesList.getSelectionModel().select(index);
-            staticTexturesList.scrollTo(index);
-        });
-
-        chooseTextureButton.setOnMouseClicked(mouseEvent -> {
-            int index = staticTexturesList.getSelectionModel().getSelectedIndex();
-            if (index < 0) return;
-
-            FileChooser chooser = new FileChooser();
-            chooser.setInitialDirectory(new File(Harmony.directory.getPath() + File.separator + "Resources" + File.separator + "Textures"));
-            chooser.setTitle("Choose Texture");
-            File selectedFile = chooser.showOpenDialog(Harmony.staticStage);
-
-            if (selectedFile == null) return;
-
-            textureLocationField.setText(Harmony.getResourceString(selectedFile.getPath()));
-            setTexturesImage(Harmony.getResourceString(selectedFile.getPath()));
-        });
-    }
-    private void setTexturesImage(String path) {
-        try {
-            textureImageView.setImage(new Image(new FileInputStream(new File(Harmony.directory.getPath() + path))));
-            textureLocationField.setStyle("-fx-text-fill: #eeeeee;");
-        } catch (FileNotFoundException e) {
-            System.err.println("Harmony -> Could not load resource(s): " + path);
-            textureImageView.setImage(new Image(EngineController.class.getResourceAsStream("/images/image-not-found.png")));
-            textureLocationField.setStyle("-fx-text-fill: red;");
-        }
-    }
     public static Image loadTexturesImage(String path) {
         try {
             return new Image(new FileInputStream(new File(Harmony.directory.getPath() + path)));
@@ -266,14 +191,6 @@ public class EngineController implements Runnable {
         }
 
         return null;
-    }
-    public static void synchronizeTextures() {
-        staticTexturesList.getItems().clear();
-
-        for (int i = 0; i < ProjectData.textures.size(); i++) {
-            staticTexturesList.getItems().add(i, ProjectData.textures.get(i).name);
-            ProjectData.textures.get(i).id = i;
-        }
     }
 
     // GameObject Methods

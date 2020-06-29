@@ -57,16 +57,7 @@ public class EngineController implements Runnable {
     public Tab texturesTab;
     public ScrollPane texturesScrollPane;
     public GridPane texturesArray;
-//    public ListView<String> texturesList;
-//    public Button newTextureButton;
-//    public Button deleteTextureButton;
-//
-//    public AnchorPane textureInteractables;
-//    public TextField textureField;
-//    public TextField textureLocationField;
-//    public ImageView textureImageView;
-//    public Button saveTextureButton;
-//    public Button chooseTextureButton;
+    public Button newTextureButton;
 
     // GameObjects Tab
     public static ListView<String> staticGameObjectsList;
@@ -180,7 +171,7 @@ public class EngineController implements Runnable {
     }
 
     // Textures Methods
-    private void initTexturesTab() { new TexturesTab(texturesArray, texturesScrollPane); }
+    private void initTexturesTab() { new TexturesTab(texturesArray, texturesScrollPane, newTextureButton); }
 
     public static Image loadTexturesImage(String path) {
         try {

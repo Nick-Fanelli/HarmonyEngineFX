@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.web.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.EngineController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@engine.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.EngineController">
    <children>
       <TabPane fx:id="tabBar" layoutY="28.0" prefHeight="373.0" prefWidth="800.0" style="-fx-border-color: -fx-default-dark;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -53,6 +65,7 @@
                                                         <ColumnConstraints hgrow="ALWAYS" minWidth="75.0" prefWidth="100.0" />
                                                         <ColumnConstraints hgrow="ALWAYS" minWidth="75.0" prefWidth="100.0" />
                                                         <ColumnConstraints hgrow="ALWAYS" minWidth="75.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="ALWAYS" minWidth="75.0" prefWidth="100.0" />
                                                       </columnConstraints>
                                                       <rowConstraints>
                                                         <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
@@ -60,6 +73,7 @@
                                                         <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
                                                       </rowConstraints>
                                                     </GridPane>
+                                                <Button fx:id="newTextureButton" mnemonicParsing="false" style="-fx-background-color: green;" styleClass="default-button" text="New" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0" />
                                                  </children>
                                              </AnchorPane>
                                          </content>

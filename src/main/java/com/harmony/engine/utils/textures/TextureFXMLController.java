@@ -1,6 +1,5 @@
 package com.harmony.engine.utils.textures;
 
-import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.tabs.TexturesTab;
@@ -31,7 +30,7 @@ public class TextureFXMLController {
         locationButton.setOnMouseClicked(mouseEvent -> {
             FileChooser chooser = new FileChooser();
             chooser.setTitle("Choose Texture");
-            chooser.setInitialDirectory(new File(Harmony.directory.getPath() + File.separator + "Resources"));
+            chooser.setInitialDirectory(new File(Harmony.directory.getPath() + File.separator + "Resources" + File.separator + "Textures"));
             File selectedFile = chooser.showOpenDialog(TextureUtils.staticStage);
 
             if(selectedFile != null) {

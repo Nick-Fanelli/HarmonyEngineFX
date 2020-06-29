@@ -59,6 +59,12 @@ public class EngineController implements Runnable {
     public GridPane texturesArray;
     public Button newTextureButton;
 
+    public AnchorPane texturesInteractables;
+    public TextField textureName;
+    public TextField textureLocation;
+    public Button chooseTextureButton;
+    public Button deleteTextureButton;
+
     // GameObjects Tab
     public static ListView<String> staticGameObjectsList;
 
@@ -171,13 +177,14 @@ public class EngineController implements Runnable {
     }
 
     // Textures Methods
-    private void initTexturesTab() { new TexturesTab(texturesArray, texturesScrollPane, newTextureButton); }
+    private void initTexturesTab() { new TexturesTab(texturesArray, newTextureButton, texturesInteractables, textureName,
+            textureLocation, chooseTextureButton, deleteTextureButton); }
 
     public static Image loadTexturesImage(String path) {
         try {
             return new Image(new FileInputStream(new File(Harmony.directory.getPath() + path)));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Harmony -> Could not find an image at \"" + path + "\"");
         }
 
         return null;

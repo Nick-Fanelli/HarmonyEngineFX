@@ -21,6 +21,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ProjectData {
@@ -91,7 +92,7 @@ public class ProjectData {
     private static void addTextureAttributes(Element rootElement, Document document) {
         Element texturesElement = createContainerElement(document, "Textures");
 
-        for(Texture texture : ProjectData.textures) {
+        for(Texture texture : textures) {
             texturesElement.appendChild(createTextureElement(document, texture.path, texture.name, texture.id));
         }
 
@@ -220,7 +221,7 @@ public class ProjectData {
                 Texture texture = new Texture(eElement.getAttribute("path").trim(),
                         eElement.getAttribute("name").trim(),
                         Integer.parseInt(eElement.getAttribute("id").trim()));
-                textures.add(texture.id, texture);
+                textures.add(texture);
             }
         }
     }

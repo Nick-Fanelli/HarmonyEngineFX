@@ -220,11 +220,12 @@ context-menu {
 }
 
 .item-array {
-    -fx-background-color: -fx-default-medium;
+    -fx-background-color: -fx-default-dark;
     -fx-cursor: hand;
 }
 
-.item-array:hover { -fx-background-color: -fx-default-dark; }
+.item-array:hover { -fx-background-color: -fx-default-medium; }
+.item-array.selected { -fx-background-color: -fx-default-extra-light; }
 
 
 /* Tab Pane */

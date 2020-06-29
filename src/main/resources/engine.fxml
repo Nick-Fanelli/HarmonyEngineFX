@@ -80,7 +80,34 @@
                                       </ScrollPane>
                                  </children>
                               </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                              <AnchorPane fx:id="texturesInteractables" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="1.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="76.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="171.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="10.0" prefWidth="196.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="249.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" styleClass="default-label" text="Name:" />
+                                          <TextField fx:id="textureName" styleClass="default-text-field" GridPane.columnIndex="1" />
+                                          <Label alignment="CENTER_RIGHT" styleClass="default-label" text="Location:" GridPane.rowIndex="1" />
+                                          <TextField fx:id="textureLocation" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Button fx:id="chooseTextureButton" mnemonicParsing="false" styleClass="default-button" text="Choose Location" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Button fx:id="deleteTextureButton" mnemonicParsing="false" style="-fx-background-color: #f55442;" styleClass="default-button" text="Delete" GridPane.rowIndex="5" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
                           </items>
                         </SplitPane>
                      </children></AnchorPane>

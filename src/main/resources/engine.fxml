@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@engine.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.EngineController">
@@ -26,25 +27,45 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>
-                        <Group layoutX="14.0" layoutY="14.0">
+                        <GridPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="197.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200200.0" minWidth="10.0" prefWidth="123.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="57.0" minHeight="57.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
                            <children>
-                              <TextField fx:id="projectName" layoutX="138.0" promptText="Game Name" styleClass="default-text-field" />
-                              <Label layoutY="5.0" styleClass="default-label" text="Project Name:" textFill="#e4e4e4" />
+                              <TextField fx:id="projectName" promptText="Game Name" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label styleClass="default-label" text="Project Name:" textFill="#e4e4e4" GridPane.rowIndex="1" />
+                              <Label styleClass="default-label" text="Author:" textFill="#e4e4e4" GridPane.rowIndex="2" />
+                              <TextField fx:id="author" promptText="Company Name" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="version" promptText="Eg. 4.6.2" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label styleClass="default-label" text="Version:" textFill="#e4e4e4" GridPane.rowIndex="3" />
+                              <Label prefHeight="26.0" prefWidth="286.0" style="-fx-font-size: 30px;" styleClass="default-label" text="Project Settings" GridPane.columnSpan="2">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
                            </children>
-                        </Group>
-                        <Group layoutX="14.0" layoutY="52.0">
-                           <children>
-                              <TextField fx:id="author" layoutX="137.0" promptText="Company Name" styleClass="default-text-field" />
-                              <Label layoutY="5.0" styleClass="default-label" text="Author:" textFill="#e4e4e4" />
-                           </children>
-                        </Group>
-                        <Group layoutX="14.0" layoutY="91.0">
-                           <children>
-                              <TextField fx:id="version" layoutX="137.0" promptText="Eg. 4.6.2" styleClass="default-text-field" />
-                              <Label layoutY="5.0" styleClass="default-label" text="Version:" textFill="#e4e4e4" />
-                           </children>
-                        </Group>
-                        <Button fx:id="openDocumentationButton" layoutX="436.0" layoutY="14.0" mnemonicParsing="false" styleClass="default-choose-button" text="Full Documentation" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        </GridPane>
+                        <Button fx:id="openDocumentationButton" mnemonicParsing="false" styleClass="default-choose-button" text="Full Documentation" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                      </children></AnchorPane>
             </content>
           </Tab>

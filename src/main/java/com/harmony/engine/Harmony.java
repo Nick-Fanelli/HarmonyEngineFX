@@ -75,6 +75,8 @@ public class Harmony extends Application {
         stage.setTitle("Harmony Engine v1.0");
         stage.setMinHeight(600);
         stage.setMinWidth(800);
+        stage.setWidth(1280);
+        stage.setHeight(720);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.centerOnScreen();

@@ -5,15 +5,16 @@ import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
 import com.harmony.engine.io.editor.CodeEditor;
 import com.harmony.engine.io.editor.StateEditor;
+import com.harmony.engine.io.tabs.TexturesTab;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.gameObjects.GameObjectUtils;
-import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,12 +23,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
-import javafx.stage.FileChooser;
 
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URI;
 
 public class EngineController implements Runnable {
@@ -56,6 +55,8 @@ public class EngineController implements Runnable {
 
     // Textures Tab
     public Tab texturesTab;
+    public ScrollPane texturesScrollPane;
+    public GridPane texturesArray;
 //    public ListView<String> texturesList;
 //    public Button newTextureButton;
 //    public Button deleteTextureButton;
@@ -179,9 +180,7 @@ public class EngineController implements Runnable {
     }
 
     // Textures Methods
-    private void initTexturesTab() {
-
-    }
+    private void initTexturesTab() { new TexturesTab(texturesArray, texturesScrollPane); }
 
     public static Image loadTexturesImage(String path) {
         try {
@@ -192,6 +191,16 @@ public class EngineController implements Runnable {
 
         return null;
     }
+    public static Image loadTexturesImage(String path, int width, int height) {
+        try {
+            return new Image(new FileInputStream(new File(Harmony.directory.getPath() + path)), width, height, true, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     // GameObject Methods
     private void initGameObjectsTab() {

@@ -3,6 +3,7 @@ package com.harmony.engine.utils.textures;
 import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.tabs.TexturesTab;
 import com.harmony.engine.utils.Status;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,7 +53,7 @@ public class TextureFXMLController {
             if(!(locationField.getText().isEmpty() || nameField.getText().isEmpty())) {
                 ProjectData.textures.add(new Texture(Harmony.getResourceString(locationField.getText()), nameField.getText().trim(),
                         ProjectData.textures.size()));
-                EngineController.synchronizeTextures();
+                TexturesTab.synchronize.run();
                 Status.setCurrentStatus(Status.Type.READY);
                 TextureUtils.staticStage.close();
             }

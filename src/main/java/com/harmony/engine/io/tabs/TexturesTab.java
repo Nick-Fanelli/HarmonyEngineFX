@@ -54,7 +54,7 @@ public class TexturesTab {
             HBox hBox = new HBox();
             hBox.getStyleClass().add("item-array");
             hBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.setPadding(new Insets(0, 0, 0, 30));
+            hBox.setPadding(new Insets(0, 0, 0, 20));
 
             hBox.getChildren().add(imageView);
             hBox.getChildren().add(label);

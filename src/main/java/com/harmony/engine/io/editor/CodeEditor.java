@@ -2,6 +2,7 @@ package com.harmony.engine.io.editor;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.DataUtils;
+import com.harmony.engine.io.context.FileItemContext;
 import com.harmony.engine.utils.Status;
 import javafx.application.Platform;
 import javafx.scene.control.TreeItem;
@@ -39,7 +40,7 @@ public class CodeEditor implements Runnable {
     public static Runnable syncRunnable;
     private static Runnable inputRunnable;
 
-    private static TreeView<String> codeFileList;
+    public static TreeView<String> codeFileList;
     private static WebEngine webEngine;
 
     private static TreeItem<String> root = new TreeItem<>("Scripts");
@@ -85,7 +86,7 @@ public class CodeEditor implements Runnable {
 
         root.setExpanded(true);
         codeFileList.setRoot(root);
-        codeFileList.setEditable(true);
+        codeFileList.setContextMenu(new FileItemContext());
     }
 
     private static void loadAllChildren(TreeItem<String> parent, File file) {

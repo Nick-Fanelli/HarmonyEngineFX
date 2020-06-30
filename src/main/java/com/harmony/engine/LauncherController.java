@@ -66,7 +66,7 @@ public class LauncherController {
                     + "\nWill be overridden!");
 
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/engine.css").toExternalForm());
+            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
             dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
             ButtonType buttonTypeOverride = new ButtonType("Override", ButtonBar.ButtonData.OK_DONE);
@@ -127,7 +127,7 @@ public class LauncherController {
             alert.setContentText("The selected directory is either not a Harmony Project directory or is corrupted.");
 
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/engine.css").toExternalForm());
+            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
             dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
             alert.showAndWait();

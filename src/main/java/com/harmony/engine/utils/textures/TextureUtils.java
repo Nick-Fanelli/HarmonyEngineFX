@@ -19,17 +19,17 @@ public class TextureUtils {
     public static Texture staticTexture;
 
     public static void createTexture() {
-        TextureUtils.createStage("/utils/texture/createTexture.fxml");
+        TextureUtils.createStage("/fxml/texture/createTexture.fxml");
     }
 
     public static void chooseTextureForGameObject(GameObject gameObject) {
         TextureUtils.staticGameObject = gameObject;
-        TextureUtils.createStage("/utils/texture/selectTexture.fxml");
+        TextureUtils.createStage("/fxml/texture/selectTexture.fxml");
     }
 
     public static void chooseTextureForGameObjectController() {
         TextureUtils.staticGameObject = null;
-        TextureUtils.createStage("/utils/texture/selectTexture.fxml");
+        TextureUtils.createStage("/fxml/texture/selectTexture.fxml");
     }
 
     private static void createStage(String fxmlLocation) {

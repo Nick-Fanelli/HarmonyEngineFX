@@ -17,7 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.util.Map;
 import java.util.Optional;
 
 public class TexturesTab {
@@ -148,7 +147,7 @@ public class TexturesTab {
             alert.setContentText("Deleting this texture is final and can not be reversed easily.");
 
             DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/engine.css").toExternalForm());
+            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
             dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
             Optional<ButtonType> result = alert.showAndWait();

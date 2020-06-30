@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@engine.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.EngineController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.EngineController">
    <children>
       <TabPane fx:id="tabBar" layoutY="28.0" prefHeight="373.0" prefWidth="800.0" style="-fx-border-color: -fx-default-dark;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>

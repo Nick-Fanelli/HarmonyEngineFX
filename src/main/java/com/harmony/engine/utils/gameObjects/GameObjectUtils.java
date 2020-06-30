@@ -19,7 +19,7 @@ public class GameObjectUtils {
     public static void createGameObject() {
         try {
             Status.setCurrentStatus(Status.Type.STAND_BY);
-            FXMLLoader loader = new FXMLLoader(TextureUtils.class.getResource("/utils/gameObject.fxml"));
+            FXMLLoader loader = new FXMLLoader(TextureUtils.class.getResource("/fxml/gameObject.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

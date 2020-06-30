@@ -178,7 +178,8 @@ public class GlobalData implements Serializable {
     }
 
     // Utils
-    public static String getThemeCSSLocation() { return "/cssThemes/" + getTheme().name().toLowerCase() + "Theme.css"; }
+    public static String getThemeCSSLocation() { return File.separator + "css" + File.separator + "themes" + File.separator +
+            getTheme().name().toLowerCase() + "Theme.css"; }
 
     public static Stage staticStage;
 
@@ -186,7 +187,7 @@ public class GlobalData implements Serializable {
         try {
             if(staticStage != null && staticStage.isShowing()) staticStage.close();
 
-            FXMLLoader loader = new FXMLLoader(GlobalData.class.getResource("/utils/globalPreferences.fxml"));
+            FXMLLoader loader = new FXMLLoader(GlobalData.class.getResource("/fxml/globalPreferences.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

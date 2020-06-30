@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="launcher-pane" fx:id="anchorPane" prefHeight="400.0" prefWidth="640.0" stylesheets="@engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.LauncherController">
+<AnchorPane id="launcher-pane" fx:id="anchorPane" prefHeight="400.0" prefWidth="640.0" stylesheets="@css/harmony.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.LauncherController">
    <children>
       <Button id="new-proj-btn" fx:id="newProjectButton" layoutX="235.0" layoutY="272.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="New Project" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="272.0" />
       <Button id="new-proj-btn" fx:id="openProjectButton" layoutX="235.0" layoutY="329.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="Open Project" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="329.0" />

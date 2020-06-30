@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: -fx-default-medium;" stylesheets="@../../engine.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.textures.SelectTextureController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: -fx-default-medium;" stylesheets="@../../css/harmony.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.textures.SelectTextureController">
    <children>
       <Button fx:id="cancelButton" layoutX="447.0" layoutY="359.0" mnemonicParsing="false" styleClass="default-button" text="Cancel" />
       <Button fx:id="chooseButton" layoutX="519.0" layoutY="359.0" mnemonicParsing="false" styleClass="default-choose-button" text="Choose" />

@@ -55,7 +55,6 @@ public class Launcher extends Application {
         });
 
         stage.show();
-
     }
 
     public static void configureSystemProperties() {

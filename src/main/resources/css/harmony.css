@@ -227,6 +227,17 @@ context-menu {
 .item-array:hover { -fx-background-color: -fx-default-medium; }
 .item-array.selected { -fx-background-color: -fx-default-extra-light; }
 
+.progress-bar > .track {
+  -fx-text-box-border: -fx-default-dark, -fx-default-dark;
+  -fx-control-inner-background: -fx-default-medium;
+}
+
+.progress-bar .bar {
+    -fx-padding: 1px;
+    -fx-background-insets: 0;
+}
+
+.progress-bar { -fx-accent: -fx-default-light; }
 
 /* Tab Pane */
 

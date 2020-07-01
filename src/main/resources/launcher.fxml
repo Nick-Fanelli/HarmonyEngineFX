@@ -6,8 +6,8 @@
 
 <AnchorPane id="launcher-pane" fx:id="anchorPane" prefHeight="400.0" prefWidth="640.0" stylesheets="@css/harmony.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.LauncherController">
    <children>
-      <Button id="new-proj-btn" fx:id="newProjectButton" layoutX="235.0" layoutY="272.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="New Project" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="272.0" />
-      <Button id="new-proj-btn" fx:id="openProjectButton" layoutX="235.0" layoutY="329.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="Open Project" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="234.0" AnchorPane.topAnchor="329.0" />
+      <Button id="new-proj-btn" fx:id="newProjectButton" layoutX="236.0" layoutY="244.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="New Project" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="233.0" AnchorPane.topAnchor="244.0" />
+      <Button id="new-proj-btn" fx:id="openProjectButton" layoutX="236.0" layoutY="301.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="Open Project" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="233.0" AnchorPane.topAnchor="301.0" />
       <Label alignment="CENTER" layoutX="143.0" layoutY="14.0" style="-fx-font-size: 37px;" styleClass="default-label" text="Harmony Engine" AnchorPane.leftAnchor="143.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="37.0" />
@@ -20,5 +20,6 @@
       </Label>
 
       <Button fx:id="globalPreferencesButton" layoutX="539.0" layoutY="343.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: transparent;" styleClass="default-button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <ProgressBar fx:id="progressBar" layoutX="43.0" layoutY="367.0" prefHeight="20.0" prefWidth="554.0" progress="0.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0" />
    </children>
 </AnchorPane>

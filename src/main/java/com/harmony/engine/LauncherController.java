@@ -2,6 +2,7 @@ package com.harmony.engine;
 
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -12,6 +13,7 @@ import javafx.stage.DirectoryChooser;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.concurrent.CyclicBarrier;
 
 public class LauncherController {
 
@@ -20,9 +22,13 @@ public class LauncherController {
     public Button openProjectButton;
     public Button globalPreferencesButton;
     public Label versionLabel;
+    public ProgressBar progressBar;
 
     @FXML
     public void initialize() {
+        progressBar.setProgress(0);
+        progressBar.setVisible(false);
+
         versionLabel.setText(String.format("%s: %s.%s", Launcher.LAUNCH_TYPE.name(), Launcher.VERSION_ID[0], Launcher.VERSION_ID[1]));
 
         globalPreferencesButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/settings-icon.png"), 20, 20, true, true)));
@@ -99,7 +105,7 @@ public class LauncherController {
 
             ProjectData.save(directory);
 
-            Harmony.open(directory);
+            showProgressAndOpen(directory);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,7 +143,7 @@ public class LauncherController {
 
         try {
             ProjectData.reset();
-            Harmony.open(directory);
+            showProgressAndOpen(directory);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,5 +167,43 @@ public class LauncherController {
             if(file.isDirectory()) cleanDirectory(file);
             file.delete();
         }
+    }
+
+    private void showProgressAndOpen(File directory) throws Exception {
+        Runnable progress = this::handleProgressBar;
+
+        progressBar.setVisible(true);
+        new Thread(progress, "Harmony:Progress").start();
+        Harmony.open(directory);
+    }
+
+    private void handleProgressBar() {
+        int delay = 25;
+
+        for(int i = 0; i < 100; i++) {
+
+            if(Harmony.loaded) delay = 10;
+
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            progressBar.setProgress(progressBar.getProgress() + 0.01);
+        }
+
+        while(!Harmony.loaded) {
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Platform.runLater(() -> {
+            Launcher.staticStage.close();
+            Harmony.staticStage.show();
+        });
     }
 }

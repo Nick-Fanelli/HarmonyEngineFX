@@ -31,6 +31,7 @@ public class Harmony extends Application {
     public static boolean shiftDown = false;
 
     public static boolean saving = false;
+    public static boolean loaded = false;
 
     public static void main(String[] args) throws Exception { open(new File("/Users/nick227889/Dev/Game")); }
 
@@ -46,11 +47,15 @@ public class Harmony extends Application {
 
         // TODO - Deploy: Comment Out
         if(Launcher.staticStage != null) {
-            new Harmony().start(Launcher.staticStage);
+            new Harmony().start(new Stage());
         } else {
             Launcher.configureSystemProperties();
             launch();
         }
+    }
+
+    public static void show() {
+        System.out.println(Thread.currentThread());
     }
 
     @Override
@@ -80,9 +85,10 @@ public class Harmony extends Application {
         stage.setScene(scene);
         stage.setResizable(true);
         stage.centerOnScreen();
-        stage.show();
 
         stage.setOnCloseRequest(event -> closeApplication());
+
+        Platform.runLater(() -> loaded = true);
 
         inputThread = this::handleInput;
         inputThread.run();

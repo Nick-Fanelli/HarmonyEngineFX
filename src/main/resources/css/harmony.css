@@ -16,6 +16,10 @@
     -fx-default-text-fill: #ffffff;
 }
 
+.root {
+    -fx-accent: -fx-default-light;
+}
+
 /* Defaults */
 .default-text-field {
     -fx-background-color: -fx-default-dark;

@@ -3,7 +3,7 @@ ace.define("ace/theme/twilight",["require","exports","module","ace/lib/dom"], fu
 exports.isDark = true;
 exports.cssClass = "ace-twilight";
 exports.cssText = ".ace-twilight .ace_gutter {\
-background: #232323;\
+background: #2F353D;\
 color: #E2E2E2\
 }\
 .ace-twilight .ace_print-margin {\
@@ -11,7 +11,7 @@ width: 1px;\
 background: #232323\
 }\
 .ace-twilight {\
-background-color: #141414;\
+background-color: #272833;\
 color: #F8F8F8\
 }\
 .ace-twilight .ace_cursor {\
@@ -44,7 +44,7 @@ color: rgba(255, 255, 255, 0.25)\
 }\
 .ace-twilight .ace_keyword,\
 .ace-twilight .ace_meta {\
-color: #CDA869\
+color: #D14F57\
 }\
 .ace-twilight .ace_constant,\
 .ace-twilight .ace_constant.ace_character,\

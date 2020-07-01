@@ -71,6 +71,7 @@ public class Harmony extends Application {
         Parent root = FXMLLoader.load(Harmony.class.getResource("/engine.fxml"));
 
         Scene scene = new Scene(root, 1280, 720);
+        setUserAgentStylesheet(STYLESHEET_MODENA);
 
         Harmony.staticStage = stage;
         Harmony.staticScene = scene;

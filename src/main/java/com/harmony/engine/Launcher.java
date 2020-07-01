@@ -23,7 +23,7 @@ public class Launcher extends Application {
     public static Stage staticStage;
     public static Scene staticScene;
 
-    public static void main(String[] args) { launch(); }
+    public static void main(String[] args) { launch(args); }
 
     @Override
     public void start(Stage stage) throws Exception {

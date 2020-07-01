@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class GlobalData implements Serializable {
 
-    public static final String GLOBAL_PREFERENCES_FILENAME = "globalPreferences.dat";
+    public static final String GLOBAL_PREFERENCES_FILENAME = "globalPreferences.xml";
     public static final String GLOBAL_DATA_LOCATION =  System.getProperty("user.home") + File.separator
             + ".harmony" + File.separator + Launcher.GITHUB_VERSION_STRING.replaceAll("version-", "") + File.separator;
     public static final String GLOBAL_PREFERENCES_LOCATION = GLOBAL_DATA_LOCATION + File.separator + GLOBAL_PREFERENCES_FILENAME;

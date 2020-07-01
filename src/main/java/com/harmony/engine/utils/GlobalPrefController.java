@@ -6,6 +6,9 @@ import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.documentation.Documentation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class GlobalPrefController {
 
@@ -18,6 +21,7 @@ public class GlobalPrefController {
     // General
     public ComboBox<String> theme;
     public CheckBox autoSave;
+    public Button importTheme;
 
     // Editor
     public TextField panMultiplier;
@@ -29,9 +33,9 @@ public class GlobalPrefController {
 
     @FXML
     public void initialize() {
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // never show a vertical ScrollBar
-        scrollPane.setFitToWidth(true); // set content width to viewport width
-        scrollPane.setPannable(true); // allow scrolling via mouse dragging
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPannable(true);
 
         setFields();
 
@@ -68,6 +72,14 @@ public class GlobalPrefController {
         });
 
         documentationButton.setOnMouseClicked(mouseEvent -> Documentation.showDocumentation(Documentation.Location.GLOBAL_PREFERENCES));
+
+        importTheme.setOnMouseClicked(mouseEvent -> {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Choose Theme");
+            chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+            chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("css"));
+
+        });
 
         handleChanges();
     }

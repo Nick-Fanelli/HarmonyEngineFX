@@ -26,9 +26,14 @@ import java.util.Map;
 public class GlobalData implements Serializable {
 
     public static final String GLOBAL_PREFERENCES_FILENAME = "globalPreferences.xml";
-    public static final String GLOBAL_DATA_LOCATION =  System.getProperty("user.home") + File.separator
-            + ".harmony" + File.separator + Launcher.GITHUB_VERSION_STRING.replaceAll("version-", "") + File.separator;
+    public static final String IMPORTED_PREFERENCES_DIRECTORY_NAME = "imported";
+
+    public static final String GLOBAL_DATA_LOCATION =  System.getProperty("user.home") + File.separator + ".harmony";
+
     public static final String GLOBAL_PREFERENCES_LOCATION = GLOBAL_DATA_LOCATION + File.separator + GLOBAL_PREFERENCES_FILENAME;
+    public static final String IMPORTED_THEMES_LOCATION = GLOBAL_PREFERENCES_LOCATION + File.separator + IMPORTED_PREFERENCES_DIRECTORY_NAME +
+            File.separator + "themes";
+
     public static HashMap<String, String> dataContext = new HashMap<>();
 
     public static void setDefaults() {
@@ -202,6 +207,30 @@ public class GlobalData implements Serializable {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveTheme(String themeName, String themeData) {
+        File themes = new File(IMPORTED_THEMES_LOCATION);
+
+        if(!themes.exists()) themes.mkdirs();
+
+        File themeFile = new File(IMPORTED_THEMES_LOCATION + File.separator + themeName + ".css");
+        if(!themeFile.exists()) {
+            try {
+                themeFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(themeFile));
+            writer.write(themeData);
+            writer.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

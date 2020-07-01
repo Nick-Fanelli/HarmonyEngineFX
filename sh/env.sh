@@ -5,7 +5,7 @@
 # below and assiging it the location of a valid JDK 14 runtime.
 #
 # MacOS example
-#export JAVA_HOME="~/IDE/jdk-14.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-14.0.1.jdk/Contents/Home"
 # Linux Example
 #export JAVA_HOME="~/jdk-14"
 

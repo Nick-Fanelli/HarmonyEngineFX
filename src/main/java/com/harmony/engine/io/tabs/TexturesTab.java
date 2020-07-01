@@ -4,6 +4,7 @@ import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.SelectionModel;
 import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.geometry.Insets;
@@ -17,6 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class TexturesTab {
@@ -24,11 +27,14 @@ public class TexturesTab {
     public static final int IMAGE_SIZE = 75;
 
     public static Runnable synchronize;
+
+    private final static HashMap<String, HBox> searchMap = new HashMap<>();
     private static Runnable input;
 
     private static GridPane texturesArray;
     private static AnchorPane interactables;
     private static Button newTexturesButton;
+    private static TextField search;
 
     private static HBox hBoxSelected = null;
     private static Texture selectedTexture = null;
@@ -39,7 +45,7 @@ public class TexturesTab {
     private static Button deleteButton;
 
     public TexturesTab(GridPane texturesArray, Button newTexturesButton, AnchorPane interactables, TextField name,
-                       TextField location, Button locationButton, Button deleteButton) {
+                       TextField location, Button locationButton, Button deleteButton, TextField search) {
         TexturesTab.texturesArray = texturesArray;
         TexturesTab.newTexturesButton = newTexturesButton;
         TexturesTab.interactables = interactables;
@@ -47,6 +53,7 @@ public class TexturesTab {
         TexturesTab.location = location;
         TexturesTab.locationButton = locationButton;
         TexturesTab.deleteButton = deleteButton;
+        TexturesTab.search = search;
 
         synchronize = this::synchronize;
         input = this::handleInput;
@@ -79,6 +86,8 @@ public class TexturesTab {
             hBox.getChildren().add(label);
 
             hBox.setOnMouseClicked(mouseEvent -> select(hBox, texture));
+
+            searchMap.put(texture.name.toLowerCase(), hBox);
 
             if(x > 2) {
                 x = 0;
@@ -157,7 +166,17 @@ public class TexturesTab {
                 hBoxSelected = null;
                 synchronize.run();
             }
+        });
 
+        search.textProperty().addListener((observableValue, s, t1) -> {
+            if(search.getText().isEmpty()) {
+                for(Map.Entry<String, HBox> entry : searchMap.entrySet()) entry.getValue().setVisible(true);
+                return;
+            }
+
+            for(Map.Entry<String, HBox> entry : searchMap.entrySet()) {
+                if(!entry.getKey().contains(search.getText().toLowerCase())) entry.getValue().setVisible(false);
+            }
         });
 
     }

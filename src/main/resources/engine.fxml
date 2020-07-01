@@ -81,7 +81,7 @@
                                          <content>
                                              <AnchorPane>
                                                  <children>
-                                                    <GridPane fx:id="texturesArray" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <GridPane fx:id="texturesArray" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
                                                       <columnConstraints>
                                                         <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" />
                                                         <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" prefWidth="100.0" />
@@ -94,16 +94,17 @@
                                                         <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
                                                       </rowConstraints>
                                                     </GridPane>
+                                                  <Button fx:id="newTextureButton" layoutX="14.0" mnemonicParsing="false" style="-fx-background-color: green;" styleClass="default-button" text="New" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="3.0" />
+                                                <TextField fx:id="texturesSearch" layoutX="615.0" layoutY="3.0" promptText="Search..." styleClass="default-text-field" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0" />
                                                  </children>
                                              </AnchorPane>
                                          </content>
                                       </ScrollPane>
-                                      <Button fx:id="newTextureButton" mnemonicParsing="false" style="-fx-background-color: green;" styleClass="default-button" text="New" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="3.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="texturesInteractables" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="1.0">
+                                    <GridPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                       <columnConstraints>
                                         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="76.0" />
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="171.0" />

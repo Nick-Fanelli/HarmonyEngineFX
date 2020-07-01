@@ -58,6 +58,7 @@ public class EngineController implements Runnable {
     public ScrollPane texturesScrollPane;
     public GridPane texturesArray;
     public Button newTextureButton;
+    public TextField texturesSearch;
 
     public AnchorPane texturesInteractables;
     public TextField textureName;
@@ -178,7 +179,7 @@ public class EngineController implements Runnable {
 
     // Textures Methods
     private void initTexturesTab() { new TexturesTab(texturesArray, newTextureButton, texturesInteractables, textureName,
-            textureLocation, chooseTextureButton, deleteTextureButton); }
+            textureLocation, chooseTextureButton, deleteTextureButton, texturesSearch); }
 
     public static Image loadTexturesImage(String path) {
         try {

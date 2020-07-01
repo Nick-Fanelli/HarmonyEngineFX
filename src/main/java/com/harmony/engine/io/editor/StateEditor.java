@@ -45,7 +45,7 @@ public class StateEditor implements Runnable {
     private static GraphicsContext g;
     private static GameObject copiedGameObject;
 
-    private static final SelectionModel selectionModel = new SelectionModel();
+    private static final SelectionModel<TreeItem<String>> selectionModel = new SelectionModel();
     private static TreeItem<String> root;
 
     public static boolean interactingWithCanvas = false;

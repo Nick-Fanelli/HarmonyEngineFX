@@ -48,28 +48,14 @@
                 <version>0.0.3</version>
                 <configuration>
                     <mainClass>com.harmony.engine.Launcher</mainClass>
-                    <launcher>launch.sh</launcher>
+                    <launcher>launch</launcher>
                     <compress>2</compress>
                     <jlinkZipName>Harmony</jlinkZipName>
                     <jlinkImageName>Harmony</jlinkImageName>
                     <noManPages>true</noManPages>
                     <noHeaderFiles>true</noHeaderFiles>
-                    <options>-Djavax.net.debug=all -Xdock:icon="/images/logo.png"</options>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>com.harmony.engine.Launcher</mainClass>
+                    <commandlineArgs>-Xdock:icon="/images/logo.png"</commandlineArgs>
+                    <options>-Djavax.net.debug=all</options>
                 </configuration>
             </plugin>
         </plugins>

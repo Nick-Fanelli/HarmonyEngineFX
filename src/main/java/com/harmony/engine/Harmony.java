@@ -33,6 +33,8 @@ public class Harmony extends Application {
     public static boolean saving = false;
     public static boolean loaded = false;
 
+    private static boolean isDebug = false;
+
     public static void main(String[] args) throws Exception { open(new File("/Users/nick227889/Dev/Game")); }
 
     public static void open(File directory) throws Exception {
@@ -49,6 +51,7 @@ public class Harmony extends Application {
         if(Launcher.staticStage != null) {
             new Harmony().start(new Stage());
         } else {
+            isDebug = true;
             Launcher.configureSystemProperties();
             launch();
         }
@@ -85,6 +88,7 @@ public class Harmony extends Application {
         stage.setScene(scene);
         stage.setResizable(true);
         stage.centerOnScreen();
+        if(isDebug) stage.show();
 
         stage.setOnCloseRequest(event -> closeApplication());
 

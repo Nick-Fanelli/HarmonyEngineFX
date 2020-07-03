@@ -56,7 +56,7 @@ public class SelectTextureController {
             selectedTexture = ProjectData.textures.get(index);
 
             textureName.setText(selectedTexture.name);
-            texturePreview.setImage(EngineController.loadTexturesImage(selectedTexture.path));
+            texturePreview.setImage(selectedTexture.getImage());
         });
     }
 

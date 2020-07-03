@@ -93,7 +93,7 @@ public class ProjectData {
         Element texturesElement = createContainerElement(document, "Textures");
 
         for(Texture texture : textures) {
-            texturesElement.appendChild(createTextureElement(document, texture.path, texture.name, texture.id));
+            texturesElement.appendChild(createTextureElement(document, texture.getPath(), texture.name, texture.id));
         }
 
         rootElement.appendChild(texturesElement);

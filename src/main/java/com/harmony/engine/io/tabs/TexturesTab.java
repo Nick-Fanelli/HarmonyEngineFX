@@ -4,7 +4,6 @@ import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
-import com.harmony.engine.io.SelectionModel;
 import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.geometry.Insets;
@@ -68,7 +67,7 @@ public class TexturesTab {
         texturesArray.getChildren().clear();
 
         for(Texture texture : ProjectData.textures) {
-            Image image = EngineController.loadTexturesImage(texture.path, IMAGE_SIZE, IMAGE_SIZE);
+            Image image = texture.getImage(IMAGE_SIZE, IMAGE_SIZE);
             if(image == null) continue;
 
             ImageView imageView = new ImageView(image);
@@ -129,7 +128,7 @@ public class TexturesTab {
 
             if(image != null) {
                 location.setStyle("-fx-text-fill: -fx-default-text-fill;");
-                selectedTexture.path = location.getText();
+                selectedTexture.setPath(location.getText());
                 ((ImageView) hBoxSelected.getChildren().get(0)).setImage(image);
             } else {
                 location.setStyle("-fx-text-fill: red;");
@@ -198,7 +197,7 @@ public class TexturesTab {
         interactables.setVisible(true);
 
         name.setText(selectedTexture.name);
-        location.setText(selectedTexture.path);
+        location.setText(selectedTexture.getPath());
     }
 
 }

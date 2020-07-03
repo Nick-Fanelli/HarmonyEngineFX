@@ -297,7 +297,7 @@ public class StateEditor implements Runnable {
         objectsPane.getChildren().removeAll(objectsPane.getChildren());
 
         for(int i = 0; i < ProjectData.gameObjects.size(); i++) {
-            ImageView texture = new ImageView(EngineController.loadTexturesImage(ProjectData.gameObjects.get(i).texture.path));
+            ImageView texture = new ImageView(ProjectData.gameObjects.get(i).texture.getImage());
 
             texture.setFitHeight(50);
             texture.setFitWidth(50);
@@ -311,7 +311,7 @@ public class StateEditor implements Runnable {
                 ClipboardContent content = new ClipboardContent();
                 copiedGameObject = ProjectData.gameObjects.get(finalI).copy();
                 content.putString("GameObject:" + ProjectData.gameObjects.get(finalI));
-                content.putImage(EngineController.loadTexturesImage(copiedGameObject.texture.path));
+                content.putImage(copiedGameObject.texture.getImage());
                 db.setContent(content);
 
                 event.consume();
@@ -381,7 +381,7 @@ public class StateEditor implements Runnable {
         root.getChildren().add(key);
 
         if(gameObject.texture != null) {
-            Image image = EngineController.loadTexturesImage(gameObject.texture.path);
+            Image image = gameObject.texture.getImage();
             if(image != null) images.put(gameObject, new ImageView(image));
         }
 

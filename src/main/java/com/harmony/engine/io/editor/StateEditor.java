@@ -16,10 +16,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -336,7 +333,7 @@ public class StateEditor implements Runnable {
         g.fillRect(0, 0, width, height);
 
         // Draw Guide Lines
-
+//        drawGuides((int) width, (int) height);
 
         // Draw the game objects
         if(GlobalData.getEditorDrawFromTop())
@@ -481,6 +478,8 @@ public class StateEditor implements Runnable {
 
         StateEditor.draw();
     }
+
+    public enum Position { UP, DOWN, LEFT, RIGHT }
 
     public static HashMap<TreeItem<String>, GameObject> getHierarchy() { return gameObjects; }
 }

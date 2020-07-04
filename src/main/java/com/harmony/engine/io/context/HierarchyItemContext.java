@@ -39,8 +39,8 @@ public class HierarchyItemContext extends ContextMenu {
 
         find.setAccelerator(new KeyCodeCombination(KeyCode.F));
 
-        super.getItems().addAll(moveUp, moveDown, new SeparatorMenuItem(), find,
-                new SeparatorMenuItem(), deleteItem);
+        super.getItems().addAll(moveUp, moveDown, new SeparatorMenuItem(),
+                new SeparatorMenuItem(), find, new SeparatorMenuItem(), deleteItem);
 
         handleInput();
     }

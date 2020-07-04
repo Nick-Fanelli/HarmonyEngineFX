@@ -21,7 +21,6 @@ public class GlobalPrefController {
     // General
     public ComboBox<String> theme;
     public CheckBox autoSave;
-    public Button importTheme;
 
     // Editor
     public TextField panMultiplier;
@@ -76,13 +75,6 @@ public class GlobalPrefController {
         });
 
         documentationButton.setOnMouseClicked(mouseEvent -> Documentation.showDocumentation(Documentation.Location.GLOBAL_PREFERENCES));
-
-        importTheme.setOnMouseClicked(mouseEvent -> {
-            FileChooser chooser = new FileChooser();
-            chooser.setTitle("Choose Theme");
-            chooser.setInitialDirectory(new File(System.getProperty("user.home")));
-            chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("css"));
-        });
 
         handleChanges();
     }

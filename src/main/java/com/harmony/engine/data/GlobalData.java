@@ -53,10 +53,7 @@ public class GlobalData implements Serializable {
     public static final String THEME_LOCATION = "theme";
     public enum Theme {
         LIGHT("Default Light"),
-        DARK("Default Dark"),
-        BEACH("Beach Pallet"),
-        PASTEL_BLUE("Pastel Blue"),
-        PASTEL_PINK("Pastel Pink");
+        DARK("Default Dark");
 
         private final String name;
         Theme(String name) { this.name = name; }

@@ -28,16 +28,18 @@ public class GlobalPrefController {
     public TextField editorBGColor;
     public TextField editorOutlineColor;
     public CheckBox editorDrawFromTop;
+    public CheckBox editorShowGuideLines;
+    public TextField editorGuideLineDist;
 
     private boolean isThemeChange = false;
 
     @FXML
     public void initialize() {
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setFitToWidth(true);
         scrollPane.setPannable(true);
 
-        setFields();
+        Runnable fields = this::setFields;
+        fields.run();
 
         cancelButton.setOnMouseClicked(event -> {
             GlobalData.staticStage.close();
@@ -55,6 +57,8 @@ public class GlobalPrefController {
             GlobalData.setEditorBackgroundColor(editorBGColor.getText().replaceAll("#", ""));
             GlobalData.setEditorOutlineColor(editorOutlineColor.getText().replaceAll("#", ""));
             GlobalData.setEditorDrawFromTop(editorDrawFromTop.isSelected());
+            GlobalData.setEditorShowGuideLines(editorShowGuideLines.isSelected());
+            GlobalData.setEditorGuideLineDist(Double.parseDouble(editorGuideLineDist.getText()));
 
             if(isThemeChange) {
                 if(Harmony.staticStage != null)
@@ -78,7 +82,6 @@ public class GlobalPrefController {
             chooser.setTitle("Choose Theme");
             chooser.setInitialDirectory(new File(System.getProperty("user.home")));
             chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("css"));
-
         });
 
         handleChanges();
@@ -98,10 +101,11 @@ public class GlobalPrefController {
         editorBGColor.setText(GlobalData.getEditorBackgroundColor());
         editorOutlineColor.setText(GlobalData.getEditorOutlineColor());
         editorDrawFromTop.setSelected(GlobalData.getEditorDrawFromTop());
+        editorShowGuideLines.setSelected(GlobalData.getEditorShowGuideLines());
+        editorGuideLineDist.setText(Double.toString(Math.round(GlobalData.getEditorGuideLineDist())));
     }
 
     private void handleChanges() {
         theme.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> isThemeChange = true);
     }
-
 }

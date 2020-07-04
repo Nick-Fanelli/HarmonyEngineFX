@@ -43,7 +43,11 @@ public class GlobalData implements Serializable {
         GlobalData.setEditorBackgroundColor("35406c");
         GlobalData.setEditorOutlineColor("ff0000");
         GlobalData.setEditorDrawFromTop(true);
+        GlobalData.setEditorShowGuideLines(true);
+        GlobalData.setEditorGuideLineDist(10);
     }
+
+    /********************** GENERAL **********************/
 
     // Theme
     public static final String THEME_LOCATION = "theme";
@@ -67,6 +71,8 @@ public class GlobalData implements Serializable {
     public static void setAutoSave(boolean value) { dataContext.put(AUTO_SAVE_LOCATION, Boolean.toString(value)); }
     public static boolean getAutoSave() { return Boolean.parseBoolean(dataContext.get(AUTO_SAVE_LOCATION)); }
 
+    /********************** EDITOR **********************/
+
     // Pan Multipler
     public static final String PAN_MULTIPLIER = "panMultiplier";
     public static void setPanMultiplier(double value) { dataContext.put(PAN_MULTIPLIER, Double.toString(value)); }
@@ -86,6 +92,16 @@ public class GlobalData implements Serializable {
     public static final String EDITOR_DRAW_FROM_TOP = "editorDrawFromTop";
     public static void setEditorDrawFromTop(boolean value) { dataContext.put(EDITOR_DRAW_FROM_TOP, Boolean.toString(value)); }
     public static boolean getEditorDrawFromTop() { return Boolean.parseBoolean(dataContext.get(EDITOR_DRAW_FROM_TOP)); }
+
+    // Editor Show Guide Lines
+    public static final String EDITOR_SHOW_GUIDE_LINES = "editorShowGuideLines";
+    public static void setEditorShowGuideLines(boolean value) { dataContext.put(EDITOR_SHOW_GUIDE_LINES, Boolean.toString(value)); }
+    public static boolean getEditorShowGuideLines() { return Boolean.parseBoolean(dataContext.get(EDITOR_SHOW_GUIDE_LINES)); }
+
+    // Editor Guide Distance
+    public static final String EDITOR_GUIDE_LINE_DIST = "editorGuideLineDist";
+    public static void setEditorGuideLineDist(double value) { dataContext.put(EDITOR_GUIDE_LINE_DIST, Double.toString(value)); }
+    public static double getEditorGuideLineDist() { return Double.parseDouble(dataContext.get(EDITOR_GUIDE_LINE_DIST)); }
 
     public static void save() {
         if(Harmony.staticStage != null)

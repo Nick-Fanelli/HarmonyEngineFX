@@ -1,6 +1,5 @@
 package com.harmony.engine.io.editor;
 
-import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
@@ -17,7 +16,10 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -26,8 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StateEditor implements Runnable {
-
-    public static final int CANVAS_POSITION_OFFSET = 111;
 
     private static Thread editorThread;
 
@@ -153,8 +153,9 @@ public class StateEditor implements Runnable {
             boolean success = false;
 
             if(copiedGameObject != null) {
-                copiedGameObject.position = editorCamera.copy().inverse().add((float) dragEvent.getX() - CANVAS_POSITION_OFFSET,
-                        (float) dragEvent.getY() - CANVAS_POSITION_OFFSET);
+                Image image = copiedGameObject.texture.getImage();
+                copiedGameObject.position = editorCamera.copy().inverse().add((float) dragEvent.getX() - (float) image.getWidth() / 2,
+                        (float) dragEvent.getY() - (float) image.getHeight() / 2);
 
                 addGameObject(copiedGameObject);
 
@@ -333,6 +334,9 @@ public class StateEditor implements Runnable {
         try { g.setFill(Color.web(GlobalData.getEditorBackgroundColor())); }
         catch (Exception ignored) {}
         g.fillRect(0, 0, width, height);
+
+        // Draw Guide Lines
+
 
         // Draw the game objects
         if(GlobalData.getEditorDrawFromTop())

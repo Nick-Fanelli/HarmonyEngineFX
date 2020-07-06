@@ -2,9 +2,7 @@ package com.harmony.engine.utils.gameObjects;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
-import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.utils.Status;
-import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

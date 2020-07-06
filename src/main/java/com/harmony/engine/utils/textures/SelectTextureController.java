@@ -1,9 +1,7 @@
 package com.harmony.engine.utils.textures;
 
-import com.harmony.engine.EngineController;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.tabs.GameObjectsTab;
-import com.harmony.engine.io.tabs.TexturesTab;
 import com.harmony.engine.utils.gameObjects.GameObjectController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class SelectTextureController {
 

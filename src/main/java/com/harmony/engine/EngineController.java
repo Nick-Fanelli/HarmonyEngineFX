@@ -8,10 +8,6 @@ import com.harmony.engine.io.editor.StateEditor;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.io.tabs.TexturesTab;
 import com.harmony.engine.utils.Status;
-import com.harmony.engine.utils.gameObjects.GameObject;
-import com.harmony.engine.utils.gameObjects.GameObjectUtils;
-import com.harmony.engine.utils.textures.TextureUtils;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -21,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -70,23 +65,10 @@ public class EngineController implements Runnable {
     public Button deleteTextureButton;
 
     // GameObjects Tab
-    public static ListView<String> staticGameObjectsList;
-
     public Tab gameObjectsTab;
     public GridPane objectsArray;
     public Button newObjectButton;
     public Button openObjectButton;
-//    public ListView<String> gameObjectsList;
-//    public Button newGameObjectButton;
-//    public Button deleteGameObjectButton;
-//
-//    public AnchorPane gameObjectsInteractables;
-//    public TextField gameObjectNameField;
-//    public TextField gameObjectTextureField;
-//    public TextField gameObjectPosX;
-//    public TextField gameObjectPosY;
-//    public Button chooseGameObjectTexture;
-//    public Button saveGameObjectButton;
 
     // Editor Tab
     public Tab editorTab;

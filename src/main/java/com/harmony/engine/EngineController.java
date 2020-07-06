@@ -201,4 +201,7 @@ public class EngineController implements Runnable {
 
     // Code Methods
     private void initCodeTab() { new CodeEditor(codeFileList, codeView); }
+
+    // Util Methods
+    public static boolean isStatusReady() { return staticStatusLabel != null; }
 }

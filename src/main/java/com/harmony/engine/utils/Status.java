@@ -23,14 +23,18 @@ public class Status {
     }
 
     public static void setCurrentStatus(Type type) {
+        if(!EngineController.isStatusReady()) return;
         EngineController.setStatusLabel(type.toString(), type.color);
     }
 
     public static void setUtilityText(String content) {
+        if(!EngineController.isStatusReady()) return;
         EngineController.staticUtilityLabel.setText(content == null ? "" : content);
     }
 
     public static void setMousePosition(Vector2f position) {
+        if(!EngineController.isStatusReady()) return;
+
         if(position == null) {
             setUtilityText(null);
             return;

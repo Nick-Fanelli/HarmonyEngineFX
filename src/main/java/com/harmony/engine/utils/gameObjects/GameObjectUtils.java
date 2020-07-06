@@ -63,6 +63,8 @@ public class GameObjectUtils {
         } catch(IOException e) {
             e.printStackTrace();
         }
+
+        staticStage.setOnCloseRequest(windowEvent -> Status.setCurrentStatus(Status.Type.READY));
     }
 
 }

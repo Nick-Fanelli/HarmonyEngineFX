@@ -33,6 +33,11 @@ public class Texture implements Serializable {
         this.path = path;
     }
 
+    public void setPath(String path, Image image) {
+        this.image = image;
+        this.path = path;
+    }
+
     public String getPath() { return path; }
 
 }

@@ -107,8 +107,7 @@ public class TexturesTab {
         texturesArray.setPadding(new Insets(10));
 
         input.run();
-
-        synchronize();
+        synchronize.run();
     }
 
     private void handleInput() {

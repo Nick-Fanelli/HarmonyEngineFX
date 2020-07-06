@@ -5,6 +5,7 @@ import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
 import com.harmony.engine.io.editor.CodeEditor;
 import com.harmony.engine.io.editor.StateEditor;
+import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.io.tabs.TexturesTab;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
@@ -72,17 +73,20 @@ public class EngineController implements Runnable {
     public static ListView<String> staticGameObjectsList;
 
     public Tab gameObjectsTab;
-    public ListView<String> gameObjectsList;
-    public Button newGameObjectButton;
-    public Button deleteGameObjectButton;
-
-    public AnchorPane gameObjectsInteractables;
-    public TextField gameObjectNameField;
-    public TextField gameObjectTextureField;
-    public TextField gameObjectPosX;
-    public TextField gameObjectPosY;
-    public Button chooseGameObjectTexture;
-    public Button saveGameObjectButton;
+    public GridPane objectsArray;
+    public Button newObjectButton;
+    public Button openObjectButton;
+//    public ListView<String> gameObjectsList;
+//    public Button newGameObjectButton;
+//    public Button deleteGameObjectButton;
+//
+//    public AnchorPane gameObjectsInteractables;
+//    public TextField gameObjectNameField;
+//    public TextField gameObjectTextureField;
+//    public TextField gameObjectPosX;
+//    public TextField gameObjectPosY;
+//    public Button chooseGameObjectTexture;
+//    public Button saveGameObjectButton;
 
     // Editor Tab
     public Tab editorTab;
@@ -134,7 +138,7 @@ public class EngineController implements Runnable {
 
         tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
             if(t1 == editorTab) StateEditor.update();
-            else if(t1 == gameObjectsTab) synchronizeGameObjects();
+//            else if(t1 == gameObjectsTab) synchronizeGameObjects();
 //            else if(t1 == texturesTab) synchronizeTextures();
         });
     }
@@ -205,72 +209,7 @@ public class EngineController implements Runnable {
 
     // GameObject Methods
     private void initGameObjectsTab() {
-        EngineController.staticGameObjectsList = gameObjectsList;
-        gameObjectsInteractables.setVisible(false);
-
-        EngineController.synchronizeGameObjects();
-        handleGameObjectElements();
-    }
-    private void handleGameObjectElements() {
-        newGameObjectButton.setOnMouseClicked(mouseEvent -> GameObjectUtils.createGameObject());
-
-        deleteGameObjectButton.setOnMouseClicked(mouseEvent -> {
-            int id = staticGameObjectsList.getSelectionModel().getSelectedIndex();
-            staticGameObjectsList.getItems().remove(id);
-            ProjectData.gameObjects.remove(id);
-            EngineController.synchronizeGameObjects();
-        });
-
-        staticGameObjectsList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-            int index = staticGameObjectsList.getSelectionModel().getSelectedIndex();
-
-            if (index < 0) {
-                gameObjectsInteractables.setVisible(false);
-                return;
-            } else {
-                gameObjectsInteractables.setVisible(true);
-            }
-
-            GameObject object = ProjectData.gameObjects.get(index);
-
-            gameObjectNameField.setText(object.name);
-            gameObjectPosX.setText(Float.toString(object.position.x));
-            gameObjectPosY.setText(Float.toString(object.position.y));
-
-            if (object.texture != null) gameObjectTextureField.setText(object.texture.name);
-            else gameObjectTextureField.setText("");
-        });
-
-        saveGameObjectButton.setOnMouseClicked(mouseEvent -> {
-            int index = staticGameObjectsList.getSelectionModel().getSelectedIndex();
-
-            if (index < 0) return;
-
-            // Put The New Data In The Data Buffer
-            GameObject bufferObject = ProjectData.gameObjects.get(index);
-
-            bufferObject.name = gameObjectNameField.getText().trim();
-            bufferObject.position.set(Float.parseFloat(gameObjectPosX.getText()), Float.parseFloat(gameObjectPosY.getText()));
-
-            // Update The Static Game Objects List
-            staticGameObjectsList.getItems().set(index, gameObjectNameField.getText().trim());
-            staticGameObjectsList.getSelectionModel().select(index);
-            staticGameObjectsList.scrollTo(index);
-        });
-
-        chooseGameObjectTexture.setOnMouseClicked(mouseEvent -> {
-            TextureUtils.chooseTextureForGameObject(ProjectData.gameObjects.get(staticGameObjectsList.getSelectionModel().getSelectedIndex()));
-        });
-    }
-    public static void synchronizeGameObjects() {
-        int index = staticGameObjectsList.getSelectionModel().getSelectedIndex();
-        staticGameObjectsList.getItems().clear();
-
-        for (int i = 0; i < ProjectData.gameObjects.size(); i++) {
-            staticGameObjectsList.getItems().add(i, ProjectData.gameObjects.get(i).name);
-        }
-
-        if (index >= 0) staticGameObjectsList.getSelectionModel().select(index);
+        new GameObjectsTab(objectsArray, newObjectButton, openObjectButton);
     }
 
     // Editor Methods

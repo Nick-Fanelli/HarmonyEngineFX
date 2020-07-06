@@ -3,6 +3,7 @@ package com.harmony.engine.utils.textures;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.utils.Status;
+import com.harmony.engine.utils.gameObjects.EditObjectController;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ public class TextureUtils {
     public static Stage staticStage;
     public static GameObject staticGameObject;
     public static Texture staticTexture;
+    public static EditObjectController controller;
 
     public static void createTexture() {
         TextureUtils.createStage("/fxml/texture/createTexture.fxml");
@@ -24,11 +26,19 @@ public class TextureUtils {
 
     public static void chooseTextureForGameObject(GameObject gameObject) {
         TextureUtils.staticGameObject = gameObject;
+        TextureUtils.controller = null;
+        TextureUtils.createStage("/fxml/texture/selectTexture.fxml");
+    }
+
+    public static void chooseTextureForGameObject(GameObject gameObject, EditObjectController controller) {
+        TextureUtils.staticGameObject = gameObject;
+        TextureUtils.controller = controller;
         TextureUtils.createStage("/fxml/texture/selectTexture.fxml");
     }
 
     public static void chooseTextureForGameObjectController() {
         TextureUtils.staticGameObject = null;
+        TextureUtils.controller = null;
         TextureUtils.createStage("/fxml/texture/selectTexture.fxml");
     }
 

@@ -2,6 +2,8 @@ package com.harmony.engine.utils.textures;
 
 import com.harmony.engine.EngineController;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.tabs.GameObjectsTab;
+import com.harmony.engine.io.tabs.TexturesTab;
 import com.harmony.engine.utils.gameObjects.GameObjectController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +41,10 @@ public class SelectTextureController {
             else
                 GameObjectController.setTexture(selectedTexture);
 
-            EngineController.synchronizeGameObjects();
+            if(TextureUtils.controller != null)
+                TextureUtils.controller.texture.setText(selectedTexture.getPath());
+
+            GameObjectsTab.synchronize.run();
             TextureUtils.close();
         });
 

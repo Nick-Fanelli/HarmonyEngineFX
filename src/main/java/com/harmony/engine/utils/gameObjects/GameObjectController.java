@@ -1,7 +1,7 @@
 package com.harmony.engine.utils.gameObjects;
 
-import com.harmony.engine.EngineController;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
@@ -38,7 +38,7 @@ public class GameObjectController {
 
                 ProjectData.gameObjects.add(bufferObject);
 
-                EngineController.synchronizeGameObjects();
+                GameObjectsTab.synchronize.run();
                 Status.setCurrentStatus(Status.Type.READY);
                 GameObjectUtils.staticStage.close();
             }

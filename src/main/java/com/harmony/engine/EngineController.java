@@ -32,6 +32,7 @@ public class EngineController implements Runnable {
     private static Thread engineThread;
 
     // Misc.
+    public static TabPane staticTabBar;
     public TabPane tabBar;
 
     public static Label staticStatusLabel;
@@ -71,6 +72,7 @@ public class EngineController implements Runnable {
     public Button openObjectButton;
 
     // Editor Tab
+    public static Tab staticEditorTab;
     public Tab editorTab;
     public Canvas editorCanvas;
     public AnchorPane editorPane;
@@ -106,6 +108,7 @@ public class EngineController implements Runnable {
     private void initMiscMethods() {
         staticStatusLabel = statusLabel;
         staticUtilityLabel = mousePositionLabel;
+        staticTabBar = tabBar;
 
         Status.setCurrentStatus(Status.Type.STAND_BY);
 
@@ -196,6 +199,7 @@ public class EngineController implements Runnable {
 
     // Editor Methods
     private void initEditorTab() {
+        staticEditorTab = editorTab;
         new StateEditor(editorCanvas, editorPane, objectsPane, hierarchy);
     }
 

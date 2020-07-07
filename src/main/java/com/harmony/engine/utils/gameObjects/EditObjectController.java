@@ -9,8 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 
-import javax.swing.plaf.nimbus.State;
-
 public class EditObjectController {
 
     private GameObject gameObject;
@@ -54,12 +52,20 @@ public class EditObjectController {
         });
 
         xPos.textProperty().addListener(observable -> {
-            try { gameObject.position.x = Float.parseFloat(xPos.getText()); }
+            try {
+                gameObject.position.x = Float.parseFloat(xPos.getText());
+                if(EngineController.staticTabBar.getSelectionModel().getSelectedItem() == EngineController.staticEditorTab)
+                    StateEditor.draw();
+            }
             catch (Exception ignored) {}
         });
 
         yPos.textProperty().addListener(observable -> {
-            try { gameObject.position.y = Float.parseFloat(yPos.getText()); }
+            try {
+                gameObject.position.y = Float.parseFloat(yPos.getText());
+                if(EngineController.staticTabBar.getSelectionModel().getSelectedItem() == EngineController.staticEditorTab)
+                    StateEditor.draw();
+            }
             catch (Exception ignored) {}
         });
 

@@ -13,6 +13,7 @@ public class HierarchyItemContext extends ContextMenu {
     private final MenuItem moveUp;
     private final MenuItem moveDown;
 
+    private final MenuItem open;
     private final MenuItem find;
 
     private final MenuItem deleteItem;
@@ -24,6 +25,7 @@ public class HierarchyItemContext extends ContextMenu {
         moveUp = new MenuItem("Move Up");
         moveDown = new MenuItem("Move Down");
 
+        open = new MenuItem("Open");
         find = new MenuItem("Find");
 
         deleteItem = new MenuItem("Delete Game Object");
@@ -37,10 +39,11 @@ public class HierarchyItemContext extends ContextMenu {
 
         deleteItem.setAccelerator(new KeyCodeCombination(KeyCode.BACK_SPACE, controlModifier));
 
+        open.setAccelerator(new KeyCodeCombination(KeyCode.ENTER, controlModifier));
         find.setAccelerator(new KeyCodeCombination(KeyCode.F));
 
         super.getItems().addAll(moveUp, moveDown, new SeparatorMenuItem(),
-                new SeparatorMenuItem(), find, new SeparatorMenuItem(), deleteItem);
+                new SeparatorMenuItem(), open, find, new SeparatorMenuItem(), deleteItem);
 
         handleInput();
     }
@@ -51,6 +54,7 @@ public class HierarchyItemContext extends ContextMenu {
         moveUp.setOnAction(actionEvent -> StateEditor.moveSelectedGameObjectUp());
         moveDown.setOnAction(actionEvent -> StateEditor.moveSelectedGameObjectDown());
 
+        open.setOnAction(actionEvent -> StateEditor.openSelectedGameObject());
         find.setOnAction(actionEvent -> StateEditor.findSelectedGameObject());
     }
 

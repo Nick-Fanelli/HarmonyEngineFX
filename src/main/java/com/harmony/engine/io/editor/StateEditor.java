@@ -5,6 +5,7 @@ import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.SelectionModel;
 import com.harmony.engine.io.context.HierarchyItemContext;
+import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
@@ -23,6 +24,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class StateEditor implements Runnable {
 
@@ -61,6 +63,7 @@ public class StateEditor implements Runnable {
         editorThread.start();
     }
 
+
     @Override
     public void run() {
         // Handle Sub-Threads
@@ -85,6 +88,7 @@ public class StateEditor implements Runnable {
     private void initializeHierarchy() {
         hierarchy.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         hierarchy.setEditable(true);
+        hierarchy.setFocusTraversable(false);
 
         root = new TreeItem<>(Harmony.directory.getName());
         root.setExpanded(true);
@@ -482,4 +486,18 @@ public class StateEditor implements Runnable {
     public enum Position { UP, DOWN, LEFT, RIGHT }
 
     public static HashMap<TreeItem<String>, GameObject> getHierarchy() { return gameObjects; }
+
+    public static void openSelectedGameObject() {
+        GameObject object = gameObjects.get(hierarchy.getSelectionModel().getSelectedItem());
+        if(object != null) GameObjectsTab.editGameObject(object);
+    }
+
+    public static void updateObject(GameObject gameObject) {
+        for(Map.Entry<TreeItem<String>, GameObject> entry : gameObjects.entrySet()) {
+            if(entry.getValue() == gameObject) {
+                entry.getKey().setValue(gameObject.name);
+                return;
+            }
+        }
+    }
 }

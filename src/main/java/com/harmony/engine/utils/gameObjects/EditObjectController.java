@@ -1,12 +1,15 @@
 package com.harmony.engine.utils.gameObjects;
 
 import com.harmony.engine.EngineController;
+import com.harmony.engine.io.editor.StateEditor;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+
+import javax.swing.plaf.nimbus.State;
 
 public class EditObjectController {
 
@@ -46,6 +49,7 @@ public class EditObjectController {
             if(!name.getText().isEmpty()){
                 gameObject.name = name.getText();
                 GameObjectsTab.synchronize.run();
+                StateEditor.updateObject(gameObject);
             }
         });
 

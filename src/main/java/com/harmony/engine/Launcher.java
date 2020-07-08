@@ -33,6 +33,9 @@ public class Launcher extends Application {
         }
 
         configureSystemProperties();
+
+        if(!validateJDK()) System.exit(-1);
+
         staticStage = stage;
 
         GlobalData.load();
@@ -66,5 +69,9 @@ public class Launcher extends Application {
 
         // Handle Theme
         staticScene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+    }
+
+    private boolean validateJDK() {
+        return true;
     }
 }

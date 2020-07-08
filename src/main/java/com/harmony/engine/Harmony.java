@@ -57,10 +57,6 @@ public class Harmony extends Application {
         }
     }
 
-    public static void show() {
-        System.out.println(Thread.currentThread());
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
         List<String> fontFamilies = Font.getFamilies();

@@ -81,6 +81,7 @@ public class DataUtils {
     // File Utils
     public enum FileType {
         PYTHON("python"),
+        JAVA("java"),
         TEXT("plain_text");
 
         public String aceKey;
@@ -88,10 +89,9 @@ public class DataUtils {
 
         public static FileType fromExtension(String extension) {
             switch (extension) {
-                case "py":
-                    return PYTHON;
-                case "txt":
-                    return TEXT;
+                case "py":      return PYTHON;
+                case "txt":     return TEXT;
+                case "java":    return JAVA;
             }
 
             return TEXT;

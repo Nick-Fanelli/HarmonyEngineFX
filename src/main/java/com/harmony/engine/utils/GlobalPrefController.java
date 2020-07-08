@@ -2,6 +2,7 @@ package com.harmony.engine.utils;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
+import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.documentation.Documentation;
 import javafx.fxml.FXML;
@@ -21,6 +22,7 @@ public class GlobalPrefController {
     // General
     public ComboBox<String> theme;
     public CheckBox autoSave;
+    public ComboBox<String> jdk;
 
     // Editor
     public TextField panMultiplier;
@@ -31,6 +33,7 @@ public class GlobalPrefController {
     public TextField editorGuideLineDist;
 
     private boolean isThemeChange = false;
+    private File[] jdkList;
 
     @FXML
     public void initialize() {
@@ -40,9 +43,7 @@ public class GlobalPrefController {
         Runnable fields = this::setFields;
         fields.run();
 
-        cancelButton.setOnMouseClicked(event -> {
-            GlobalData.staticStage.close();
-        });
+        cancelButton.setOnMouseClicked(event -> GlobalData.staticStage.close());
 
         applyButton.setOnMouseClicked(event -> {
             // Set Values
@@ -51,6 +52,8 @@ public class GlobalPrefController {
                     GlobalData.setTheme(GlobalData.Theme.values()[i]);
             }
 
+            GlobalData.setJDKLocation(DataUtils.OperatingSystem.getCurrentOS().jdkLocation
+                    + File.separator + jdk.getSelectionModel().getSelectedItem() + ".jdk");
             GlobalData.setAutoSave(autoSave.isSelected());
             GlobalData.setPanMultiplier(Double.parseDouble(panMultiplier.getText()));
             GlobalData.setEditorBackgroundColor(editorBGColor.getText().replaceAll("#", ""));
@@ -80,14 +83,9 @@ public class GlobalPrefController {
     }
 
     private void setFields() {
-        int selectedTheme = 0;
+        this.setTheme();
+        this.setJDK();
 
-        for(int i = 0; i < GlobalData.Theme.values().length; i++) {
-            theme.getItems().add(GlobalData.Theme.values()[i].toString());
-            if(GlobalData.Theme.values()[i] == GlobalData.getTheme()) selectedTheme = i;
-        }
-
-        theme.getSelectionModel().select(selectedTheme);
         autoSave.setSelected(GlobalData.getAutoSave());
         panMultiplier.setText(Double.toString(GlobalData.getPanMultipler()));
         editorBGColor.setText(GlobalData.getEditorBackgroundColor());
@@ -99,5 +97,31 @@ public class GlobalPrefController {
 
     private void handleChanges() {
         theme.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> isThemeChange = true);
+    }
+
+    private void setTheme() {
+        int index = 0;
+
+        for(int i = 0; i < GlobalData.Theme.values().length; i++) {
+            theme.getItems().add(GlobalData.Theme.values()[i].toString());
+            if(GlobalData.Theme.values()[i] == GlobalData.getTheme()) index = i;
+        }
+
+        theme.getSelectionModel().select(index);
+    }
+
+    private void setJDK() {
+        int selectedIndex = 0;
+
+        File jdkDir = new File(DataUtils.OperatingSystem.getCurrentOS().jdkLocation);
+        jdkList = jdkDir.listFiles();
+        assert jdkList != null;
+
+        for(int i = 0; i < jdkList.length; i++) {
+            this.jdk.getItems().add(jdkList[i].getName().replaceAll("\\.jdk", ""));
+            if(jdkList[i].getPath().equals(GlobalData.getJDKLocation())) selectedIndex = i;
+        }
+
+        this.jdk.getSelectionModel().select(selectedIndex);
     }
 }

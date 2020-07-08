@@ -57,11 +57,11 @@
     -fx-background-color: -fx-default-light;
 }
 
-.default-combo-box {
+.combo-box {
     -fx-background-color: -fx-default-dark;
 }
 
-.default-combo-box .list-cell {
+.combo-box .list-cell {
     -fx-focus-color: transparent;
     -fx-background: -fx-default-dark;
     -fx-background-color: transparent;
@@ -72,18 +72,18 @@
     -fx-cell-size: 1.66667em;
 }
 
-.default-combo-box .combo-box-popup .list-view {
+.combo-box .combo-box-popup .list-view {
     -fx-background-color: -fx-default-medium, -fx-default-medium;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
 }
 
-.default-combo-box .combo-box-popup .list-view .list-cell:hover {
+.combo-box .combo-box-popup .list-view .list-cell:hover {
     -fx-background-color: -fx-default-light, -fx-default-light;
     -fx-cursor: hand;
 }
 
-.default-combo-box .combo-box-popup .list-view .list-cell:selected {
+.combo-box .combo-box-popup .list-view .list-cell:selected {
     -fx-background-color: -fx-default-dark, -fx-default-dark;
 }
 

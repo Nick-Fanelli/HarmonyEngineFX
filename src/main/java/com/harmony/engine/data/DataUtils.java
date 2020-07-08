@@ -12,7 +12,6 @@ import java.io.*;
 public class DataUtils {
 
     // Game Object Utils
-
     public static Element[] saveGameObject(Document document, GameObject gameObject) {
         // Save Name Attribute
         Element name = document.createElement("data");
@@ -134,5 +133,24 @@ public class DataUtils {
         }
 
         return builder.toString();
+    }
+
+    // OS Utils
+    public enum OperatingSystem {
+        MAC("/Library/Java/JavaVirtualMachines"),
+        WINDOWS("C:\\Program Files\\Java");
+
+        public final String jdkLocation;
+
+        OperatingSystem(String jdkLocation) {
+            this.jdkLocation = jdkLocation;
+        }
+
+        public static OperatingSystem getCurrentOS() {
+            String osName = System.getProperty("os.name");
+
+            if(osName.startsWith("Windows")) return WINDOWS;
+            else return MAC;
+        }
     }
 }

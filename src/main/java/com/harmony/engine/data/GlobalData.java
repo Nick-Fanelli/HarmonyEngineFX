@@ -68,6 +68,11 @@ public class GlobalData implements Serializable {
     public static void setAutoSave(boolean value) { dataContext.put(AUTO_SAVE_LOCATION, Boolean.toString(value)); }
     public static boolean getAutoSave() { return Boolean.parseBoolean(dataContext.get(AUTO_SAVE_LOCATION)); }
 
+    // JDK Location - Does not get default value
+    public static final String JDK_LOCATION = "jdkLocation";
+    public static void setJDKLocation(String location) { dataContext.put(JDK_LOCATION, location); }
+    public static String getJDKLocation() { return dataContext.get(JDK_LOCATION); }
+
     /********************** EDITOR **********************/
 
     // Pan Multipler

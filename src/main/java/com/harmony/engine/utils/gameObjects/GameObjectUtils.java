@@ -14,6 +14,7 @@ import java.io.IOException;
 public class GameObjectUtils {
 
     public static Stage staticStage;
+    public static Scene staticScene;
     public static GameObject staticGameObject;
 
     public static void createGameObject() {
@@ -49,6 +50,7 @@ public class GameObjectUtils {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
+            staticScene = scene;
 
             // Handle Theme
             scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());

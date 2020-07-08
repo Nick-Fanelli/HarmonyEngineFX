@@ -8,6 +8,7 @@ import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 public class GameObjectController {
 
@@ -21,6 +22,9 @@ public class GameObjectController {
     public Button cancelButton;
 
     private static Texture texture;
+
+    private boolean control = false;
+    private boolean enter = false;
 
     @FXML
     public void initialize() {
@@ -44,9 +48,7 @@ public class GameObjectController {
             }
         });
 
-        chooseTextureButton.setOnMouseClicked(mouseEvent -> {
-            TextureUtils.chooseTextureForGameObjectController();
-        });
+        chooseTextureButton.setOnMouseClicked(mouseEvent -> TextureUtils.chooseTextureForGameObjectController());
     }
 
     public static void setTexture(Texture texture) {

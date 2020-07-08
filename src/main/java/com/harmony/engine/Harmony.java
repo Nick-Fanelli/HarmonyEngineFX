@@ -77,7 +77,7 @@ public class Harmony extends Application {
         // Handle Theme
         scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
-        stage.setTitle("Harmony Engine v1.0");
+        stage.setTitle("Harmony Engine v1.0 - " + ProjectData.projectName);
         stage.setMinHeight(600);
         stage.setMinWidth(800);
         stage.setWidth(1280);
@@ -97,6 +97,7 @@ public class Harmony extends Application {
 
     private void handleInput() {
         staticScene.setOnKeyPressed(keyEvent -> {
+            System.out.println("Hey");
             switch (keyEvent.getCode()) {
                 case CONTROL:
                 case COMMAND:

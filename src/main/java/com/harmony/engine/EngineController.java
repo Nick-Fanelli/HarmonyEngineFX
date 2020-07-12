@@ -4,7 +4,7 @@ import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
 import com.harmony.engine.io.editor.CodeEditor;
-import com.harmony.engine.io.editor.StateEditor;
+import com.harmony.engine.io.editor.state.StateEditor;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.io.tabs.TexturesTab;
 import com.harmony.engine.utils.Status;
@@ -122,9 +122,7 @@ public class EngineController implements Runnable {
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
 
         tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
-            if(t1 == editorTab) StateEditor.update();
-//            else if(t1 == gameObjectsTab) synchronizeGameObjects();
-//            else if(t1 == texturesTab) synchronizeTextures();
+//            if(t1 == editorTab) StateEditor.update(); // TODO: DO SOMETHING WITH
         });
     }
 

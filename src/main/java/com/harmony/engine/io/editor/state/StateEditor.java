@@ -1,4 +1,4 @@
-package com.harmony.engine.io.editor;
+package com.harmony.engine.io.editor.state;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
@@ -29,6 +29,7 @@ import java.util.Map;
 public class StateEditor implements Runnable {
 
     private static Thread editorThread;
+    private static Runnable load;
 
     private static Canvas canvas;
     private static AnchorPane editorPane;
@@ -44,6 +45,7 @@ public class StateEditor implements Runnable {
     private static GraphicsContext g;
     private static GameObject copiedGameObject;
 
+    private static State activeState;
     private static final SelectionModel<TreeItem<String>> selectionModel = new SelectionModel();
     private static TreeItem<String> root;
 
@@ -66,6 +68,17 @@ public class StateEditor implements Runnable {
 
     @Override
     public void run() {
+       Runnable choose = this::chooseActiveState;
+       load = this::loadActiveState;
+
+       choose.run();
+    }
+
+    private void chooseActiveState() {
+
+    }
+
+    private void loadActiveState() {
         // Handle Sub-Threads
         Runnable editorManager = this::handleInput;
         Runnable hierarchyManager = this::initializeHierarchy;
@@ -80,6 +93,8 @@ public class StateEditor implements Runnable {
 
         objectsPane.setHgap(5);
         objectsPane.setVgap(5);
+
+        gameObjects.clear();
 
         editorManager.run();
         hierarchyManager.run();
@@ -97,7 +112,7 @@ public class StateEditor implements Runnable {
 
         hierarchy.setContextMenu(new HierarchyItemContext());
 
-        for (GameObject object : ProjectData.hierarchy) addGameObject(object);
+//        for (GameObject object : ProjectData.hierarchy) addGameObject(object);
     }
 
     private void handleInput() {
@@ -400,7 +415,7 @@ public class StateEditor implements Runnable {
     public static void removeGameObject(TreeItem<String> pointer) {
         GameObject object = gameObjects.get(pointer);
         images.remove(object);
-        gameObjects.remove(pointer);
+        activeState.gameObjects.remove(pointer);
         root.getChildren().remove(pointer);
         StateEditor.draw();
     }

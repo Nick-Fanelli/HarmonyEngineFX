@@ -1,6 +1,6 @@
 package com.harmony.engine.io.context;
 
-import com.harmony.engine.io.editor.StateEditor;
+import com.harmony.engine.io.editor.state.StateEditor;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;

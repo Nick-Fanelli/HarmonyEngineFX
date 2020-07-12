@@ -3,7 +3,7 @@ package com.harmony.engine;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.editor.CodeEditor;
-import com.harmony.engine.io.editor.StateEditor;
+import com.harmony.engine.io.editor.state.StateEditor;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -97,7 +97,6 @@ public class Harmony extends Application {
 
     private void handleInput() {
         staticScene.setOnKeyPressed(keyEvent -> {
-            System.out.println("Hey");
             switch (keyEvent.getCode()) {
                 case CONTROL:
                 case COMMAND:

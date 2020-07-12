@@ -1,5 +1,6 @@
 package com.harmony.engine.data;
 
+import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import org.w3c.dom.Document;
@@ -7,7 +8,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class DataUtils {
 
@@ -59,8 +64,55 @@ public class DataUtils {
         return object;
     }
 
-    // Vector Utils
+    // State Utils
+    public static Element[] saveState(Document document, State state) {
+        // Save Name Attribute
+        Element name = document.createElement("data");
+        name.setAttribute("name", state.name);
 
+        // Save Game Objects
+        Element hierarchy = ProjectData.createContainerElement(document, "Hierarchy");
+
+        for(GameObject object : state.gameObjects) {
+            Element[] elements = DataUtils.saveGameObject(document, object);
+            for(Element element : elements) hierarchy.appendChild(element);
+        }
+
+        return new Element[] { name, hierarchy };
+    }
+
+    public static State loadState(Element data) {
+        State state = new State("", new ArrayList<>());
+
+        NodeList nList = data.getChildNodes();
+
+        for(int i = 0; i < nList.getLength(); i++) {
+            Node node = nList.item(i);
+
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) node;
+
+                if(eElement.hasAttribute("name")) state.name = eElement.getAttribute("name");
+
+                else if(eElement.getTagName().equals("Hierarchy")) {
+                    NodeList cList = eElement.getChildNodes();
+
+                    for(int j = 0; j < cList.getLength(); j++) {
+                        Node oNode = nList.item(j);
+
+                        if(oNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element oElement = (Element) oNode;
+                            state.gameObjects.add(DataUtils.loadGameObject(oElement));
+                        }
+                    }
+                }
+            }
+        }
+
+        return state;
+    }
+
+    // Vector Utils
     public static Element saveVector2f(Document document, Vector2f vector2f) {
         Element data = document.createElement("vector2f");
 

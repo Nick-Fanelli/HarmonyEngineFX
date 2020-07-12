@@ -20,7 +20,7 @@
    <children>
       <TabPane fx:id="tabBar" layoutY="28.0" prefHeight="373.0" prefWidth="800.0" style="-fx-border-color: -fx-default-dark;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab fx:id="projectTab" text="Project">
+          <Tab fx:id="projectTab" closable="false" text="Project">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>
@@ -66,7 +66,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="texturesTab" text="Textures">
+          <Tab fx:id="texturesTab" closable="false" text="Textures">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>
@@ -132,7 +132,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="gameObjectsTab" text="Game Objects">
+          <Tab fx:id="gameObjectsTab" closable="false" text="Game Objects">
               <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: -fx-default-light;" styleClass="anchor-section">
                       <children>
@@ -163,38 +163,43 @@
                       </children></AnchorPane>
               </content>
           </Tab>
-          <Tab fx:id="editorTab" text="Editor">
+          <Tab fx:id="editorTab" closable="false" text="Editor">
               <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
-                     <children>
-                        <SplitPane dividerPositions="0.32608695652173914" prefHeight="160.0" prefWidth="200.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                 <children>
-                                    <SplitPane fx:id="editorSplitPane" dividerPositions="0.6528662420382165" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                          <AnchorPane fx:id="editorInteractable" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                  <SplitPane dividerPositions="0.32608695652173914" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <items>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                             <children>
-                                                <TreeView fx:id="hierarchy" prefHeight="200.0" prefWidth="200.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                              <children>
+                                                  <SplitPane fx:id="editorSplitPane" dividerPositions="0.6528662420382165" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                      <items>
+                                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                              <children>
+                                                                  <TreeView fx:id="hierarchy" prefHeight="200.0" prefWidth="200.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                              </children>
+                                                          </AnchorPane>
+                                                          <GridPane fx:id="objectsPane" gridLinesVisible="true" prefHeight="120.0" prefWidth="189.0" />
+                                                      </items>
+                                                  </SplitPane>
+                                              </children>
                                           </AnchorPane>
-                                          <GridPane fx:id="objectsPane" gridLinesVisible="true" prefHeight="120.0" prefWidth="189.0" />
+                                          <AnchorPane fx:id="editorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                              <children>
+                                                  <Canvas fx:id="editorCanvas" height="244.0" width="481.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                              </children>
+                                          </AnchorPane>
                                       </items>
-                                    </SplitPane>
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane fx:id="editorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                 <children>
-                                     <Canvas fx:id="editorCanvas" height="244.0" width="481.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
+                                  </SplitPane>
+                              </children>
+                          </AnchorPane>
+                        <AnchorPane fx:id="editorState" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                      </children>
                   </AnchorPane>
               </content>
           </Tab>
-            <Tab text="Code">
+            <Tab closable="false" text="Code">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>

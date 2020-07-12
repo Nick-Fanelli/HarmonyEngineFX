@@ -2,16 +2,16 @@ package com.harmony.engine.data;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
-import com.harmony.engine.io.editor.StateEditor;
+import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.textures.Texture;
-import javafx.scene.control.TreeItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -21,8 +21,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ProjectData {
 
@@ -33,7 +31,7 @@ public class ProjectData {
 
     public static ArrayList<Texture> textures = new ArrayList<>();
     public static ArrayList<GameObject> gameObjects = new ArrayList<>();
-    public static ArrayList<GameObject> hierarchy = new ArrayList<>();
+    public static ArrayList<State> states = new ArrayList<>();
 
     public static void reset() {
         projectName = "";
@@ -42,7 +40,7 @@ public class ProjectData {
         versionID = "";
         textures.clear();
         gameObjects.clear();
-        hierarchy.clear();
+        states.clear();
     }
 
     public static void save(File directory) {
@@ -86,7 +84,7 @@ public class ProjectData {
 
         ProjectData.addTextureAttributes(rootElement, document);
         ProjectData.addGameObjectAttributes(rootElement, document);
-        ProjectData.addHierarchyAttributes(rootElement, document);
+        ProjectData.addStateAttributes(rootElement, document);
     }
 
     private static void addTextureAttributes(Element rootElement, Document document) {
@@ -109,20 +107,20 @@ public class ProjectData {
         rootElement.appendChild(gameObjectsElement);
     }
 
-    private static void addHierarchyAttributes(Element rootElement, Document document) {
-        Element hierarchyElement = createContainerElement(document, "Hierarchy");
+    private static void addStateAttributes(Element rootElement, Document document) {
+        Element stateElement = createContainerElement(document, "States");
 
-        for(Map.Entry<TreeItem<String>, GameObject> entry : StateEditor.getHierarchy().entrySet()) {
-            hierarchyElement.appendChild(createHObjectElement(document, entry));
+        for(State state : states) {
+            stateElement.appendChild(createStateElement(document, state));
         }
 
-        rootElement.appendChild(hierarchyElement);
+        rootElement.appendChild(stateElement);
     }
 
     public static final String VALUE = "value";
     public static final String TEXTURE = "texture";
     public static final String GAME_OBJECT = "gameObject";
-    public static final String H_OBJECT = "hObject";
+    public static final String STATE = "state";
 
     public static Element createElement(Document document, String type, String name, String value) {
         Element node = document.createElement(type);
@@ -153,10 +151,12 @@ public class ProjectData {
         return node;
     }
 
-    public static Element createHObjectElement(Document document, Map.Entry<TreeItem<String>, GameObject> entry) {
-        Element node = createContainerElement(document, H_OBJECT);
+    public static Element createStateElement(Document document, State state) {
+        Element node = document.createElement(STATE);
 
-        node.appendChild(createGameObjectElement(document, entry.getValue()));
+        Element[] children = DataUtils.saveState(document, state);
+
+        for(Element child : children) node.appendChild(child);
 
         return node;
     }
@@ -179,7 +179,7 @@ public class ProjectData {
             loadValueNodes(document.getElementsByTagName(VALUE));
             loadTextureNodes(document.getElementsByTagName(TEXTURE));
             loadGameObjectNodes(document.getElementsByTagName(GAME_OBJECT));
-            loadHierarchyNodes(document.getElementsByTagName(H_OBJECT));
+            loadStateNodes(document.getElementsByTagName(STATE));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -244,28 +244,18 @@ public class ProjectData {
         }
     }
 
-    private static void loadHierarchyNodes(NodeList nList) {
+    private static void loadStateNodes(NodeList nList) {
         for(int i = 0; i < nList.getLength(); i++) {
             Node node = nList.item(i);
 
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
 
-                Node oNode = null;
+                if(eElement.getParentNode().getNodeType() == Node.ELEMENT_NODE) {
+                    Element pElement = (Element) eElement.getParentNode();
 
-                for(int j = 0; j < eElement.getChildNodes().getLength(); j++) {
-                    if(eElement.getChildNodes().item(j).getNodeName().equals(GAME_OBJECT))
-                        oNode = eElement.getChildNodes().item(j);
-                }
-
-                if(oNode == null) return;
-
-                if(oNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element oElement = (Element) oNode;
-
-                    if(oElement.getTagName().equals("gameObject")) {
-                        hierarchy.add(DataUtils.loadGameObject(oElement));
-                    }
+                    if(pElement.getTagName().equals("States"))
+                        states.add(DataUtils.loadState(eElement));
                 }
             }
         }

@@ -1,9 +1,10 @@
 package com.harmony.engine.io.editor.state;
 
+import com.harmony.engine.Harmony;
+import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -31,6 +32,9 @@ public class StateUtils {
         try {
             FXMLLoader loader = new FXMLLoader(StateUtils.class.getResource("/fxml/createState.fxml"));
             Scene scene = new Scene(loader.load());
+            
+            // Handle Theme
+            scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
             stage = new Stage(StageStyle.UNDECORATED);
             stage.setResizable(false);

@@ -198,8 +198,9 @@
                         <AnchorPane fx:id="editorState" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: -fx-default-light;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <ListView fx:id="editorStatesList" prefHeight="512.0" prefWidth="273.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                              <Button fx:id="editorOpenStateButton" layoutX="723.0" layoutY="14.0" mnemonicParsing="false" styleClass="default-choose-button" text="Open" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-                              <Button fx:id="editorNewStateButton" layoutX="670.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: green;" styleClass="default-button" text="New" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="15.0" />
+                              <Button fx:id="editorOpenStateButton" layoutX="723.0" layoutY="14.0" mnemonicParsing="false" styleClass="default-choose-button" text="Open" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                              <Button fx:id="editorNewStateButton" layoutX="670.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: green;" styleClass="default-button" text="New" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="10.0" />
+                              <Button fx:id="deleteStateButton" layoutX="728.0" layoutY="481.0" mnemonicParsing="false" style="-fx-background-color: #f55442;" styleClass="default-button" text="Delete" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="8.0" />
                            </children></AnchorPane>
                       </children>
                   </AnchorPane>

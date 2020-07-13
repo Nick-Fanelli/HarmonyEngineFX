@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class StateEditor implements Runnable {
 
@@ -40,8 +41,10 @@ public class StateEditor implements Runnable {
     private static AnchorPane interactablePane;
     private static ListView<String> statesList;
     private final static HashMap<String, State> statesHashMap = new HashMap<>();
+
     private static Button openStateButton;
     private static Button newStateButton;
+    private static Button deleteStateButton;
 
     private final static Vector2f editorCamera = new Vector2f();
     private final static Vector2f mousePosition = new Vector2f();
@@ -61,7 +64,7 @@ public class StateEditor implements Runnable {
     // Preferences
 
     public StateEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy,
-                       ListView<String> statesList, Button openStateButton, Button newStateButton,
+                       ListView<String> statesList, Button openStateButton, Button newStateButton, Button deleteStateButton,
                        AnchorPane statePane, AnchorPane interactablePane) {
         StateEditor.canvas = canvas;
         StateEditor.editorPane = editorPane;
@@ -70,6 +73,7 @@ public class StateEditor implements Runnable {
         StateEditor.statesList = statesList;
         StateEditor.openStateButton = openStateButton;
         StateEditor.newStateButton = newStateButton;
+        StateEditor.deleteStateButton = deleteStateButton;
         StateEditor.statePane = statePane;
         StateEditor.interactablePane = interactablePane;
 
@@ -109,6 +113,30 @@ public class StateEditor implements Runnable {
         });
 
         newStateButton.setOnMouseClicked(mouseEvent ->  StateUtils.createState());
+
+        deleteStateButton.setOnMouseClicked(mouseEvent -> {
+            State selectedState = statesHashMap.get(statesList.getSelectionModel().getSelectedItem());
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Deletion");
+            alert.setHeaderText("Confirm State Deletion");
+            alert.setContentText("Are you sure you want to delete the \"" + selectedState.name + "\" state?");
+
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
+            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.isPresent() && result.get() == ButtonType.OK) {
+                ProjectData.states.remove(selectedState);
+
+                statesHashMap.remove(statesList.getSelectionModel().getSelectedItem());
+                statesList.getItems().remove(statesList.getSelectionModel().getSelectedItem());
+
+                if (GlobalData.getAutoSave()) Harmony.save();
+            }
+        });
     }
 
     private void loadActiveState() {

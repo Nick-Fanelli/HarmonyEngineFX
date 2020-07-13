@@ -80,6 +80,7 @@ public class EngineController implements Runnable {
     public ListView<String> editorStatesList;
     public Button editorOpenStateButton;
     public Button editorNewStateButton;
+    public Button deleteStateButton;
 
     public Canvas editorCanvas;
     public AnchorPane editorPane;
@@ -206,7 +207,7 @@ public class EngineController implements Runnable {
     private void initEditorTab() {
         staticEditorTab = editorTab;
         new StateEditor(editorCanvas, editorPane, objectsPane, hierarchy, editorStatesList, editorOpenStateButton,
-                editorNewStateButton, editorState, editorInteractable);
+                editorNewStateButton, deleteStateButton, editorState, editorInteractable);
     }
 
     // Code Methods

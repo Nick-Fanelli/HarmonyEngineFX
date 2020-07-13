@@ -27,8 +27,9 @@ import java.util.Map;
 public class StateEditor implements Runnable {
 
     private static Thread editorThread;
-    private static Runnable load;
-    private static Runnable choose;
+
+    public static Runnable load;
+    public static Runnable choose;
 
     private static Canvas canvas;
     private static AnchorPane editorPane;
@@ -40,6 +41,7 @@ public class StateEditor implements Runnable {
     private static ListView<String> statesList;
     private final static HashMap<String, State> statesHashMap = new HashMap<>();
     private static Button openStateButton;
+    private static Button newStateButton;
 
     private final static Vector2f editorCamera = new Vector2f();
     private final static Vector2f mousePosition = new Vector2f();
@@ -59,13 +61,15 @@ public class StateEditor implements Runnable {
     // Preferences
 
     public StateEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy,
-                       ListView<String> statesList, Button openStateButton, AnchorPane statePane, AnchorPane interactablePane) {
+                       ListView<String> statesList, Button openStateButton, Button newStateButton,
+                       AnchorPane statePane, AnchorPane interactablePane) {
         StateEditor.canvas = canvas;
         StateEditor.editorPane = editorPane;
         StateEditor.objectsPane = objectsPane;
         StateEditor.hierarchy = hierarchy;
         StateEditor.statesList = statesList;
         StateEditor.openStateButton = openStateButton;
+        StateEditor.newStateButton = newStateButton;
         StateEditor.statePane = statePane;
         StateEditor.interactablePane = interactablePane;
 
@@ -103,6 +107,8 @@ public class StateEditor implements Runnable {
             activeState = statesHashMap.get(statesList.getSelectionModel().getSelectedItem());
             load.run();
         });
+
+        newStateButton.setOnMouseClicked(mouseEvent ->  StateUtils.createState());
     }
 
     private void loadActiveState() {

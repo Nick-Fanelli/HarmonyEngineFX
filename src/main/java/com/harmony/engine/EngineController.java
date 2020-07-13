@@ -65,13 +65,13 @@ public class EngineController implements Runnable {
     public Button chooseTextureButton;
     public Button deleteTextureButton;
 
-    // GameObjects Tab
+    // Game Objects Tab
     public Tab gameObjectsTab;
     public GridPane objectsArray;
     public Button newObjectButton;
     public Button openObjectButton;
 
-    // State editor Tab
+    // State Editor Tab
     public static Tab staticEditorTab;
     public Tab editorTab;
     public AnchorPane editorState;
@@ -79,13 +79,14 @@ public class EngineController implements Runnable {
 
     public ListView<String> editorStatesList;
     public Button editorOpenStateButton;
+    public Button editorNewStateButton;
 
     public Canvas editorCanvas;
     public AnchorPane editorPane;
     public GridPane objectsPane;
     public TreeView<String> hierarchy;
 
-    // Code editor Tab
+    // Code Editor Tab
     public TreeView<String> codeFileList;
     public WebView codeView;
 
@@ -205,7 +206,7 @@ public class EngineController implements Runnable {
     private void initEditorTab() {
         staticEditorTab = editorTab;
         new StateEditor(editorCanvas, editorPane, objectsPane, hierarchy, editorStatesList, editorOpenStateButton,
-                editorState, editorInteractable);
+                editorNewStateButton, editorState, editorInteractable);
     }
 
     // Code Methods

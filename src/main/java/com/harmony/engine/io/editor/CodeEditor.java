@@ -2,6 +2,8 @@ package com.harmony.engine.io.editor;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.DataUtils;
+import com.harmony.engine.data.GlobalData;
+import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.context.FileItemContext;
 import com.harmony.engine.utils.Status;
 import javafx.application.Platform;
@@ -12,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -115,7 +116,10 @@ public class CodeEditor implements Runnable {
     }
 
     private void initializeCodeView() {
-        webEngine.load(CodeEditor.class.getResource("/editor/editor.html").toExternalForm());
+        // TODO: Allow the web engine to update if the theme is changed
+        webEngine.load(CodeEditor.class.getResource(
+                GlobalData.getTheme() == GlobalData.Theme.LIGHT ? "/editor/lightEditor.html" : "/editor/darkEditor.html").toExternalForm());
+
     }
 
     private void handleInput() {
@@ -136,7 +140,7 @@ public class CodeEditor implements Runnable {
         if(selectedScript != null) {
             Document document = webEngine.getDocument();
 
-            webEngine.executeScript("var code = editor.getValue();" +
+            webEngine.executeScript("var code = ace.edit(\"editor\").getValue();" +
                     "document.getElementById(\"bufferObject\").innerHTML = code");
 
             NodeList nList = document.getElementsByTagName("buffer");

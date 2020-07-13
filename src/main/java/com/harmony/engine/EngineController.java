@@ -120,9 +120,11 @@ public class EngineController implements Runnable {
 
         Status.setCurrentStatus(Status.Type.STAND_BY);
 
-        saveProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/save-icon.png"), 32, 32, true, true)));
-        runProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/run-icon.png"), 32, 32, true, true)));
-        documentationButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/info-icon.png"), 32, 32, true, true)));
+        // TODO: Update when theme is updated
+        saveProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream(
+                String.format("/images/icons/save-icon-%s.png", GlobalData.getTheme() == GlobalData.Theme.LIGHT ? "light" : "dark")), 24, 24, true, true)));
+        runProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/run-icon.png"), 24, 24, true, true)));
+        documentationButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/info-icon.png"), 28, 28, true, true)));
         globalPreferencesButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/settings-icon.png"), 20, 20, true, true)));
 
         saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));

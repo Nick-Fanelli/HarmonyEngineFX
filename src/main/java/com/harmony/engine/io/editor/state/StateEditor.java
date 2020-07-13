@@ -12,9 +12,7 @@ import com.harmony.engine.utils.gameObjects.GameObject;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -30,11 +28,18 @@ public class StateEditor implements Runnable {
 
     private static Thread editorThread;
     private static Runnable load;
+    private static Runnable choose;
 
     private static Canvas canvas;
     private static AnchorPane editorPane;
     private static GridPane objectsPane;
     private static TreeView<String> hierarchy;
+
+    private static AnchorPane statePane;
+    private static AnchorPane interactablePane;
+    private static ListView<String> statesList;
+    private final static HashMap<String, State> statesHashMap = new HashMap<>();
+    private static Button openStateButton;
 
     private final static Vector2f editorCamera = new Vector2f();
     private final static Vector2f mousePosition = new Vector2f();
@@ -53,11 +58,16 @@ public class StateEditor implements Runnable {
 
     // Preferences
 
-    public StateEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy) {
+    public StateEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy,
+                       ListView<String> statesList, Button openStateButton, AnchorPane statePane, AnchorPane interactablePane) {
         StateEditor.canvas = canvas;
         StateEditor.editorPane = editorPane;
         StateEditor.objectsPane = objectsPane;
         StateEditor.hierarchy = hierarchy;
+        StateEditor.statesList = statesList;
+        StateEditor.openStateButton = openStateButton;
+        StateEditor.statePane = statePane;
+        StateEditor.interactablePane = interactablePane;
 
         if(editorThread != null) return;
 
@@ -68,17 +78,42 @@ public class StateEditor implements Runnable {
 
     @Override
     public void run() {
-       Runnable choose = this::chooseActiveState;
+       choose = this::chooseActiveState;
        load = this::loadActiveState;
 
        choose.run();
     }
 
     private void chooseActiveState() {
+        StateEditor.save();
+        activeState = null;
 
+        interactablePane.setVisible(false);
+        statePane.setVisible(true);
+
+        statesList.getItems().clear();
+        statesHashMap.clear();
+
+        for(State state : ProjectData.states) {
+            statesList.getItems().add(state.name);
+            statesHashMap.put(state.name, state);
+        }
+
+        openStateButton.setOnMouseClicked(mouseEvent -> {
+            activeState = statesHashMap.get(statesList.getSelectionModel().getSelectedItem());
+            load.run();
+        });
     }
 
     private void loadActiveState() {
+        statePane.setVisible(false);
+        interactablePane.setVisible(true);
+
+        if(activeState == null) {
+            choose.run();
+            return;
+        }
+
         // Handle Sub-Threads
         Runnable editorManager = this::handleInput;
         Runnable hierarchyManager = this::initializeHierarchy;
@@ -96,6 +131,9 @@ public class StateEditor implements Runnable {
 
         gameObjects.clear();
 
+        root = new TreeItem<>(activeState.name);
+
+        StateEditor.update();
         editorManager.run();
         hierarchyManager.run();
     }
@@ -105,14 +143,13 @@ public class StateEditor implements Runnable {
         hierarchy.setEditable(true);
         hierarchy.setFocusTraversable(false);
 
-        root = new TreeItem<>(Harmony.directory.getName());
         root.setExpanded(true);
 
         hierarchy.setRoot(root);
 
         hierarchy.setContextMenu(new HierarchyItemContext());
 
-//        for (GameObject object : ProjectData.hierarchy) addGameObject(object);
+        for (GameObject object : activeState.gameObjects) addGameObject(object);
     }
 
     private void handleInput() {
@@ -418,6 +455,15 @@ public class StateEditor implements Runnable {
         activeState.gameObjects.remove(pointer);
         root.getChildren().remove(pointer);
         StateEditor.draw();
+    }
+
+    public static void save() {
+        if(activeState == null) return;
+        activeState.gameObjects.clear();
+
+        for(Map.Entry<TreeItem<String>, GameObject> entry : gameObjects.entrySet()) {
+            activeState.gameObjects.add(entry.getValue());
+        }
     }
 
     // Utility Methods

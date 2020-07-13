@@ -133,8 +133,9 @@ public class Harmony extends Application {
 
     public static void save() {
         System.out.println("Harmony -> Saving...");
-        ProjectData.save(Harmony.directory);
         CodeEditor.saveSelectedScript();
+        StateEditor.save();
+        ProjectData.save(Harmony.directory); // Last
     }
 
     public static void triggerHand(boolean value) {
@@ -143,7 +144,7 @@ public class Harmony extends Application {
     }
 
     private void closeApplication() {
-        ProjectData.save(Harmony.directory);
+        Harmony.save();
         GlobalData.save();
 
         Platform.exit();

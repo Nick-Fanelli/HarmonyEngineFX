@@ -71,15 +71,21 @@ public class EngineController implements Runnable {
     public Button newObjectButton;
     public Button openObjectButton;
 
-    // Editor Tab
+    // State editor Tab
     public static Tab staticEditorTab;
     public Tab editorTab;
+    public AnchorPane editorState;
+    public AnchorPane editorInteractable;
+
+    public ListView<String> editorStatesList;
+    public Button editorOpenStateButton;
+
     public Canvas editorCanvas;
     public AnchorPane editorPane;
     public GridPane objectsPane;
     public TreeView<String> hierarchy;
 
-    // Code Tab
+    // Code editor Tab
     public TreeView<String> codeFileList;
     public WebView codeView;
 
@@ -198,7 +204,8 @@ public class EngineController implements Runnable {
     // Editor Methods
     private void initEditorTab() {
         staticEditorTab = editorTab;
-        new StateEditor(editorCanvas, editorPane, objectsPane, hierarchy);
+        new StateEditor(editorCanvas, editorPane, objectsPane, hierarchy, editorStatesList, editorOpenStateButton,
+                editorState, editorInteractable);
     }
 
     // Code Methods

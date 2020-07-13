@@ -3,6 +3,7 @@ package com.harmony.engine.data;
 import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.gameObjects.GameObject;
+import javafx.scene.chart.PieChart;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -74,8 +75,7 @@ public class DataUtils {
         Element hierarchy = ProjectData.createContainerElement(document, "Hierarchy");
 
         for(GameObject object : state.gameObjects) {
-            Element[] elements = DataUtils.saveGameObject(document, object);
-            for(Element element : elements) hierarchy.appendChild(element);
+            hierarchy.appendChild(ProjectData.createGameObjectElement(document, object));
         }
 
         return new Element[] { name, hierarchy };
@@ -102,7 +102,21 @@ public class DataUtils {
 
                         if(oNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element oElement = (Element) oNode;
-                            state.gameObjects.add(DataUtils.loadGameObject(oElement));
+
+                            if(oElement.getTagName().equals("Hierarchy")) {
+                                NodeList oList = oElement.getChildNodes();
+
+                                for(int x = 0; x < oList.getLength(); x++) {
+                                    Node objectNode = oList.item(x);
+
+                                    if(objectNode.getNodeType() == Node.ELEMENT_NODE) {
+                                        Element objectElement = (Element) objectNode;
+
+                                        state.gameObjects.add(DataUtils.loadGameObject(objectElement));
+                                    }
+                                }
+
+                            }
                         }
                     }
                 }

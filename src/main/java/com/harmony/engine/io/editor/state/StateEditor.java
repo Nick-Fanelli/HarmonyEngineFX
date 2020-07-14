@@ -522,7 +522,6 @@ public class StateEditor implements Runnable {
         StateEditor.draw();
     }
 
-    // TODO: update to use parent of game object
     public static void moveSelectedGameObjectDown() {
         TreeItem<String> key = hierarchy.getSelectionModel().getSelectedItem();
         if(key == null) return;
@@ -550,7 +549,6 @@ public class StateEditor implements Runnable {
         StateEditor.draw();
     }
 
-    //TODO: update to use parent of game object
     public static void moveSelectedGameObjectUp() {
         TreeItem<String> key = hierarchy.getSelectionModel().getSelectedItem();
         if(key == null) return;

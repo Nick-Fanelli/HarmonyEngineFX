@@ -76,7 +76,6 @@ public class CodeEditor implements Runnable {
         File scriptsDirectory = Harmony.getScriptsLocation();
 
         if(!scriptsDirectory.exists() || !scriptsDirectory.isDirectory()) {
-            // TODO: Throw an error
             System.err.println("Could not find a valid scripts directory!");
             return;
         }

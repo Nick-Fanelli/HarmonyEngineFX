@@ -3,7 +3,6 @@ package com.harmony.engine.io.editor;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
-import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.context.FileItemContext;
 import com.harmony.engine.utils.Status;
 import javafx.application.Platform;

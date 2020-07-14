@@ -13,7 +13,6 @@ import javafx.stage.DirectoryChooser;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.concurrent.CyclicBarrier;
 
 public class LauncherController {
 

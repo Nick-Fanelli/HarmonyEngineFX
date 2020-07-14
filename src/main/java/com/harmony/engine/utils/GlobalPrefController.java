@@ -7,7 +7,6 @@ import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.documentation.Documentation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
 
 import java.io.File;
 

@@ -120,7 +120,6 @@ public class EngineController implements Runnable {
 
         Status.setCurrentStatus(Status.Type.STAND_BY);
 
-        // TODO: Update when theme is updated
         saveProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream(
                 String.format("/images/icons/save-icon-%s.png", GlobalData.getTheme() == GlobalData.Theme.LIGHT ? "light" : "dark")), 24, 24, true, true)));
         runProjectButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/run-icon.png"), 24, 24, true, true)));

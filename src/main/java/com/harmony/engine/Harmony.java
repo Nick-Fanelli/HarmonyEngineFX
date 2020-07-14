@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -156,6 +158,17 @@ public class Harmony extends Application {
 
         // Handle Theme
         staticScene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Reminder");
+        alert.setHeaderText("Restart Optional");
+        alert.setContentText("Some things like icons and the code editor require a program restart to update with the theme.");
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(Harmony.class.getResource("/css/harmony.css").toExternalForm());
+        dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+
+        alert.show();
     }
 
     public static String getResourceString(String path) {

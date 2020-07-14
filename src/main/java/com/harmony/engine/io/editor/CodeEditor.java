@@ -64,7 +64,7 @@ public class CodeEditor implements Runnable {
         inputRunnable = this::handleInput;
 
         initializeFileList();
-        Platform.runLater(this::initializeCodeView);
+        Platform.runLater(CodeEditor::initializeCodeView);
     }
 
     private void initializeFileList() {
@@ -114,11 +114,9 @@ public class CodeEditor implements Runnable {
         }
     }
 
-    private void initializeCodeView() {
-        // TODO: Allow the web engine to update if the theme is changed
+    private static void initializeCodeView() {
         webEngine.load(CodeEditor.class.getResource(
                 GlobalData.getTheme() == GlobalData.Theme.LIGHT ? "/editor/lightEditor.html" : "/editor/darkEditor.html").toExternalForm());
-
     }
 
     private void handleInput() {
@@ -127,7 +125,7 @@ public class CodeEditor implements Runnable {
         });
     }
 
-    private void selectScript(TreeItem<String> key) {
+    private static void selectScript(TreeItem<String> key) {
         saveSelectedScript();
         File file = scripts.get(key);
         if(file == null || file.isDirectory()) return;
@@ -159,9 +157,11 @@ public class CodeEditor implements Runnable {
     }
 
     public static void loadScript(File file, DataUtils.FileType type) {
+        String data = DataUtils.readFileForAce(file).replaceAll("\"", "\\\"");
+
         webEngine.executeScript(
                 "var docSession = new ace.createEditSession(\"" +
-                        DataUtils.readFileForAce(file) + "\", \"ace/mode/" + type.aceKey + "\");\n" +
+                        data + "\", \"ace/mode/" + type.aceKey + "\");\n" +
                     "editor.setSession(docSession);"
         );
         Status.setUtilityText(file.getName());

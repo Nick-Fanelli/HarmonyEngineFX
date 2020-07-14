@@ -11,7 +11,9 @@ import com.harmony.engine.data.ProjectData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -53,7 +55,25 @@ public class StateUtils {
     }
 
     private void create() {
-        ProjectData.states.add(new State(name.getText().isEmpty() ? "Untitled State" : name.getText().trim(), new ArrayList<>()));
+        if(name.getText().isEmpty()) return;
+
+        for(State state : ProjectData.states) {
+            if(state.name.equals(name.getText().trim())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid Name");
+                alert.setHeaderText("Choose a Different Name");
+                alert.setContentText("The name " + name.getText() +  " has been taken, please use a different name.");
+
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(Harmony.class.getResource("/css/harmony.css").toExternalForm());
+                dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+
+                alert.show();
+                return;
+            }
+        }
+
+        ProjectData.states.add(new State(name.getText().trim(), new ArrayList<>()));
         StateEditor.load.run();
         stage.close();
     }

@@ -130,10 +130,6 @@ public class EngineController implements Runnable {
         saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
         documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(this, tabBar.getSelectionModel().getSelectedItem()));
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
-
-        tabBar.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
-//            if(t1 == editorTab) StateEditor.update(); // TODO: DO SOMETHING WITH
-        });
     }
 
     public static void setStatusLabel(String status, Color color) {

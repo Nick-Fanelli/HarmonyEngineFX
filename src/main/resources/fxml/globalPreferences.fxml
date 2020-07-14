@@ -3,6 +3,12 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
+<!--
+  ~ Copyright © 2020 Harmony Engines.
+  ~ All rights reserved.
+  -->
+
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@../css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.GlobalPrefController">
    <children>
       <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background: transparent;">

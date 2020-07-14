@@ -3,6 +3,12 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
+<!--
+  ~ Copyright © 2020 Harmony Engines.
+  ~ All rights reserved.
+  -->
+
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@../../css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.gameObjects.EditObjectController">
    <children>
        <GridPane layoutX="8.0" layoutY="14.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="14.0">

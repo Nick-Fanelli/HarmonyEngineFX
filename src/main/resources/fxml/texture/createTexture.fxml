@@ -5,6 +5,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+
+<!--
+  ~ Copyright © 2020 Harmony Engines.
+  ~ All rights reserved.
+  -->
+
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: -fx-default-medium;" stylesheets="@../../css/harmony.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.utils.textures.TextureFXMLController">
    <children>
       <Group layoutX="27.0" layoutY="26.0">

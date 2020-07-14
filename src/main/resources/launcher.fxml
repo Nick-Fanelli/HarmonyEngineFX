@@ -3,6 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+
+<!--
+  ~ Copyright © 2020 Harmony Engines.
+  ~ All rights reserved.
+  -->
+
 <AnchorPane id="launcher-pane" fx:id="anchorPane" prefHeight="400.0" prefWidth="640.0" stylesheets="@css/harmony.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.LauncherController">
    <children>
       <Button id="new-proj-btn" fx:id="newProjectButton" layoutX="236.0" layoutY="244.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="131.0" text="New Project" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="233.0" AnchorPane.topAnchor="244.0" />

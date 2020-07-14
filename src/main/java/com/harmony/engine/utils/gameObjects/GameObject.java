@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2020 Harmony Engines.
+ * All rights reserved.
+ */
+
 package com.harmony.engine.utils.gameObjects;
 
 import com.harmony.engine.math.Vector2f;

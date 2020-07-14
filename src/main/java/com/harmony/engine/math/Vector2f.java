@@ -1,8 +1,11 @@
+/*
+ * Copyright © 2020 Harmony Engines.
+ * All rights reserved.
+ */
+
 package com.harmony.engine.math;
 
-import java.io.Serializable;
-
-public class Vector2f implements Serializable {
+public class Vector2f {
 
     public float x;
     public float y;

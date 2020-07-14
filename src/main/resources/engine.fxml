@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
@@ -19,45 +31,65 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                      <children>
-                        <GridPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="197.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200200.0" minWidth="10.0" prefWidth="123.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="65.0" minHeight="65.0" prefHeight="65.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
-                          </rowConstraints>
-                           <children>
-                              <TextField fx:id="projectName" promptText="Game Name" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label styleClass="default-label" text="Project Name:" textFill="#e4e4e4" GridPane.rowIndex="1" />
-                              <Label styleClass="default-label" text="Author:" textFill="#e4e4e4" GridPane.rowIndex="2" />
-                              <TextField fx:id="author" promptText="Company Name" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="version" promptText="Eg. 4.6.2" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label styleClass="default-label" text="Version:" textFill="#e4e4e4" GridPane.rowIndex="3" />
-                              <Label prefHeight="26.0" prefWidth="286.0" style="-fx-font-size: 30px;" styleClass="default-label" text="Project Settings" GridPane.columnSpan="2">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </GridPane>
-                        <Button fx:id="openDocumentationButton" mnemonicParsing="false" styleClass="default-choose-button" text="Full Documentation" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="10.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="142.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="229.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200200.0" minWidth="10.0" prefWidth="123.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints maxHeight="65.0" minHeight="65.0" prefHeight="65.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="65.0" minHeight="65.0" prefHeight="65.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                                      </rowConstraints>
+                                       <children>
+                                          <TextField fx:id="projectName" promptText="Game Name" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label styleClass="default-label" text="Project Name:" textFill="#e4e4e4" GridPane.rowIndex="1" />
+                                          <Label styleClass="default-label" text="Author:" textFill="#e4e4e4" GridPane.rowIndex="2" />
+                                          <TextField fx:id="author" promptText="Company Name" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="version" promptText="Eg. 4.6.2" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label styleClass="default-label" text="Version:" textFill="#e4e4e4" GridPane.rowIndex="3" />
+                                          <Label prefHeight="26.0" prefWidth="286.0" style="-fx-font-size: 30px;" styleClass="default-label" text="Project Settings" GridPane.columnSpan="2">
+                                             <font>
+                                                <Font size="36.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="26.0" prefWidth="286.0" style="-fx-font-size: 30px;" styleClass="default-label" text="Export Settings" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                             <font>
+                                                <Font size="36.0" />
+                                             </font>
+                                          </Label>
+                                          <Label styleClass="default-label" text="Launcher State:" textFill="#e4e4e4" GridPane.rowIndex="6" />
+                                          <TextField fx:id="launcherState" promptText="Game State" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <Button fx:id="chooseStateButton" mnemonicParsing="false" styleClass="default-button" text="Choose" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                             <GridPane.margin>
+                                                <Insets left="10.0" />
+                                             </GridPane.margin>
+                                          </Button>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="openDocumentationButton" layoutX="618.0" layoutY="10.0" mnemonicParsing="false" styleClass="default-choose-button" text="Full Documentation" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0" />
                      </children></AnchorPane>
             </content>
           </Tab>

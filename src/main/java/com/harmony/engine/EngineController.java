@@ -9,6 +9,7 @@ import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
 import com.harmony.engine.io.editor.CodeEditor;
+import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.io.editor.state.StateEditor;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.io.tabs.TexturesTab;
@@ -55,7 +56,10 @@ public class EngineController implements Runnable {
     public TextField projectName;
     public TextField author;
     public TextField version;
+    public TextField launcherState;
+
     public Button openDocumentationButton;
+    public Button chooseStateButton; // TODO: Make Work
 
     // Textures Tab
     public Tab texturesTab;
@@ -146,23 +150,40 @@ public class EngineController implements Runnable {
         projectName.setText(ProjectData.projectName);
         author.setText(ProjectData.author);
         version.setText(ProjectData.versionID);
+        launcherState.setText(ProjectData.launcherState);
 
-        handleProjectElements();
+        Runnable elements = this::handleProjectElements;
+        elements.run();
     }
     private void handleProjectElements() {
         // Project Name
-        projectName.textProperty().addListener((observableValue, s, t1) -> {
-            ProjectData.projectName = t1;
-        });
+        projectName.textProperty().addListener((observableValue, s, t1) -> ProjectData.projectName = t1);
 
         // Author
-        author.textProperty().addListener((observableValue, s, t1) -> {
-            ProjectData.author = t1;
-        });
+        author.textProperty().addListener((observableValue, s, t1) -> ProjectData.author = t1);
 
         // VersionID
-        version.textProperty().addListener((observableValue, s, t1) -> {
-            ProjectData.versionID = t1;
+        version.textProperty().addListener((observableValue, s, t1) -> ProjectData.versionID = t1);
+
+        // Launcher State
+        launcherState.textProperty().addListener((observableValue, s, t1) -> {
+            if(t1.isEmpty()) return;
+
+            boolean match = false;
+            for(State state : ProjectData.states) {
+                if(t1.equals(state.name)) {
+                    match = true;
+                    break;
+                }
+            }
+
+            if(!match) {
+                launcherState.setStyle("-fx-text-fill: red;");
+                return;
+            }
+
+            launcherState.setStyle("-fx-text-fill: -fx-default-text-fill;");
+            ProjectData.launcherState = launcherState.getText();
         });
 
         openDocumentationButton.setOnMouseClicked(mouseEvent -> {

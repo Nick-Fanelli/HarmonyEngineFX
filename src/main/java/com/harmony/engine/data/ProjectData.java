@@ -32,6 +32,7 @@ public class ProjectData {
     public static String harmonyVersionID;
     public static String author;
     public static String versionID;
+    public static String launcherState;
 
     public static ArrayList<Texture> textures = new ArrayList<>();
     public static ArrayList<GameObject> gameObjects = new ArrayList<>();
@@ -42,6 +43,7 @@ public class ProjectData {
         harmonyVersionID = "";
         author = "";
         versionID = "";
+        launcherState = "";
         textures.clear();
         gameObjects.clear();
         states.clear();
@@ -85,6 +87,7 @@ public class ProjectData {
         rootElement.appendChild(createElement(document, VALUE, "HarmonyVersion", Launcher.GITHUB_VERSION_STRING));
         rootElement.appendChild(createElement(document, VALUE, "Author", author));
         rootElement.appendChild(createElement(document, VALUE, "VersionID", versionID));
+        rootElement.appendChild(createElement(document, VALUE, "LauncherState", launcherState));
 
         ProjectData.addTextureAttributes(rootElement, document);
         ProjectData.addGameObjectAttributes(rootElement, document);
@@ -209,6 +212,9 @@ public class ProjectData {
                         break;
                     case "VersionID":
                         versionID = eElement.getAttribute("value");
+                        break;
+                    case "LauncherState":
+                        launcherState = eElement.getAttribute("value");
                         break;
                 }
             }

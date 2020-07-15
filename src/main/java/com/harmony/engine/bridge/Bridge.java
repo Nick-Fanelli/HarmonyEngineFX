@@ -66,31 +66,4 @@ public class Bridge {
 
         return new com.harmony.core.GameObject(gameObject.name, image, vector2f);
     }
-=======
-=======
-import com.harmony.engine.data.ProjectData;
-import com.harmony.engine.io.editor.state.State;
-
-import java.util.ArrayList;
-
->>>>>>> Set-up instance for everyting
-public class Bridge {
-
-    public static String name;
-    public static String version;
-
-    public static ArrayList<State> states;
-
-    public static void update() {
-        Bridge.name = ProjectData.projectName;
-        Bridge.version = ProjectData.versionID;
-
-        Bridge.states = new ArrayList<>(ProjectData.states);
-    }
-
-    public static void run() {
-        
-    }
-
->>>>>>> Refactored to bridge
 }

@@ -5,6 +5,7 @@
 
 package com.harmony.engine;
 
+import com.harmony.engine.bridge.Bridge;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.documentation.Documentation;
@@ -138,6 +139,11 @@ public class EngineController implements Runnable {
         saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
         documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(this, tabBar.getSelectionModel().getSelectedItem()));
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
+
+        runProjectButton.setOnMouseClicked(mouse -> {
+            Bridge.update();
+            Bridge.run();
+        });
     }
 
     public static void setStatusLabel(String status, Color color) {

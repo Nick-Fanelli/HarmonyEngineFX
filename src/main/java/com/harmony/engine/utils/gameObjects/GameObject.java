@@ -8,9 +8,7 @@ package com.harmony.engine.utils.gameObjects;
 import com.harmony.engine.math.Vector2f;
 import com.harmony.engine.utils.textures.Texture;
 
-import java.io.Serializable;
-
-public class GameObject implements Serializable {
+public class GameObject {
 
     // Reminder if this is updated update the DataUtils class
 

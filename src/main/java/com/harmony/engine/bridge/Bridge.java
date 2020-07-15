@@ -5,10 +5,10 @@
 
 package com.harmony.engine.bridge;
 
-public class RawProject {
+public class Bridge {
 
-    public RawProject() {
-        
+    public Bridge() {
+
     }
 
 }

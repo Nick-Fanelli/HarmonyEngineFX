@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Harmony extends Application {
 
@@ -177,7 +178,7 @@ public class Harmony extends Application {
     }
 
     public static String getResourceString(String path) {
-        return path.trim().replaceAll(Harmony.directory.getPath(), "").trim();
+        return path.trim().replaceAll(Pattern.quote(Harmony.directory.getPath()), "").trim();
     }
 
     public static String getScriptsLocationString() { return Harmony.directory + File.separator + "Resources" + File.separator + "Scripts"; }

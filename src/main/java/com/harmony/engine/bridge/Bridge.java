@@ -5,6 +5,7 @@
 
 package com.harmony.engine.bridge;
 
+<<<<<<< HEAD
 import com.harmony.core.HarmonyProject;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.editor.state.State;
@@ -64,4 +65,12 @@ public class Bridge {
 
         return new com.harmony.core.GameObject(gameObject.name, image, vector2f);
     }
+=======
+public class Bridge {
+
+    public Bridge() {
+
+    }
+
+>>>>>>> Refactored to bridge
 }

@@ -124,8 +124,21 @@ public class Launcher extends Application {
 
         Optional<String> result = dialog.showAndWait();
         AtomicReference<File> selectedJDK = new AtomicReference<>();
-        result.ifPresent(jdk -> selectedJDK.set(new File(os.jdkLocation + File.separator + result.get() + ".jdk")));
-        if(selectedJDK.get() == null || !selectedJDK.get().exists()) return false;
+        result.ifPresent(jdk -> selectedJDK.set(new File(os.jdkLocation + File.separator + result.get() + (os == DataUtils.OperatingSystem.WINDOWS ? "" : ".jdk"))));
+        if(selectedJDK.get() == null || !selectedJDK.get().exists()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error With JDK Location");
+            alert.setHeaderText("Could not validate the JDK Location");
+            alert.setHeaderText("Could not validate the JDK Location");
+            alert.setContentText("Something went terribly wrong :(");
+
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
+            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+
+            alert.showAndWait();
+            return false;
+        }
 
         GlobalData.setJDKLocation(selectedJDK.get().getPath());
 

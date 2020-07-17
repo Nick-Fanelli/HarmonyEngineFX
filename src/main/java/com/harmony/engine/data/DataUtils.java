@@ -104,6 +104,8 @@ public class DataUtils {
                     for(int j = 0; j < cList.getLength(); j++) {
                         Node oNode = nList.item(j);
 
+                        if(oNode == null) continue;
+
                         if(oNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element oElement = (Element) oNode;
 

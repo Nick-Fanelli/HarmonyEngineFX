@@ -43,6 +43,7 @@ public class GlobalData implements Serializable {
 
     public static void setDefaults() {
         GlobalData.setTheme(Theme.LIGHT);
+        GlobalData.setCompressProject(false);
         GlobalData.setAutoSave(true);
         GlobalData.setPanMultiplier(1f);
         GlobalData.setEditorBackgroundColor("35406c");
@@ -67,6 +68,11 @@ public class GlobalData implements Serializable {
     }
     public static void setTheme(Theme theme) { dataContext.put(THEME_LOCATION, theme.name()); }
     public static Theme getTheme() { return Theme.valueOf(dataContext.get(THEME_LOCATION)); }
+
+    // Compress Project
+    public static final String COMPRESS_PROJECT = "compressProject";
+    public static void setCompressProject(boolean value) { dataContext.put(COMPRESS_PROJECT, Boolean.toString(value)); }
+    public static boolean getCompressProject() { return Boolean.parseBoolean(dataContext.get(COMPRESS_PROJECT)); }
 
     // Auto-Save
     public static final String AUTO_SAVE_LOCATION = "autosave";

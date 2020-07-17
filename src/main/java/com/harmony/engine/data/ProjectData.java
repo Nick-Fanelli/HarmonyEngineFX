@@ -67,7 +67,7 @@ public class ProjectData {
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.INDENT, GlobalData.getCompressProject() ? "no" : "yes");
 
             DOMSource source = new DOMSource(document);
 

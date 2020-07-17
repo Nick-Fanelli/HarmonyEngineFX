@@ -25,8 +25,9 @@ public class GlobalPrefController {
 
     // General
     public ComboBox<String> theme;
-    public CheckBox autoSave;
     public ComboBox<String> jdk;
+    public CheckBox autoSave;
+    public CheckBox compressProject;
 
     // Editor
     public TextField panMultiplier;
@@ -59,6 +60,7 @@ public class GlobalPrefController {
             GlobalData.setJDKLocation(DataUtils.OperatingSystem.getCurrentOS().jdkLocation
                     + File.separator + jdk.getSelectionModel().getSelectedItem() + ".jdk");
             GlobalData.setAutoSave(autoSave.isSelected());
+            GlobalData.setCompressProject(compressProject.isSelected());
             GlobalData.setPanMultiplier(Double.parseDouble(panMultiplier.getText()));
             GlobalData.setEditorBackgroundColor(editorBGColor.getText().replaceAll("#", ""));
             GlobalData.setEditorOutlineColor(editorOutlineColor.getText().replaceAll("#", ""));
@@ -91,6 +93,7 @@ public class GlobalPrefController {
         this.setJDK();
 
         autoSave.setSelected(GlobalData.getAutoSave());
+        compressProject.setSelected(GlobalData.getCompressProject());
         panMultiplier.setText(Double.toString(GlobalData.getPanMultipler()));
         editorBGColor.setText(GlobalData.getEditorBackgroundColor());
         editorOutlineColor.setText(GlobalData.getEditorOutlineColor());

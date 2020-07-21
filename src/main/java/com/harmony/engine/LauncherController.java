@@ -26,7 +26,14 @@ public class LauncherController {
     public Button openProjectButton;
     public Button globalPreferencesButton;
     public Label versionLabel;
+    public Label noRecentLabel;
     public ProgressBar progressBar;
+
+    public Label p1;
+    public Label p2;
+    public Label p3;
+    public Label p4;
+    public Label p5;
 
     @FXML
     public void initialize() {

@@ -6,9 +6,6 @@ module com.harmony {
     requires javafx.swing;
     requires javafx.web;
 
-    // Open to JavaFX
-    opens com.harmony.engine to javafx.fxml;
-
     // Exported Source Packages
     exports com.harmony.engine;
 
@@ -26,4 +23,6 @@ module com.harmony {
 
     exports com.harmony.engine.utils.textures;
     exports com.harmony.engine.utils.gameObjects;
+
+    opens com.harmony.engine;
 }

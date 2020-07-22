@@ -9,6 +9,7 @@ import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.editor.state.State;
+import com.harmony.engine.utils.NewProjectUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -81,6 +82,7 @@ public class LauncherController {
         else recentProjects.setVisible(false);
 
         newProjectButton.setOnMouseClicked(mouseEvent -> {
+//            NewProjectUtils.createNewProject();
             DirectoryChooser directoryChooser = new DirectoryChooser();
             directoryChooser.setTitle("Create Project");
 

@@ -22,7 +22,8 @@ public class NewProjectUtils {
 
     public static void createNewProject() {
         try {
-            Parent parent = FXMLLoader.load(NewProjectUtils.class.getResource("/fxml/newProject.fxml"));
+            FXMLLoader loader = new FXMLLoader(NewProjectUtils.class.getResource("/fxml/newProject.fxml"));
+            Parent parent = loader.load();
 
             Stage stage = new Stage();
             Scene scene = new Scene(parent, 800, 600);
@@ -42,7 +43,7 @@ public class NewProjectUtils {
 
     @FXML
     public void initialize() {
-        
+
     }
 
 }

@@ -82,15 +82,15 @@ public class LauncherController {
         else recentProjects.setVisible(false);
 
         newProjectButton.setOnMouseClicked(mouseEvent -> {
-//            NewProjectUtils.createNewProject();
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            directoryChooser.setTitle("Create Project");
-
-            File selectedFile = directoryChooser.showDialog(Launcher.staticStage);
-
-            if (selectedFile != null) {
-                create(selectedFile);
-            }
+            NewProjectUtils.createNewProject();
+//            DirectoryChooser directoryChooser = new DirectoryChooser();
+//            directoryChooser.setTitle("Create Project");
+//
+//            File selectedFile = directoryChooser.showDialog(Launcher.staticStage);
+//
+//            if (selectedFile != null) {
+//                create(selectedFile);
+//            }
         });
 
         openProjectButton.setOnMouseClicked(mouseEvent -> {

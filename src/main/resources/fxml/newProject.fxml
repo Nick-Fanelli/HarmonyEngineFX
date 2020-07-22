@@ -45,7 +45,7 @@
             <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
           </rowConstraints>
          <children>
-            <Label fx:id="projectNameLabel" style="-fx-font-size: 30px;" styleClass="default-label" text="New Project" GridPane.rowIndex="1">
+            <Label fx:id="projectNameLabel" style="-fx-font-size: 30px;" styleClass="default-label" text="New Project" GridPane.rowIndex="1" GridPane.columnSpan="4">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -57,7 +57,7 @@
                   <Insets left="25.0" />
                </padding>
             </Label>
-            <TextField fx:id="projectName" promptText="New Project" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="projectName" promptText="Project Name" text="New Project" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label styleClass="default-label" text="Version ID:" GridPane.rowIndex="4">
                <padding>
                   <Insets left="25.0" />
@@ -72,7 +72,7 @@
             <CheckBox mnemonicParsing="false" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
-      <Button mnemonicParsing="false" styleClass="default-choose-button" text="Create" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="12.0" />
-      <Button mnemonicParsing="false" styleClass="default-button" text="Cancel" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="85.0" />
+      <Button fx:id="createButton" mnemonicParsing="false" styleClass="default-choose-button" text="Create" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="12.0" />
+      <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="default-button" text="Cancel" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="85.0" />
    </children>
 </AnchorPane>

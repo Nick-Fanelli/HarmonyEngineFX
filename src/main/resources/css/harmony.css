@@ -318,3 +318,8 @@ context-menu {
 #new-proj-btn:hover {
     -fx-background-color: -fx-default-light;
 }
+
+.button-label.active:hover {
+    -fx-background-color: -fx-default-dark;
+    -fx-cursor: hand;
+}

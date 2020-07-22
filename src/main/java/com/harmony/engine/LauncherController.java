@@ -5,6 +5,7 @@
 
 package com.harmony.engine;
 
+import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import javafx.application.Platform;
@@ -17,6 +18,7 @@ import javafx.stage.DirectoryChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class LauncherController {
@@ -26,7 +28,15 @@ public class LauncherController {
     public Button openProjectButton;
     public Button globalPreferencesButton;
     public Label versionLabel;
+    public Label noRecentLabel;
+    public Label recentProjects;
     public ProgressBar progressBar;
+
+    public Label p1;
+    public Label p2;
+    public Label p3;
+    public Label p4;
+    public Label p5;
 
     @FXML
     public void initialize() {
@@ -37,6 +47,36 @@ public class LauncherController {
 
         globalPreferencesButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/settings-icon.png"), 20, 20, true, true)));
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
+
+        File[] recent = CacheData.getRecentProjects();
+        boolean hasRecent = false;
+
+        Label[] labels = new Label[] { p1, p2, p3, p4, p5 };
+
+        for(File file : recent) {
+            if(file == null) continue;
+            else hasRecent = true;
+
+            for(Label label : labels) {
+                if(label.getText().isEmpty()) {
+                    label.setText(file.getName());
+                    label.getStyleClass().add("active");
+
+                    label.setOnMouseClicked(mouseEvent -> {
+                        try {
+                            showProgressAndOpen(file);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                    break;
+                }
+            }
+        }
+
+        if(hasRecent) noRecentLabel.setVisible(false);
+        else recentProjects.setVisible(false);
 
         newProjectButton.setOnMouseClicked(mouseEvent -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -106,7 +146,7 @@ public class LauncherController {
             ProjectData.reset();
 
             ProjectData.projectName = directory.getName();
-            ProjectData.versionID = "0.0.1";
+            ProjectData.versionID = "1.0.0";
 
             ProjectData.save(directory);
 
@@ -175,6 +215,9 @@ public class LauncherController {
     }
 
     private void showProgressAndOpen(File directory) throws Exception {
+        CacheData.setRecentProject(directory);
+        CacheData.save();
+
         Runnable progress = this::handleProgressBar;
 
         progressBar.setVisible(true);

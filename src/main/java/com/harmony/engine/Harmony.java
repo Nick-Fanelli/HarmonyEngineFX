@@ -5,6 +5,7 @@
 
 package com.harmony.engine;
 
+import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.editor.CodeEditor;
@@ -141,8 +142,12 @@ public class Harmony extends Application {
 
     public static void save() {
         System.out.println("Harmony -> Saving...");
+
         CodeEditor.saveSelectedScript();
+
         StateEditor.save();
+        CacheData.save();
+
         ProjectData.save(Harmony.directory); // Last
     }
 

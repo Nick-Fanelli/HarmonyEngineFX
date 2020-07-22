@@ -5,6 +5,7 @@
 
 package com.harmony.engine;
 
+import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import javafx.application.Application;
@@ -36,7 +37,10 @@ public class Launcher extends Application {
     public static Stage staticStage;
     public static Scene staticScene;
 
-    public static void main(String[] args) { launch(args); }
+    public static void main(String[] args) {
+        configureSystemProperties();
+        launch(args);
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -45,14 +49,12 @@ public class Launcher extends Application {
             Font.font(fontFamily);
         }
 
-        configureSystemProperties();
-
         if(!validateJDK()) System.exit(-1);
 
         staticStage = stage;
 
         Parent root = FXMLLoader.load(Harmony.class.getResource("/launcher.fxml"));
-        Scene scene = new Scene(root, 640, 400);
+        Scene scene = new Scene(root, 800, 600);
         staticScene = scene;
 
         // Handle Theme
@@ -64,6 +66,8 @@ public class Launcher extends Application {
 
         stage.setOnCloseRequest(windowEvent -> {
             GlobalData.save();
+            CacheData.save();
+
             Platform.exit();
             System.exit(0);
         });
@@ -73,6 +77,9 @@ public class Launcher extends Application {
 
     public static void configureSystemProperties() {
         System.setProperty("prism.lcdtext", "false");
+        System.setProperty("prism.subpixeltext", "false");
+
+        CacheData.load();
         GlobalData.load();
     }
 

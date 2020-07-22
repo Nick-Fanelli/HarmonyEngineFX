@@ -8,6 +8,7 @@ package com.harmony.engine;
 import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.io.editor.state.State;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,6 +19,7 @@ import javafx.stage.DirectoryChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -145,8 +147,12 @@ public class LauncherController {
         try {
             ProjectData.reset();
 
+            // Create Project Things...
             ProjectData.projectName = directory.getName();
             ProjectData.versionID = "1.0.0";
+
+            ProjectData.states.add(new State("Main State", new ArrayList<>()));
+            ProjectData.launcherState = "Main State";
 
             ProjectData.save(directory);
 

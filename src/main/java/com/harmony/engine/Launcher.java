@@ -5,6 +5,7 @@
 
 package com.harmony.engine;
 
+import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import javafx.application.Application;
@@ -65,6 +66,8 @@ public class Launcher extends Application {
 
         stage.setOnCloseRequest(windowEvent -> {
             GlobalData.save();
+            CacheData.save();
+
             Platform.exit();
             System.exit(0);
         });
@@ -76,6 +79,7 @@ public class Launcher extends Application {
         System.setProperty("prism.lcdtext", "false");
         System.setProperty("prism.subpixeltext", "false");
 
+        CacheData.load();
         GlobalData.load();
     }
 

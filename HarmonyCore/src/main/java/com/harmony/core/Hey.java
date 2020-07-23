@@ -5,5 +5,8 @@
 
 package com.harmony.core;
 
-public class Test {
+public class Hey {
+
+    public static final String TEST = "THIS IS AWESOME IF THIS WORKS!!";
+
 }

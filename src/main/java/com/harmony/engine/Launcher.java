@@ -28,10 +28,10 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Launcher extends Application {
 
     // TODO - Deploy: Update The Version Data
-    public static final int[] VERSION_ID = new int[] { 1, 0 };
+    public static final int[] VERSION_ID = new int[] { 1, 0, 0 };
     public static final LaunchType LAUNCH_TYPE = LaunchType.SNAPSHOT;
 
-    public static final String GITHUB_VERSION_STRING = "version-" + VERSION_ID[0] + "." + VERSION_ID[1];
+    public static final String GITHUB_VERSION_STRING = "version-" + VERSION_ID[0] + "." + VERSION_ID[1] + "." + VERSION_ID[2];
     public enum LaunchType { Version, SNAPSHOT }
 
     public static Stage staticStage;
@@ -60,7 +60,7 @@ public class Launcher extends Application {
         // Handle Theme
         scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
-        stage.setTitle("Harmony Engine v1.0");
+        stage.setTitle(String.format("Harmony Engine v%s.%s.%s", VERSION_ID[0], VERSION_ID[1], VERSION_ID[2]));
         stage.setScene(scene);
         stage.setResizable(false);
 

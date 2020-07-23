@@ -8,7 +8,6 @@ package com.harmony.engine;
 import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
-import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.utils.NewProjectUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,10 +18,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Optional;
 
 public class LauncherController {
 
@@ -33,7 +28,8 @@ public class LauncherController {
     public Label versionLabel;
     public Label noRecentLabel;
     public Label recentProjects;
-    public ProgressBar progressBar;
+    public ProgressBar pb;
+    public static ProgressBar progressBar;
 
     public Label p1;
     public Label p2;
@@ -43,10 +39,11 @@ public class LauncherController {
 
     @FXML
     public void initialize() {
+        progressBar = pb;
         progressBar.setProgress(0);
         progressBar.setVisible(false);
 
-        versionLabel.setText(String.format("%s: %s.%s", Launcher.LAUNCH_TYPE.name(), Launcher.VERSION_ID[0], Launcher.VERSION_ID[1]));
+        versionLabel.setText(String.format("%s: %s.%s.%s", Launcher.LAUNCH_TYPE.name(), Launcher.VERSION_ID[0], Launcher.VERSION_ID[1], Launcher.VERSION_ID[2]));
 
         globalPreferencesButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/settings-icon.png"), 20, 20, true, true)));
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
@@ -81,17 +78,7 @@ public class LauncherController {
         if(hasRecent) noRecentLabel.setVisible(false);
         else recentProjects.setVisible(false);
 
-        newProjectButton.setOnMouseClicked(mouseEvent -> {
-            NewProjectUtils.createNewProject();
-//            DirectoryChooser directoryChooser = new DirectoryChooser();
-//            directoryChooser.setTitle("Create Project");
-//
-//            File selectedFile = directoryChooser.showDialog(Launcher.staticStage);
-//
-//            if (selectedFile != null) {
-//                create(selectedFile);
-//            }
-        });
+        newProjectButton.setOnMouseClicked(mouseEvent -> NewProjectUtils.createNewProject());
 
         openProjectButton.setOnMouseClicked(mouseEvent -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -103,65 +90,6 @@ public class LauncherController {
                 open(selectedFile);
             }
         });
-    }
-
-    private void create(File directory) {
-        if(!directory.isDirectory()) return;
-        GlobalData.save();
-
-        String[] children = directory.list();
-        assert children != null;
-
-        if(children.length > 0) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Warning");
-            alert.setHeaderText("The Directory You Choose Was Not Empty");
-            alert.setContentText("All files in the directory: " + directory.getPath() + ":\n" + listFiles(children)
-                    + "\nWill be overridden!");
-
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
-            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
-
-            ButtonType buttonTypeOverride = new ButtonType("Override", ButtonBar.ButtonData.OK_DONE);
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-            alert.getButtonTypes().setAll(buttonTypeOverride, buttonTypeCancel);
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if(result.get() == buttonTypeOverride) {
-                cleanDirectory(directory);
-            } else {
-                return;
-            }
-        }
-
-        try {
-            new File(directory.getPath() + "/" + directory.getName() + ".hyproj").createNewFile();
-            new File(directory.getPath() + "/Resources").mkdir();
-            new File(directory.getPath() + "/Resources/Textures").mkdir();
-            new File(directory.getPath() + "/Resources/Scripts").mkdir();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            ProjectData.reset();
-
-            // Create Project Things...
-            ProjectData.projectName = directory.getName();
-            ProjectData.versionID = "1.0.0";
-
-            ProjectData.states.add(new State("Main State", new ArrayList<>()));
-            ProjectData.launcherState = "Main State";
-
-            ProjectData.save(directory);
-
-            showProgressAndOpen(directory);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void open(File directory) {
@@ -222,18 +150,18 @@ public class LauncherController {
         }
     }
 
-    private void showProgressAndOpen(File directory) throws Exception {
+    public static void showProgressAndOpen(File directory) throws Exception {
         CacheData.setRecentProject(directory);
         CacheData.save();
 
-        Runnable progress = this::handleProgressBar;
+        Runnable progress = LauncherController::handleProgressBar;
 
         progressBar.setVisible(true);
         new Thread(progress, "Harmony:Progress").start();
         Harmony.open(directory);
     }
 
-    private void handleProgressBar() {
+    private static void handleProgressBar() {
         int delay = 25;
 
         for(int i = 0; i < 100; i++) {

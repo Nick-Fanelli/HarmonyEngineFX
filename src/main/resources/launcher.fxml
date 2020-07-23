@@ -29,7 +29,7 @@
       </Label>
 
       <Button fx:id="globalPreferencesButton" layoutX="539.0" layoutY="343.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: transparent;" styleClass="default-button" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      <ProgressBar fx:id="progressBar" layoutX="43.0" layoutY="367.0" prefHeight="20.0" prefWidth="554.0" progress="0.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0" />
+      <ProgressBar fx:id="pb" layoutX="43.0" layoutY="367.0" prefHeight="20.0" prefWidth="554.0" progress="0.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="43.0" />
       <AnchorPane layoutX="88.0" layoutY="187.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: -fx-default-medium;" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="86.0" AnchorPane.topAnchor="187.0">
          <children>
             <Label fx:id="noRecentLabel" layoutX="193.0" layoutY="134.0" style="-fx-font-size: 25px;" styleClass="default-label" text="No Recent Projects" AnchorPane.bottomAnchor="134.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="192.0" AnchorPane.topAnchor="134.0" />

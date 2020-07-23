@@ -9,6 +9,10 @@
     <groupId>com.harmony</groupId>
     <artifactId>HarmonyEngine</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>HarmonyCore</module>
+    </modules>
+    <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>com.harmony.engine.Launcher</mainClass>

@@ -14,6 +14,7 @@ import com.harmony.engine.io.editor.state.StateEditor;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.io.tabs.TexturesTab;
 import com.harmony.engine.utils.Status;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -138,6 +139,14 @@ public class EngineController implements Runnable {
         saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
         documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(this, tabBar.getSelectionModel().getSelectedItem()));
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
+
+        tabBar.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
+            Platform.runLater(() -> {
+                if(tabBar.getSelectionModel().getSelectedItem() == editorTab) {
+                    StateEditor.update();
+                }
+            });
+        });
     }
 
     public static void setStatusLabel(String status, Color color) {

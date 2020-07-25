@@ -418,7 +418,7 @@ public class StateEditor implements Runnable {
     }
 
     public static void draw() {
-        if(canvas == null) return;
+        if(canvas == null || root == null) return;
 
         double width = canvas.getWidth();
         double height = canvas.getHeight();
@@ -441,22 +441,26 @@ public class StateEditor implements Runnable {
 
         // Draw the selection boxes
         for(TreeItem<String> selection : selectionModel.model) {
-            GameObject object = gameObjects.get(selection);
+            try {
+                GameObject object = gameObjects.get(selection);
 
-            if(object == null) continue;
+                if (object == null) continue;
 
-            Image image = images.get(object).getImage();
-            if(image == null) continue;
+                Image image = images.get(object).getImage();
+                if (image == null) continue;
 
-            // Check to make sure the game object is in bounds.
-            if(object.position.x + editorCamera.x > width || object.position.y + editorCamera.y > height ||
-                    object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
-                continue;
+                // Check to make sure the game object is in bounds.
+                if (object.position.x + editorCamera.x > width || object.position.y + editorCamera.y > height ||
+                        object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
+                    continue;
 
-            try { g.setStroke(Color.web(GlobalData.getEditorOutlineColor())); }
-            catch (Exception ignored) {}
-            g.strokeRect(object.position.x + editorCamera.x, object.position.y + editorCamera.y,
-                    image.getWidth(), image.getHeight());
+                try {
+                    g.setStroke(Color.web(GlobalData.getEditorOutlineColor()));
+                } catch (Exception ignored) {
+                }
+                g.strokeRect(object.position.x + editorCamera.x, object.position.y + editorCamera.y,
+                        image.getWidth(), image.getHeight());
+            } catch (Exception ignored) {}
         }
     }
 

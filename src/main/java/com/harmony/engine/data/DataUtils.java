@@ -86,7 +86,7 @@ public class DataUtils {
     }
 
     public static State loadState(Element data) {
-        State state = new State("", new ArrayList<>());
+        State state = new State(null, new ArrayList<>());
 
         NodeList nList = data.getChildNodes();
 
@@ -96,35 +96,31 @@ public class DataUtils {
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
 
-                if(eElement.hasAttribute("name")) state.name = eElement.getAttribute("name");
+                if(eElement.getTagName().equals("data") && eElement.hasAttribute("name")) state.name = eElement.getAttribute("name");
 
                 else if(eElement.getTagName().equals("Hierarchy")) {
-                    NodeList cList = eElement.getChildNodes();
+                    NodeList cNodeList = eElement.getChildNodes();
 
-                    for(int j = 0; j < cList.getLength(); j++) {
-                        Node oNode = nList.item(j);
+                    for(int j = 0; j < cNodeList.getLength(); j++) {
+                        Node cNode = cNodeList.item(j);
 
-                        if(oNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element oElement = (Element) oNode;
+                        if(cNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element cElement = (Element) cNode;
 
-                            if(oElement.getTagName().equals("Hierarchy")) {
-                                NodeList oList = oElement.getChildNodes();
-
-                                for(int x = 0; x < oList.getLength(); x++) {
-                                    Node objectNode = oList.item(x);
-
-                                    if(objectNode.getNodeType() == Node.ELEMENT_NODE) {
-                                        Element objectElement = (Element) objectNode;
-
-                                        state.gameObjects.add(DataUtils.loadGameObject(objectElement));
-                                    }
-                                }
-
+                            if (cElement.getTagName().equals("gameObject")) {
+                                state.gameObjects.add(loadGameObject(cElement));
                             }
                         }
                     }
                 }
             }
+        }
+
+        if(state.name == null || state.gameObjects == null) {
+            System.err.println("Harmony -> Error loading in the state \"" + state.name + "\".\n" +
+                    (state.name == null ? "\tProblem: Could not locate a valid name for the state." : "") +
+                    (state.gameObjects == null ? "\n\tProblem: Something went wrong and zeroed out the game objects array to null." : ""));
+            return null;
         }
 
         return state;

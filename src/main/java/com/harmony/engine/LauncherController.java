@@ -8,6 +8,7 @@ package com.harmony.engine;
 import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.data.networking.resource.NetResource;
 import com.harmony.engine.utils.NewProjectUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -64,7 +65,7 @@ public class LauncherController {
 
                     label.setOnMouseClicked(mouseEvent -> {
                         try {
-                            showProgressAndOpen(file);
+                            showProgressAndOpen(file, null);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -124,7 +125,7 @@ public class LauncherController {
 
         try {
             ProjectData.reset();
-            showProgressAndOpen(directory);
+            showProgressAndOpen(directory, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,7 +151,7 @@ public class LauncherController {
         }
     }
 
-    public static void showProgressAndOpen(File directory) throws Exception {
+    public static void showProgressAndOpen(File directory, NetResource[] netResources) throws Exception {
         CacheData.setRecentProject(directory);
         CacheData.save();
 
@@ -158,6 +159,13 @@ public class LauncherController {
 
         progressBar.setVisible(true);
         new Thread(progress, "Harmony:Progress").start();
+
+        if(netResources != null) {
+            for(NetResource resource : netResources) {
+                resource.downloadTo(new File(directory.getPath() + File.separator + "Resources"));
+            }
+        }
+
         Harmony.open(directory);
     }
 

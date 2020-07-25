@@ -22,6 +22,8 @@ module com.harmony {
     exports com.harmony.engine.math;
     exports com.harmony.engine.utils;
     exports com.harmony.engine.documentation;
+    exports com.harmony.engine.data.networking;
+    exports com.harmony.engine.data.networking.resource;
 
     exports com.harmony.engine.utils.textures;
     exports com.harmony.engine.utils.gameObjects;

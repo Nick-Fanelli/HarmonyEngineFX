@@ -9,12 +9,15 @@ import com.harmony.engine.Harmony;
 import com.harmony.engine.LauncherController;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.data.networking.resource.DemoResource;
+import com.harmony.engine.data.networking.resource.NetResource;
 import com.harmony.engine.io.editor.state.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
@@ -39,6 +42,7 @@ public class NewProjectUtils {
     public TextField projectName;
     public TextField locationField;
     public TextField version;
+    public CheckBox demoResources;
 
     public static void createNewProject() {
         try {
@@ -145,7 +149,8 @@ public class NewProjectUtils {
             ProjectData.save(directory);
 
             stage.close();
-            LauncherController.showProgressAndOpen(directory);
+            LauncherController.showProgressAndOpen(directory,
+                    demoResources.isSelected() ? new NetResource[] { DemoResource.RESOURCE_CONTEXT } : null);
         } catch (Exception e) {
             e.printStackTrace();
         }

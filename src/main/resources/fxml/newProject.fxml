@@ -69,7 +69,7 @@
                   <Insets left="25.0" />
                </padding>
             </Label>
-            <CheckBox mnemonicParsing="false" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <CheckBox fx:id="demoResources" mnemonicParsing="false" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label styleClass="default-label" text="Location:" GridPane.rowIndex="4">
                <padding>
                   <Insets left="25.0" />

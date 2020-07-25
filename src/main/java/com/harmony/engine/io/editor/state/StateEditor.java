@@ -339,6 +339,11 @@ public class StateEditor implements Runnable {
                     selectionModel.setSelection(clearItem);
                 }
             }
+
+            if(draggedObject != null) {
+                draggedObject = null;
+                StateEditor.draw();
+            }
         });
 
         canvas.setOnMouseDragged(mouseEvent -> {
@@ -348,11 +353,14 @@ public class StateEditor implements Runnable {
                     editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),
                             (float) (mouseEvent.getY() - mousePosition.y) * (float) GlobalData.getPanMultipler());
                 } else {
+                    boolean selected = false;
                     GameObject selectedObject = null;
 
-                    for (TreeItem<String> item : selectionModel.model) {
-                        GameObject object = gameObjects.get(item);
+                    for (int i = 0; i < root.getChildren().size(); i++) {
+                        GameObject object = gameObjects.get(root.getChildren().get(i));
                         if (object == null) continue;
+
+                        if(draggedObject != null && object != draggedObject) continue;
 
                         Image image = images.get(object).getImage();
                         if (image == null) continue;
@@ -362,22 +370,40 @@ public class StateEditor implements Runnable {
                                 object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
                             continue;
 
-                        if (object.position.x + editorCamera.x <= mousePosition.x &&
+                        if(object.position.x + editorCamera.x <= mousePosition.x &&
                                 object.position.y + editorCamera.y <= mousePosition.y &&
                                 object.position.x + editorCamera.x + image.getWidth() >= mousePosition.x &&
                                 object.position.y + editorCamera.y + image.getHeight() >= mousePosition.y) {
                             selectedObject = object;
+
+                            // TODO: DO SOMETHING WITH VAR draggingSelected to make sure that the selected drag doesnt switch to a non-selected drag!!!
+
+                            for(TreeItem<String> selection : selectionModel.model) {
+                                if(gameObjects.get(selection) == selectedObject) {
+                                    selected = true;
+                                    break;
+                                }
+                            }
+
                             break;
                         }
                     }
 
-                    if(selectedObject != null) {
+                    if(selected) {
                         for(TreeItem<String> item : selectionModel.model) {
                             GameObject object = gameObjects.get(item);
                             object.position.x = (float) mouseEvent.getX() - (mousePosition.x - object.position.x);
                             object.position.y = (float) mouseEvent.getY() - (mousePosition.y - object.position.y);
                         }
+                    } else {
+                        if(selectedObject != null && (draggedObject == null || draggedObject == selectedObject)) {
+                            selectedObject.position.x = (float) mouseEvent.getX() - (mousePosition.x - selectedObject.position.x);
+                            selectedObject.position.y = (float) mouseEvent.getY() - (mousePosition.y - selectedObject.position.y);
+                            draggedObject = selectedObject;
+                        }
                     }
+
+                    StateEditor.draw();
                 }
             } else if(mouseEvent.getButton() == MouseButton.MIDDLE) {
                 editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),
@@ -388,6 +414,9 @@ public class StateEditor implements Runnable {
             StateEditor.draw();
         });
     }
+
+    private static GameObject draggedObject = null;
+    private static boolean draggingSelected = false;
 
     public static void update() {
         objectsPane.getChildren().removeAll(objectsPane.getChildren());
@@ -440,28 +469,31 @@ public class StateEditor implements Runnable {
             for(int i = root.getChildren().size() - 1; i >= 0; i--) drawGameObject(gameObjects.get(root.getChildren().get(i)));
 
         // Draw the selection boxes
-        for(TreeItem<String> selection : selectionModel.model) {
-            try {
-                GameObject object = gameObjects.get(selection);
-
-                if (object == null) continue;
-
-                Image image = images.get(object).getImage();
-                if (image == null) continue;
-
-                // Check to make sure the game object is in bounds.
-                if (object.position.x + editorCamera.x > width || object.position.y + editorCamera.y > height ||
-                        object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
-                    continue;
-
-                try {
-                    g.setStroke(Color.web(GlobalData.getEditorOutlineColor()));
-                } catch (Exception ignored) {
-                }
-                g.strokeRect(object.position.x + editorCamera.x, object.position.y + editorCamera.y,
-                        image.getWidth(), image.getHeight());
-            } catch (Exception ignored) {}
+        for(int i = 0; i < selectionModel.model.size(); i++) {
+            drawBounds(gameObjects.get(selectionModel.model.get(i)), width, height);
         }
+
+        if(draggedObject != null) drawBounds(draggedObject, width, height);
+    }
+
+    private static void drawBounds(GameObject object, double width, double height) {
+        try {
+            if (object == null) return;
+
+            Image image = images.get(object).getImage();
+            if (image == null) return;
+
+            // Check to make sure the game object is in bounds.
+            if (object.position.x + editorCamera.x > width || object.position.y + editorCamera.y > height ||
+                    object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
+                return;
+
+            try {
+                g.setStroke(Color.web(GlobalData.getEditorOutlineColor()));
+            } catch (Exception ignored) {}
+            g.strokeRect(object.position.x + editorCamera.x, object.position.y + editorCamera.y,
+                    image.getWidth(), image.getHeight());
+        } catch (Exception ignored) {}
     }
 
     private static void drawGameObject(GameObject object) {

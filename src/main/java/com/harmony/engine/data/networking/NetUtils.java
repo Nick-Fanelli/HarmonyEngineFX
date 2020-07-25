@@ -18,6 +18,19 @@ public class NetUtils {
     public static final String RESOURCES_LOCATION = "https://harmonyengines.com/resources";
     public static final String DEMO_RESOURCES_LOCATION = "https://harmonyengines.com/resources/demo";
 
+    public static final String[] DEMO_RESOURCES_FILE_LOCATIONS = {
+        "Tileset.png"
+    };
+
+    public static void downloadAllFiles(String urlLocation, String[] fileLocations, File directory) {
+        if(!directory.exists() || !directory.isDirectory()) return;
+
+        for(String fileLocation : fileLocations) {
+            System.out.println(directory.getPath());
+            downloadFile(urlLocation + "/" + fileLocation, directory.getPath() + File.separator + fileLocation); // Don't use File.seperator
+        }
+    }
+
     public static void downloadFile(URL url, File location) {
         if(location.exists()) {
             System.err.println("Harmony Error -> Location Requested Exists\n" +

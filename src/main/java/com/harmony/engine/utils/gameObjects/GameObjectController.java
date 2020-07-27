@@ -5,10 +5,11 @@
 
 package com.harmony.engine.utils.gameObjects;
 
+import com.harmony.core.GameObject;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.utils.Status;
-import com.harmony.engine.utils.textures.Texture;
+import com.harmony.core.io.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

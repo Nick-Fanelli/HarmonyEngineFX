@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.harmony.engine.math;
+package com.harmony.core.math;
 
 public class Vector2f {
 

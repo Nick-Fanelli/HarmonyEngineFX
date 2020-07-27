@@ -5,9 +5,9 @@
 
 package com.harmony.engine.data;
 
-import com.harmony.engine.io.editor.state.State;
-import com.harmony.engine.math.Vector2f;
-import com.harmony.engine.utils.gameObjects.GameObject;
+import com.harmony.core.State;
+import com.harmony.core.math.Vector2f;
+import com.harmony.core.GameObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

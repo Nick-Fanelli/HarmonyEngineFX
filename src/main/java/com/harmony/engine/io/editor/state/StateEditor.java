@@ -5,15 +5,16 @@
 
 package com.harmony.engine.io.editor.state;
 
+import com.harmony.core.State;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.SelectionModel;
 import com.harmony.engine.io.context.HierarchyItemContext;
 import com.harmony.engine.io.tabs.GameObjectsTab;
-import com.harmony.engine.math.Vector2f;
+import com.harmony.core.math.Vector2f;
 import com.harmony.engine.utils.Status;
-import com.harmony.engine.utils.gameObjects.GameObject;
+import com.harmony.core.GameObject;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

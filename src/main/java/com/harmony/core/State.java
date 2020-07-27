@@ -3,9 +3,7 @@
  * All rights reserved.
  */
 
-package com.harmony.engine.io.editor.state;
-
-import com.harmony.engine.utils.gameObjects.GameObject;
+package com.harmony.core;
 
 import java.util.ArrayList;
 

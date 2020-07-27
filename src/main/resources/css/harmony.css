@@ -258,8 +258,12 @@ context-menu {
 .tab-pane > .tab-header-area > .headers-region > .tab {
     -fx-background-color: -fx-default-dark;
     -fx-background-insets: 0 0 1px 0;
-    -fx-padding: 1.25em 1.5em;
+    -fx-padding: 14px 15px;
     -fx-cursor: hand;
+}
+
+.tab-pane.short > .tab-header-area > .headers-region > .tab {
+    -fx-padding: 5px 15px;
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab >.tab-container >.tab-label {

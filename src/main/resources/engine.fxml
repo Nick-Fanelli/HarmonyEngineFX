@@ -194,7 +194,7 @@
               <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section">
                       <children>
-                          <AnchorPane fx:id="editorInteractable" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <AnchorPane fx:id="editorInteractable" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-section" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                               <children>
                                   <SplitPane dividerPositions="0.32608695652173914" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <items>
@@ -207,7 +207,24 @@
                                                                   <TreeView fx:id="hierarchy" prefHeight="200.0" prefWidth="200.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                               </children>
                                                           </AnchorPane>
-                                                          <GridPane fx:id="objectsPane" gridLinesVisible="true" prefHeight="120.0" prefWidth="189.0" />
+                                                <TabPane prefHeight="123.0" prefWidth="254.0" styleClass="short" tabClosingPolicy="UNAVAILABLE">
+                                                  <tabs>
+                                                    <Tab text="Game Objects">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                            <GridPane fx:id="objectsPane" gridLinesVisible="true" prefHeight="145.0" prefWidth="256.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </Tab>
+                                                    <Tab text="Spritesheets">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                      </content>
+                                                    </Tab>
+                                                  </tabs>
+                                                </TabPane>
                                                       </items>
                                                   </SplitPane>
                                               </children>
@@ -221,7 +238,7 @@
                                   </SplitPane>
                               </children>
                           </AnchorPane>
-                        <AnchorPane fx:id="editorState" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: -fx-default-light;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="editorState" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: -fx-default-light;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <SplitPane dividerPositions="0.32663316582914576" prefHeight="160.0" prefWidth="200.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
@@ -271,7 +288,7 @@
             <Button fx:id="globalPreferencesButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: transparent;" styleClass="default-button" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane maxHeight="56.0" maxWidth="172.0" minHeight="56.0" minWidth="172.0" prefHeight="56.0" prefWidth="172.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane maxHeight="56.0" maxWidth="172.0" minHeight="51.0" minWidth="172.0" prefHeight="51.0" prefWidth="172.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="runProjectButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutX="79.0" layoutY="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <Button fx:id="saveProjectButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutX="61.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="0.0" />

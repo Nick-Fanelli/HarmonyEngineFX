@@ -8,7 +8,7 @@ package com.harmony.engine;
 import com.harmony.engine.bridge.Bridge;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
-import com.harmony.engine.documentation.Documentation;
+import com.harmony.engine.io.Documentation;
 import com.harmony.engine.io.editor.CodeEditor;
 import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.io.editor.state.StateEditor;

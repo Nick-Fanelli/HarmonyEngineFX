@@ -376,7 +376,7 @@ public class StateEditor implements Runnable {
                                 object.position.y + editorCamera.y + image.getHeight() >= mousePosition.y) {
                             selectedObject = object;
 
-                            // TODO: DO SOMETHING WITH VAR draggingSelected to make sure that the selected drag doesnt switch to a non-selected drag!!!
+                            // TODO: DO SOMETHING WITH VAR draggingSelected to make sure that the selected drag doesn't switch to a non-selected drag!!!
 
                             for(TreeItem<String> selection : selectionModel.model) {
                                 if(gameObjects.get(selection) == selectedObject) {
@@ -529,14 +529,19 @@ public class StateEditor implements Runnable {
 
     public static void removeGameObject(TreeItem<String> pointer) {
         GameObject object = gameObjects.get(pointer);
-        images.remove(object);
-        activeState.gameObjects.remove(pointer);
+
         root.getChildren().remove(pointer);
+        gameObjects.remove(pointer);
+
+        images.remove(object);
+        activeState.gameObjects.remove(object);
+
         StateEditor.draw();
     }
 
     public static void save() {
         if(activeState == null) return;
+
         activeState.gameObjects.clear();
 
         for(Map.Entry<TreeItem<String>, GameObject> entry : gameObjects.entrySet()) {

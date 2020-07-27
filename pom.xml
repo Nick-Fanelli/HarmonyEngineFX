@@ -9,12 +9,14 @@
     <groupId>com.harmony</groupId>
     <artifactId>HarmonyEngine</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>com.harmony.engine.Launcher</mainClass>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -37,6 +39,7 @@
             <version>12</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

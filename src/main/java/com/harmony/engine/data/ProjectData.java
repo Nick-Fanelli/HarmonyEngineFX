@@ -7,10 +7,10 @@ package com.harmony.engine.data;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
-import com.harmony.core.State;
+import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.utils.Status;
-import com.harmony.core.GameObject;
-import com.harmony.core.io.Texture;
+import com.harmony.engine.utils.gameObjects.GameObject;
+import com.harmony.engine.utils.textures.Texture;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

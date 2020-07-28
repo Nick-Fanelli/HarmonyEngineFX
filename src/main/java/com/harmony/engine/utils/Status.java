@@ -6,7 +6,7 @@
 package com.harmony.engine.utils;
 
 import com.harmony.engine.EngineController;
-import com.harmony.core.math.Vector2f;
+import com.harmony.engine.utils.math.Vector2f;
 import javafx.scene.paint.Color;
 
 public class Status {

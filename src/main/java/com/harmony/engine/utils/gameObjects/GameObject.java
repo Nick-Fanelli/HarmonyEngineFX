@@ -3,10 +3,10 @@
  * All rights reserved.
  */
 
-package com.harmony.core;
+package com.harmony.engine.utils.gameObjects;
 
-import com.harmony.core.math.Vector2f;
-import com.harmony.core.io.Texture;
+import com.harmony.engine.utils.math.Vector2f;
+import com.harmony.engine.utils.textures.Texture;
 
 public class GameObject {
 

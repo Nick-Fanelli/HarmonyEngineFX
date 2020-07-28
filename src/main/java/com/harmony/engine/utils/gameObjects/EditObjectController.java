@@ -5,7 +5,6 @@
 
 package com.harmony.engine.utils.gameObjects;
 
-import com.harmony.core.GameObject;
 import com.harmony.engine.EngineController;
 import com.harmony.engine.io.editor.state.StateEditor;
 import com.harmony.engine.io.tabs.GameObjectsTab;

@@ -5,12 +5,11 @@
 
 package com.harmony.engine;
 
-import com.harmony.core.Project;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.Documentation;
 import com.harmony.engine.io.editor.CodeEditor;
-import com.harmony.core.State;
+import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.io.editor.state.StateEditor;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.io.tabs.TexturesTab;
@@ -142,9 +141,6 @@ public class EngineController implements Runnable {
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
 
         runProjectButton.setOnMouseClicked(mouse -> {
-            // TODO: Use project settings
-            Project project = new Project(ProjectData.projectName, 60);
-            project.start();
         });
 
         tabBar.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {

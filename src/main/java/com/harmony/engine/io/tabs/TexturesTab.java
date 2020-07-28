@@ -9,7 +9,7 @@ import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
-import com.harmony.core.io.Texture;
+import com.harmony.engine.utils.textures.Texture;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

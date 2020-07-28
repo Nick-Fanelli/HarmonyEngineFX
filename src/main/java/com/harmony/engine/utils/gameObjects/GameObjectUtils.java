@@ -5,7 +5,6 @@
 
 package com.harmony.engine.utils.gameObjects;
 
-import com.harmony.core.GameObject;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.utils.Status;

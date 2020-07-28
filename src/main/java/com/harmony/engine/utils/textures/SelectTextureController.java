@@ -5,7 +5,6 @@
 
 package com.harmony.engine.utils.textures;
 
-import com.harmony.core.io.Texture;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.utils.gameObjects.GameObjectController;

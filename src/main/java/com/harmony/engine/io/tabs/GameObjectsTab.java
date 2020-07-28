@@ -6,7 +6,7 @@
 package com.harmony.engine.io.tabs;
 
 import com.harmony.engine.data.ProjectData;
-import com.harmony.core.GameObject;
+import com.harmony.engine.utils.gameObjects.GameObject;
 import com.harmony.engine.utils.gameObjects.GameObjectUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

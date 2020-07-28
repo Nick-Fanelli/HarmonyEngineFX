@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.harmony.core.io;
+package com.harmony.engine.utils.textures;
 
 import com.harmony.engine.EngineController;
 import javafx.scene.image.Image;

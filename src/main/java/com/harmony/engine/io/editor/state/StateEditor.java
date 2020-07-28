@@ -344,6 +344,8 @@ public class StateEditor implements Runnable {
                 draggedObject = null;
                 StateEditor.draw();
             }
+
+            draggingSelected = false;
         });
 
         canvas.setOnMouseDragged(mouseEvent -> {
@@ -353,7 +355,6 @@ public class StateEditor implements Runnable {
                     editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),
                             (float) (mouseEvent.getY() - mousePosition.y) * (float) GlobalData.getPanMultipler());
                 } else {
-                    boolean selected = false;
                     GameObject selectedObject = null;
 
                     for (int i = 0; i < root.getChildren().size(); i++) {
@@ -376,20 +377,23 @@ public class StateEditor implements Runnable {
                                 object.position.y + editorCamera.y + image.getHeight() >= mousePosition.y) {
                             selectedObject = object;
 
-                            // TODO: DO SOMETHING WITH VAR draggingSelected to make sure that the selected drag doesn't switch to a non-selected drag!!!
+                            boolean shouldContinue = false;
 
                             for(TreeItem<String> selection : selectionModel.model) {
                                 if(gameObjects.get(selection) == selectedObject) {
-                                    selected = true;
+                                    draggingSelected = true;
                                     break;
+                                } else if(draggingSelected && gameObjects.get(selection) != selectedObject) {
+                                    shouldContinue = true;
                                 }
                             }
 
+                            if(shouldContinue) continue;
                             break;
                         }
                     }
 
-                    if(selected) {
+                    if(draggingSelected) {
                         for(TreeItem<String> item : selectionModel.model) {
                             GameObject object = gameObjects.get(item);
                             object.position.x = (float) mouseEvent.getX() - (mousePosition.x - object.position.x);

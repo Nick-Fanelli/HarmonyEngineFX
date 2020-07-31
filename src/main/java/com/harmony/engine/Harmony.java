@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -87,6 +88,7 @@ public class Harmony extends Application {
         scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
         stage.setTitle("Harmony Engine v1.0 - " + ProjectData.projectName);
+        stage.getIcons().add(new Image(Harmony.class.getResourceAsStream("/images/logo.png")));
         stage.setMinHeight(600);
         stage.setMinWidth(800);
         stage.setWidth(1280);

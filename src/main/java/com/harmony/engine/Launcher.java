@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -61,6 +62,7 @@ public class Launcher extends Application {
         scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
         stage.setTitle(String.format("Harmony Engine v%s.%s.%s", VERSION_ID[0], VERSION_ID[1], VERSION_ID[2]));
+        stage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.setResizable(false);
 

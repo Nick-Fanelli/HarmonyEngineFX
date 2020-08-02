@@ -87,7 +87,7 @@ public class Harmony extends Application {
         // Handle Theme
         scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
-        stage.setTitle("Harmony Engine v1.0 - " + ProjectData.projectName);
+        stage.setTitle(String.format("Harmony Engine v%s.%s - ", Launcher.VERSION_ID[0], Launcher.VERSION_ID[1]) + ProjectData.projectName);
         stage.getIcons().add(new Image(Harmony.class.getResourceAsStream("/images/logo.png")));
         stage.setMinHeight(600);
         stage.setMinWidth(800);

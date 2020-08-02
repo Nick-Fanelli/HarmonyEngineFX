@@ -30,10 +30,10 @@ public class Launcher extends Application {
 
     // TODO - Deploy: Update The Version Data
     public static final int[] VERSION_ID = new int[] { 1, 0, 0 };
-    public static final LaunchType LAUNCH_TYPE = LaunchType.SNAPSHOT;
+    public static final LaunchType LAUNCH_TYPE = LaunchType.VERSION;
 
     public static final String GITHUB_VERSION_STRING = "version-" + VERSION_ID[0] + "." + VERSION_ID[1] + "." + VERSION_ID[2];
-    public enum LaunchType { Version, SNAPSHOT }
+    public enum LaunchType { VERSION, SNAPSHOT }
 
     public static Stage staticStage;
     public static Scene staticScene;
@@ -61,7 +61,7 @@ public class Launcher extends Application {
         // Handle Theme
         scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
-        stage.setTitle(String.format("Harmony Engine v%s.%s.%s", VERSION_ID[0], VERSION_ID[1], VERSION_ID[2]));
+        stage.setTitle(String.format("%sHarmony Engine", LAUNCH_TYPE == LaunchType.SNAPSHOT ? "PRE-RELEASE - " : ""));
         stage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(scene);
         stage.setResizable(false);

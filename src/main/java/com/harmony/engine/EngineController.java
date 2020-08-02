@@ -5,6 +5,7 @@
 
 package com.harmony.engine;
 
+import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.Documentation;
@@ -19,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
@@ -41,6 +43,8 @@ public class EngineController implements Runnable {
     // Misc.
     public static TabPane staticTabBar;
     public TabPane tabBar;
+    public MenuBar menuBar;
+    public AnchorPane contentAnchorPane;
 
     public static Label staticStatusLabel;
     public static Label staticUtilityLabel;
@@ -127,6 +131,12 @@ public class EngineController implements Runnable {
         staticStatusLabel = statusLabel;
         staticUtilityLabel = mousePositionLabel;
         staticTabBar = tabBar;
+
+        if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MAC) {
+            menuBar.useSystemMenuBarProperty().set(true);
+            menuBar.setVisible(false);
+            AnchorPane.setTopAnchor(contentAnchorPane, 0.0);
+        }
 
         Status.setCurrentStatus(Status.Type.STAND_BY);
 

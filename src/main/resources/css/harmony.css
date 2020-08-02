@@ -192,6 +192,18 @@ context-menu {
     -fx-cursor: hand;
 }
 
+.menu .label {
+    -fx-font-family: sans-serif, "Montserrat";
+    -fx-border-insets: 0;
+    -fx-border: 0;
+}
+
+.menu {
+    -fx-border-insets: 0;
+    -fx-border: 0;
+    -fx-cursor: hand;
+}
+
 .list-view .list-cell:even {
     -fx-background-color: -fx-default-dark;
     -fx-text-fill: -fx-default-text-fill;

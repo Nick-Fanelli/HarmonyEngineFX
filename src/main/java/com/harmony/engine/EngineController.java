@@ -43,7 +43,6 @@ public class EngineController implements Runnable {
     // Misc.
     public static TabPane staticTabBar;
     public TabPane tabBar;
-    public MenuBar menuBar;
     public AnchorPane contentAnchorPane;
 
     public static Label staticStatusLabel;
@@ -132,11 +131,13 @@ public class EngineController implements Runnable {
         staticUtilityLabel = mousePositionLabel;
         staticTabBar = tabBar;
 
-        if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MAC) {
-            menuBar.useSystemMenuBarProperty().set(true);
-            menuBar.setVisible(false);
-            AnchorPane.setTopAnchor(contentAnchorPane, 0.0);
-        }
+//        if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.WINDOWS) {
+//            menuBar.useSystemMenuBarProperty().set(true);
+//            menuBar.setVisible(false);
+//            AnchorPane.setTopAnchor(contentAnchorPane, 0.0);
+//        } else {
+//
+//        }
 
         Status.setCurrentStatus(Status.Type.STAND_BY);
 

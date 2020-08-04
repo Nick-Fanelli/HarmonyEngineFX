@@ -28,22 +28,27 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.EngineController">
    <children>
-      <AnchorPane fx:id="contentAnchorPane" layoutY="35.0" prefHeight="565.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane fx:id="contentAnchorPane" prefHeight="565.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
          <children>
-            <AnchorPane layoutY="573.0" prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: -fx-default-dark;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Label fx:id="statusLabel" layoutX="505.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="3.0" />
-                  <Label fx:id="mousePositionLabel" layoutX="8.0" layoutY="4.0" style="-fx-font-family: sans-serif; -fx-text-fill: -fx-default-text-fill;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="3.0" />
-                  <Button fx:id="globalPreferencesButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: transparent;" styleClass="default-button" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="628.0" maxHeight="56.0" maxWidth="172.0" minHeight="51.0" minWidth="172.0" prefHeight="51.0" prefWidth="172.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Button fx:id="runProjectButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutX="79.0" layoutY="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Button fx:id="saveProjectButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutX="61.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="0.0" />
-                  <Button fx:id="documentationButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutY="1.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
             <TabPane fx:id="tabBar" prefHeight="373.0" prefWidth="800.0" style="-fx-border-color: -fx-default-dark;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab fx:id="projectTab" closable="false" text="Project">
@@ -304,26 +309,21 @@
                   </Tab>
               </tabs>
             </TabPane>
+            <AnchorPane layoutY="573.0" prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: -fx-default-dark;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Label fx:id="statusLabel" layoutX="505.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="3.0" />
+                  <Label fx:id="mousePositionLabel" layoutX="8.0" layoutY="4.0" style="-fx-font-family: sans-serif; -fx-text-fill: -fx-default-text-fill;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="3.0" />
+                  <Button fx:id="globalPreferencesButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: transparent;" styleClass="default-button" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane maxHeight="56.0" maxWidth="172.0" minHeight="51.0" minWidth="172.0" prefHeight="51.0" prefWidth="172.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="runProjectButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutX="79.0" layoutY="5.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="saveProjectButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutX="61.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="documentationButton" accessibleHelp="Saves the Project" accessibleRoleDescription="Saves the Project" accessibleText="Save" layoutY="1.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="59.0" styleClass="default-button" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="800.0" style="-fx-border-color: #000000; -fx-border-style: hidden hidden solid hidden; -fx-border-width: 3px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
    </children>
 </AnchorPane>

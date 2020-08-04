@@ -162,7 +162,12 @@
     -fx-background-color: -fx-default-extra-light;
 }
 
-context-menu {
+// TODO: FILL IN
+.context-menu.system-defaults {
+
+}
+
+.context-menu {
     -fx-background-color: -fx-default-medium;
     -fx-text-fill: -fx-default-text-fill;
     -fx-border-color: -fx-default-medium;

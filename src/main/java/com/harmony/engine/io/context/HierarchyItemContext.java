@@ -5,6 +5,7 @@
 
 package com.harmony.engine.io.context;
 
+import com.harmony.engine.io.MenuManager;
 import com.harmony.engine.io.editor.state.StateEditor;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -24,8 +25,6 @@ public class HierarchyItemContext extends ContextMenu {
     private final MenuItem deleteItem;
 
     public HierarchyItemContext() {
-        boolean onMac = System.getProperty("os.name").startsWith("Mac");
-
         // Create Objects
         moveUp = new MenuItem("Move Up");
         moveDown = new MenuItem("Move Down");
@@ -35,16 +34,13 @@ public class HierarchyItemContext extends ContextMenu {
 
         deleteItem = new MenuItem("Delete Game Object");
 
-        // Handle Multi-Platform KeyStrokes
-        KeyCombination.Modifier controlModifier = onMac ? KeyCombination.META_DOWN : KeyCombination.CONTROL_DOWN;
-
         // Handle Accelerators
-        moveUp.setAccelerator(new KeyCodeCombination(KeyCode.OPEN_BRACKET, controlModifier));
-        moveDown.setAccelerator(new KeyCodeCombination(KeyCode.CLOSE_BRACKET, controlModifier));
+        moveUp.setAccelerator(new KeyCodeCombination(KeyCode.OPEN_BRACKET, MenuManager.controlModifier));
+        moveDown.setAccelerator(new KeyCodeCombination(KeyCode.CLOSE_BRACKET, MenuManager.controlModifier));
 
-        deleteItem.setAccelerator(new KeyCodeCombination(KeyCode.BACK_SPACE, controlModifier));
+        deleteItem.setAccelerator(new KeyCodeCombination(KeyCode.BACK_SPACE, MenuManager.controlModifier));
 
-        open.setAccelerator(new KeyCodeCombination(KeyCode.ENTER, controlModifier));
+        open.setAccelerator(new KeyCodeCombination(KeyCode.ENTER, MenuManager.controlModifier));
         find.setAccelerator(new KeyCodeCombination(KeyCode.F));
 
         super.getItems().addAll(moveUp, moveDown, new SeparatorMenuItem(),

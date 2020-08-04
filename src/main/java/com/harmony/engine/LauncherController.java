@@ -92,6 +92,9 @@ public class LauncherController {
                 open(selectedFile);
             }
         });
+
+        if(Launcher.launcherMethod == Launcher.LauncherMethod.OPEN) openProjectButton.fire();
+        else if(Launcher.launcherMethod == Launcher.LauncherMethod.NEW) newProjectButton.fire();
     }
 
     private void open(File directory) {

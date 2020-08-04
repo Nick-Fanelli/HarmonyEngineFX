@@ -5,14 +5,27 @@
 
 package com.harmony.engine.io;
 
+import com.harmony.engine.Harmony;
+import com.harmony.engine.Launcher;
 import com.harmony.engine.data.DataUtils;
-import javafx.scene.layout.AnchorPane;
+import com.harmony.engine.data.GlobalData;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class MenuManager {
 
-    private MenuBar menuBar;
-    private AnchorPane contentPane;
+    public static final KeyCombination.Modifier controlModifier = DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MAC
+            ? KeyCombination.META_DOWN : KeyCombination.CONTROL_DOWN;
+
+    private final MenuBar menuBar;
+    private final AnchorPane contentPane;
 
     public MenuManager(MenuBar menuBar, AnchorPane contentPane) {
         this.menuBar = menuBar;
@@ -22,18 +35,60 @@ public class MenuManager {
     public void initialize() {
         this.setMenuBarPosition();
         this.setMenuBarChildren();
+
+        Runnable handleInput = this::handleMenuBarChildren;
+        handleInput.run();
     }
 
     private void setMenuBarPosition() {
         if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MAC) {
+//        if(false) {
             menuBar.setUseSystemMenuBar(true);
         } else {
             AnchorPane.setTopAnchor(contentPane, menuBar.getPrefHeight());
         }
     }
 
-    private void setMenuBarChildren() {
+    private MenuItem save;
+    private MenuItem closeProject;
 
+    private MenuItem globalPreferences;
+
+    private void setMenuBarChildren() {
+        // Create All Menus
+        Menu file = new Menu("File");
+        Menu edit = new Menu("Edit");
+        Menu view = new Menu("View");
+
+        // File Menu Items
+        save = new MenuItem("Save");
+        save.setAccelerator(new KeyCodeCombination(KeyCode.S, controlModifier));
+
+        closeProject = new MenuItem("Close Project");
+
+        globalPreferences = new MenuItem("Global Preferences");
+        globalPreferences.setAccelerator(new KeyCodeCombination(KeyCode.COMMA, controlModifier));
+
+        file.getItems().addAll(save, closeProject, new SeparatorMenuItem(), globalPreferences);
+
+        // Add All Menus
+        menuBar.getMenus().addAll(file, edit, view);
+    }
+
+    private void handleMenuBarChildren() {
+        save.setOnAction(actionEvent -> Harmony.save());
+
+        closeProject.setOnAction(actionEvent -> {
+            Harmony.save();
+            Harmony.staticStage.close();
+            try {
+                new Launcher().start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        globalPreferences.setOnAction(actionEvent -> GlobalData.launchGlobalPreferences());
     }
 
 }

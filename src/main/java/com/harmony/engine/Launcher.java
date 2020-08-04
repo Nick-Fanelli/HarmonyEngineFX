@@ -38,7 +38,16 @@ public class Launcher extends Application {
     public static Stage staticStage;
     public static Scene staticScene;
 
+    public enum LauncherMethod { DEFAULT, OPEN, NEW }
+    public static LauncherMethod launcherMethod;
+
     public static void main(String[] args) {
+        if(args.length > 0) {
+            if(args[0].equals("H_OPEN")) launcherMethod = LauncherMethod.OPEN;
+            else if(args[0].equals("H_NEW")) launcherMethod = LauncherMethod.NEW;
+            else launcherMethod = LauncherMethod.DEFAULT;
+        } else launcherMethod = LauncherMethod.DEFAULT;
+
         configureSystemProperties();
         launch(args);
     }

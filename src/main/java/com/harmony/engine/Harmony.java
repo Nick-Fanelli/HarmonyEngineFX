@@ -40,7 +40,6 @@ public class Harmony extends Application {
     public static boolean altDown = false;
     public static boolean shiftDown = false;
 
-    public static boolean saving = false;
     public static boolean loaded = false;
 
     private static boolean isDebug = false;
@@ -118,12 +117,6 @@ public class Harmony extends Application {
                     triggerHand(true);
                     break;
                 case SHIFT: shiftDown = true;   break;
-            }
-
-            if(controlDown && sDown && !saving) {
-                saving = true;
-                save();
-                saving = false;
             }
         });
 

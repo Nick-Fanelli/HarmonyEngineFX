@@ -5,10 +5,10 @@
 
 package com.harmony.engine;
 
-import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.Documentation;
+import com.harmony.engine.io.MenuManager;
 import com.harmony.engine.io.editor.CodeEditor;
 import com.harmony.engine.io.editor.state.State;
 import com.harmony.engine.io.editor.state.StateEditor;
@@ -44,6 +44,7 @@ public class EngineController implements Runnable {
     public static TabPane staticTabBar;
     public TabPane tabBar;
     public AnchorPane contentAnchorPane;
+    public MenuBar menuBar;
 
     public static Label staticStatusLabel;
     public static Label staticUtilityLabel;
@@ -131,13 +132,7 @@ public class EngineController implements Runnable {
         staticUtilityLabel = mousePositionLabel;
         staticTabBar = tabBar;
 
-//        if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.WINDOWS) {
-//            menuBar.useSystemMenuBarProperty().set(true);
-//            menuBar.setVisible(false);
-//            AnchorPane.setTopAnchor(contentAnchorPane, 0.0);
-//        } else {
-//
-//        }
+        new MenuManager(menuBar, contentAnchorPane).initialize();
 
         Status.setCurrentStatus(Status.Type.STAND_BY);
 

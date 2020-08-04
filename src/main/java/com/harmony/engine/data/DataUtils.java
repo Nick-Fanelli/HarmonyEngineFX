@@ -204,7 +204,8 @@ public class DataUtils {
     // OS Utils
     public enum OperatingSystem {
         MAC("/Library/Java/JavaVirtualMachines"),
-        WINDOWS("C:\\Program Files\\Java");
+        WINDOWS("C:\\Program Files\\Java"),
+        UNDEFINED("");
 
         public final String jdkLocation;
 
@@ -215,8 +216,9 @@ public class DataUtils {
         public static OperatingSystem getCurrentOS() {
             String osName = System.getProperty("os.name");
 
-            if(osName.startsWith("Windows")) return WINDOWS;
-            else return MAC;
+            if(osName.trim().toLowerCase().startsWith("windows")) return WINDOWS;
+            else if(osName.trim().toLowerCase().startsWith("mac")) return MAC;
+            else return UNDEFINED;
         }
     }
 }

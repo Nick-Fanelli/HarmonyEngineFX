@@ -100,6 +100,30 @@ public class Launcher extends Application {
 
         DataUtils.OperatingSystem os = DataUtils.OperatingSystem.getCurrentOS();
 
+        if(os == DataUtils.OperatingSystem.UNDEFINED) {
+            StringBuilder osNameBuilder = new StringBuilder();
+
+            for(DataUtils.OperatingSystem operatingSystem : DataUtils.OperatingSystem.values()) {
+                if(operatingSystem != DataUtils.OperatingSystem.UNDEFINED) osNameBuilder.append(operatingSystem.name()).append(", ");
+            }
+
+            String osNameList = osNameBuilder.substring(0, osNameBuilder.toString().length() - 2);
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Undefined Operating System");
+            alert.setHeaderText("Could not identity current operating system.");
+            alert.setContentText("The current operating system that is running could not be identified by Harmony Engine. " +
+                    "Currently Harmony Engine can only support the following operating systems: " + osNameList);
+
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
+            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+
+            alert.showAndWait();
+
+            return false;
+        }
+
         File jdkLocation = new File(os.jdkLocation);
         if (!jdkLocation.isDirectory() || !jdkLocation.exists()) return false;
 

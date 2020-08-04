@@ -52,6 +52,10 @@ public class MenuManager {
     private MenuItem save;
     private MenuItem closeProject;
 
+    private MenuItem exportJar;
+    private MenuItem exportWeb;
+    private MenuItem exportAndroid;
+
     private MenuItem globalPreferences;
 
     private void setMenuBarChildren() {
@@ -59,6 +63,8 @@ public class MenuManager {
         Menu file = new Menu("File");
         Menu edit = new Menu("Edit");
         Menu view = new Menu("View");
+        Menu navigate = new Menu("Navigate");
+        Menu help = new Menu("Help");
 
         // File Menu Items
         save = new MenuItem("Save");
@@ -69,10 +75,16 @@ public class MenuManager {
         globalPreferences = new MenuItem("Global Preferences");
         globalPreferences.setAccelerator(new KeyCodeCombination(KeyCode.COMMA, controlModifier));
 
-        file.getItems().addAll(save, closeProject, new SeparatorMenuItem(), globalPreferences);
+        Menu export = new Menu("Export");
+        exportJar = new MenuItem("To Jar File");
+        exportWeb = new MenuItem("To Web Formats");
+        exportAndroid = new MenuItem("To Android APK");
+        export.getItems().addAll(exportJar, exportWeb, new SeparatorMenuItem(), exportAndroid);
+
+        file.getItems().addAll(save, export, closeProject, new SeparatorMenuItem(), globalPreferences);
 
         // Add All Menus
-        menuBar.getMenus().addAll(file, edit, view);
+        menuBar.getMenus().addAll(file, edit, view, navigate, help);
     }
 
     private void handleMenuBarChildren() {

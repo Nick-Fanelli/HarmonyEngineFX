@@ -53,6 +53,7 @@ public class StateEditor implements Runnable {
     private static Button openStateButton;
     private static Button newStateButton;
     private static Button deleteStateButton;
+    private static Button backButton;
 
     private final static Vector2f editorCamera = new Vector2f();
     private final static Vector2f mousePosition = new Vector2f();
@@ -73,7 +74,7 @@ public class StateEditor implements Runnable {
 
     public StateEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy,
                        ListView<String> statesList, Button openStateButton, Button newStateButton, Button deleteStateButton,
-                       AnchorPane statePane, AnchorPane interactablePane) {
+                       AnchorPane statePane, AnchorPane interactablePane, Button backButton) {
         StateEditor.canvas = canvas;
         StateEditor.editorPane = editorPane;
         StateEditor.objectsPane = objectsPane;
@@ -84,6 +85,7 @@ public class StateEditor implements Runnable {
         StateEditor.deleteStateButton = deleteStateButton;
         StateEditor.statePane = statePane;
         StateEditor.interactablePane = interactablePane;
+        StateEditor.backButton = backButton;
 
         if(editorThread != null) return;
 
@@ -230,6 +232,8 @@ public class StateEditor implements Runnable {
 
             StateEditor.draw();
         });
+
+        backButton.setOnMouseClicked(mouseEvent -> choose.run());
     }
 
     private TreeItem<String> clearItem = null;

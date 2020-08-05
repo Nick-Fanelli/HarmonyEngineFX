@@ -211,7 +211,13 @@
                                                             <items>
                                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                                                     <children>
-                                                                        <TreeView fx:id="hierarchy" prefHeight="200.0" prefWidth="200.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                        <TreeView fx:id="hierarchy" prefHeight="200.0" prefWidth="200.0" style="-fx-font-family: sans-serif;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0" />
+                                                            <AnchorPane maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <children>
+                                                                  <Button fx:id="backStateButton" layoutY="3.0" mnemonicParsing="false" prefHeight="30.0" styleClass="default-button" text="Back" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                  <TextField layoutX="93.0" layoutY="1.0" promptText="Search..." styleClass="default-text-field" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
                                                                     </children>
                                                                 </AnchorPane>
                                                       <TabPane prefHeight="123.0" prefWidth="254.0" styleClass="short" tabClosingPolicy="UNAVAILABLE">

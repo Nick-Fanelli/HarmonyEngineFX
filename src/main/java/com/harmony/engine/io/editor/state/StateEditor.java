@@ -68,6 +68,8 @@ public class StateEditor implements Runnable {
     private static final SelectionModel<TreeItem<String>> selectionModel = new SelectionModel();
     private static TreeItem<String> root;
 
+    private static float globalScale = 1f;
+
     public static boolean interactingWithCanvas = false;
 
     // Preferences
@@ -421,6 +423,11 @@ public class StateEditor implements Runnable {
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
             StateEditor.draw();
         });
+
+        canvas.setOnScroll(scrollEvent -> {
+            globalScale += scrollEvent.getDeltaY() / 400; // TODO: Add to global preferences
+            StateEditor.draw();
+        });
     }
 
     private static GameObject draggedObject = null;
@@ -457,7 +464,9 @@ public class StateEditor implements Runnable {
     public static void draw() {
         if(canvas == null || root == null) return;
 
-        double width = canvas.getWidth();
+        if(globalScale < 0) globalScale = 0; // TODO: Add a minimum zoom distance.
+
+        double width  = canvas.getWidth();
         double height = canvas.getHeight();
 
         g = canvas.getGraphicsContext2D();
@@ -513,8 +522,9 @@ public class StateEditor implements Runnable {
                 object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
             return;
 
-        g.drawImage(image, object.position.x + editorCamera.x, object.position.y + editorCamera.y,
-                image.getWidth(), image.getHeight());
+        g.drawImage(image, object.position.x / globalScale + editorCamera.x,
+                object.position.y + editorCamera.y,
+                image.getWidth() * globalScale, image.getHeight() * globalScale);
     }
 
     // Game Object Methods

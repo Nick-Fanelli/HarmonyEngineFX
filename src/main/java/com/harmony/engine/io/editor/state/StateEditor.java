@@ -11,6 +11,7 @@ import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.SelectionModel;
 import com.harmony.engine.io.context.HierarchyItemContext;
 import com.harmony.engine.io.tabs.GameObjectsTab;
+import com.harmony.engine.utils.math.MathUtils;
 import com.harmony.engine.utils.math.Vector2f;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
@@ -425,7 +426,8 @@ public class StateEditor implements Runnable {
         });
 
         canvas.setOnScroll(scrollEvent -> {
-            globalScale += scrollEvent.getDeltaY() / 400; // TODO: Add to global preferences
+            byte sign = MathUtils.replicateNumberSign(scrollEvent.getDeltaY());
+            globalScale += Math.max(0.1, Math.abs(scrollEvent.getDeltaY() / 400)) * sign; // TODO: Add to global preferences
             StateEditor.draw();
         });
     }
@@ -522,7 +524,7 @@ public class StateEditor implements Runnable {
                 object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
             return;
 
-        g.drawImage(image, object.position.x / globalScale + editorCamera.x,
+        g.drawImage(image, object.position.x + editorCamera.x,
                 object.position.y + editorCamera.y,
                 image.getWidth() * globalScale, image.getHeight() * globalScale);
     }

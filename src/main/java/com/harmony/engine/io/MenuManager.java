@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class MenuManager {
 
-    public static final KeyCombination.Modifier controlModifier = DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MAC
+    public static final KeyCombination.Modifier controlModifier = DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MACINTOSH
             ? KeyCombination.META_DOWN : KeyCombination.CONTROL_DOWN;
 
     private final MenuBar menuBar;
@@ -41,7 +41,7 @@ public class MenuManager {
     }
 
     private void setMenuBarPosition() {
-        if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MAC) {
+        if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MACINTOSH) {
 //        if(false) {
             menuBar.setUseSystemMenuBar(true);
         } else {

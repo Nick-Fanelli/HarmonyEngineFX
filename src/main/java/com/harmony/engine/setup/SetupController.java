@@ -9,6 +9,7 @@ import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 
@@ -28,7 +30,8 @@ public class SetupController {
     public static Scene jdkScene;
 
     // Value
-    private static GlobalData.Theme theme;
+    public static GlobalData.Theme theme;
+    public static File jdkLocation;
 
     // Theme
     public AnchorPane lightThemePane;
@@ -74,6 +77,23 @@ public class SetupController {
         themeScene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation(theme)).toExternalForm());
     }
 
+    public static void finish() {
+        if(theme == null || jdkLocation == null) {
+            System.err.println("Harmony -> Something went wrong...\n" +
+                    "\tEither the theme or JDK Location is returning null. Here are the values\n\n" +
+                    "\ttheme = " + theme + "\n" +
+                    "\tjdkLocation = " + jdkLocation + "\n\n" +
+                    "\tRestarting Setup...");
+            setScene(themeScene);
+            return;
+        }
+
+        GlobalData.setTheme(theme);
+        GlobalData.setJDKLocation(jdkLocation.getPath());
+
+        stage.close();
+    }
+
     @FXML
     public void initialize() {
         initializeTheme();
@@ -85,12 +105,20 @@ public class SetupController {
         darkThemePane.setOnMouseClicked  (mouseEvent -> setTheme(GlobalData.Theme.DARK))  ;
 
         themeNextButton.setOnMouseClicked(mouseEvent -> setScene(jdkScene));
+
+        SetupController.theme = GlobalData.Theme.LIGHT;
+        lightThemePane.setStyle("-fx-cursor:hand;-fx-background-color: -fx-default-extra-light");
+        darkThemePane.setStyle("-fx-cursor:hand;-fx-background-color: -fx-default-light");
+
+        lightThemeBox.setStyle(themeBoxCSS + "-fx-border-color: #365880");
+        darkThemeBox.setStyle(themeBoxCSS + "-fx-border-color: -fx-default-dark");
     }
+
+    private final String themeBoxCSS = "-fx-background-color:transparent;-fx-border-radius:25px;-fx-border-width:12.5px;";
 
     private void setTheme(GlobalData.Theme theme) {
         SetupController.theme = theme;
 
-        String themeBoxCSS = "-fx-background-color:transparent;-fx-border-radius:25px;-fx-border-width:12.5px;";
         if(theme == GlobalData.Theme.LIGHT) {
             lightThemePane.setStyle("-fx-cursor:hand;-fx-background-color: -fx-default-extra-light");
             darkThemePane.setStyle("-fx-cursor:hand;-fx-background-color: -fx-default-light");

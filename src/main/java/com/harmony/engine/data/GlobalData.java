@@ -213,6 +213,7 @@ public class GlobalData implements Serializable {
 
     // Utils
     public static String getThemeCSSLocation() { return "/css/themes/" + getTheme().name().toLowerCase() + "Theme.css"; }
+    public static String getThemeCSSLocation(Theme theme) { return "/css/themes/" + theme.name().toLowerCase() + "Theme.css"; }
 
     public static Stage staticStage;
 

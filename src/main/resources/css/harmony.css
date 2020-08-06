@@ -252,6 +252,7 @@
 .progress-bar > .track {
   -fx-text-box-border: -fx-default-dark, -fx-default-dark;
   -fx-control-inner-background: -fx-default-medium;
+  -fx-border-color: -fx-default-dark;
 }
 
 .progress-bar .bar {
@@ -259,7 +260,7 @@
     -fx-background-insets: 0;
 }
 
-.progress-bar { -fx-accent: -fx-default-light; }
+.progress-bar { -fx-accent: -fx-default-dark; }
 
 /* Tab Pane */
 

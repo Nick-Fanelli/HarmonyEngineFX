@@ -5,25 +5,30 @@
 
 package com.harmony.engine.setup;
 
+import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Timer;
 
 public class SetupController {
 
     private static Stage stage;
-    private static Scene themeScene;
+    public static Scene themeScene;
+    public static Scene jdkScene;
 
     // Value
-    private GlobalData.Theme theme;
+    private static GlobalData.Theme theme;
 
     // Theme
     public AnchorPane lightThemePane;
@@ -36,14 +41,19 @@ public class SetupController {
     public static void runSetup() {
         try {
             Parent themeParent = FXMLLoader.load(SetupController.class.getResource("/fxml/setup/theme.fxml"));
+            Parent jdkParent = FXMLLoader.load(SetupController.class.getResource("/fxml/setup/jdk.fxml"));
 
             stage = new Stage();
             stage.setTitle("Harmony Engine Setup");
+            stage.getIcons().add(new Image(Harmony.class.getResourceAsStream("/images/logo.png")));
             stage.setResizable(false);
 
             stage.setOnCloseRequest(windowEvent -> System.exit(0));
 
             themeScene = new Scene(themeParent);
+            jdkScene = new Scene(jdkParent);
+
+            themeScene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation(GlobalData.Theme.LIGHT)).toExternalForm());
 
             stage.setScene(themeScene);
             stage.showAndWait();
@@ -54,8 +64,14 @@ public class SetupController {
 
     public static void setScene(Scene scene) {
         if(stage == null || scene == null) return;
-
+        scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation(theme != null ? theme : GlobalData.Theme.LIGHT)).toExternalForm());
         stage.setScene(scene);
+    }
+
+    private static void updateTheme() {
+        if(theme == null) return;
+        themeScene.getStylesheets().remove(0);
+        themeScene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation(theme)).toExternalForm());
     }
 
     @FXML
@@ -67,13 +83,14 @@ public class SetupController {
     private void initializeTheme() {
         lightThemePane.setOnMouseClicked (mouseEvent -> setTheme(GlobalData.Theme.LIGHT)) ;
         darkThemePane.setOnMouseClicked  (mouseEvent -> setTheme(GlobalData.Theme.DARK))  ;
+
+        themeNextButton.setOnMouseClicked(mouseEvent -> setScene(jdkScene));
     }
 
-    private String themeBoxCSS = "-fx-background-color:transparent;-fx-border-radius:25px;-fx-border-width:12.5px;";
-
     private void setTheme(GlobalData.Theme theme) {
-        this.theme = theme;
+        SetupController.theme = theme;
 
+        String themeBoxCSS = "-fx-background-color:transparent;-fx-border-radius:25px;-fx-border-width:12.5px;";
         if(theme == GlobalData.Theme.LIGHT) {
             lightThemePane.setStyle("-fx-cursor:hand;-fx-background-color: -fx-default-extra-light");
             darkThemePane.setStyle("-fx-cursor:hand;-fx-background-color: -fx-default-light");
@@ -87,6 +104,8 @@ public class SetupController {
             lightThemeBox.setStyle(themeBoxCSS + "-fx-border-color: -fx-default-dark");
             darkThemeBox.setStyle(themeBoxCSS + "-fx-border-color: #365880");
         }
+
+        updateTheme();
     }
 
 }

@@ -8,6 +8,7 @@ package com.harmony.engine;
 import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
+import com.harmony.engine.setup.SetupController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -107,82 +108,84 @@ public class Launcher extends Application {
             if(jdk.exists() && jdk.isDirectory()) return true;
         }
 
-        DataUtils.OperatingSystem os = DataUtils.OperatingSystem.getCurrentOS();
+        SetupController.runSetup();
 
-        if(os == DataUtils.OperatingSystem.UNDEFINED) {
-            StringBuilder osNameBuilder = new StringBuilder();
-
-            for(DataUtils.OperatingSystem operatingSystem : DataUtils.OperatingSystem.values()) {
-                if(operatingSystem != DataUtils.OperatingSystem.UNDEFINED) osNameBuilder.append(operatingSystem.name()).append(", ");
-            }
-
-            String osNameList = osNameBuilder.substring(0, osNameBuilder.toString().length() - 2);
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Undefined Operating System");
-            alert.setHeaderText("Could not identity current operating system.");
-            alert.setContentText("The current operating system that is running could not be identified by Harmony Engine. " +
-                    "Currently Harmony Engine can only support the following operating systems: " + osNameList);
-
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
-            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
-
-            alert.showAndWait();
-
-            return false;
-        }
-
-        File jdkLocation = new File(os.jdkLocation);
-        if (!jdkLocation.isDirectory() || !jdkLocation.exists()) return false;
-
-        File[] jdkList = jdkLocation.listFiles();
-        if(jdkList == null || jdkList.length <= 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Missing JDK");
-            alert.setHeaderText("Could Not Find A Valid JDK");
-            alert.setContentText("Harmony Engine uses the JDK to compile and build all Java scripts that are written, please make sure you download the JDK to the default directory." +
-                    "\n\nhttps://www.oracle.com/java/technologies/javase-downloads.html");
-
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
-            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
-
-            alert.showAndWait();
-
-            return false;
-        }
-
-        ArrayList<String> jdkChoices = new ArrayList<>();
-        for(File jdk : jdkList) jdkChoices.add(jdk.getName().replaceAll("\\.jdk", ""));
-
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("Choose JDK", jdkChoices);
-        dialog.setTitle("Choose JDK");
-        dialog.setHeaderText("Choose Target JDK");
-        dialog.setContentText("Please choose target JDK:");
-
-        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
-        dialog.getDialogPane().getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
-
-        Optional<String> result = dialog.showAndWait();
-        AtomicReference<File> selectedJDK = new AtomicReference<>();
-        result.ifPresent(jdk -> selectedJDK.set(new File(os.jdkLocation + File.separator + result.get() + (os == DataUtils.OperatingSystem.WINDOWS ? "" : ".jdk"))));
-        if(selectedJDK.get() == null || !selectedJDK.get().exists()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error With JDK Location");
-            alert.setHeaderText("Could not validate the JDK Location");
-            alert.setHeaderText("Could not validate the JDK Location");
-            alert.setContentText("Something went terribly wrong :(");
-
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
-            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
-
-            alert.showAndWait();
-            return false;
-        }
-
-        GlobalData.setJDKLocation(selectedJDK.get().getPath());
+//        DataUtils.OperatingSystem os = DataUtils.OperatingSystem.getCurrentOS();
+//
+//        if(os == DataUtils.OperatingSystem.UNDEFINED) {
+//            StringBuilder osNameBuilder = new StringBuilder();
+//
+//            for(DataUtils.OperatingSystem operatingSystem : DataUtils.OperatingSystem.values()) {
+//                if(operatingSystem != DataUtils.OperatingSystem.UNDEFINED) osNameBuilder.append(operatingSystem.name()).append(", ");
+//            }
+//
+//            String osNameList = osNameBuilder.substring(0, osNameBuilder.toString().length() - 2);
+//
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Undefined Operating System");
+//            alert.setHeaderText("Could not identity current operating system.");
+//            alert.setContentText("The current operating system that is running could not be identified by Harmony Engine. " +
+//                    "Currently Harmony Engine can only support the following operating systems: " + osNameList);
+//
+//            DialogPane dialogPane = alert.getDialogPane();
+//            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
+//            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+//
+//            alert.showAndWait();
+//
+//            return false;
+//        }
+//
+//        File jdkLocation = new File(os.jdkLocation);
+//        if (!jdkLocation.isDirectory() || !jdkLocation.exists()) return false;
+//
+//        File[] jdkList = jdkLocation.listFiles();
+//        if(jdkList == null || jdkList.length <= 0) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Missing JDK");
+//            alert.setHeaderText("Could Not Find A Valid JDK");
+//            alert.setContentText("Harmony Engine uses the JDK to compile and build all Java scripts that are written, please make sure you download the JDK to the default directory." +
+//                    "\n\nhttps://www.oracle.com/java/technologies/javase-downloads.html");
+//
+//            DialogPane dialogPane = alert.getDialogPane();
+//            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
+//            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+//
+//            alert.showAndWait();
+//
+//            return false;
+//        }
+//
+//        ArrayList<String> jdkChoices = new ArrayList<>();
+//        for(File jdk : jdkList) jdkChoices.add(jdk.getName().replaceAll("\\.jdk", ""));
+//
+//        ChoiceDialog<String> dialog = new ChoiceDialog<>("Choose JDK", jdkChoices);
+//        dialog.setTitle("Choose JDK");
+//        dialog.setHeaderText("Choose Target JDK");
+//        dialog.setContentText("Please choose target JDK:");
+//
+//        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
+//        dialog.getDialogPane().getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+//
+//        Optional<String> result = dialog.showAndWait();
+//        AtomicReference<File> selectedJDK = new AtomicReference<>();
+//        result.ifPresent(jdk -> selectedJDK.set(new File(os.jdkLocation + File.separator + result.get() + (os == DataUtils.OperatingSystem.WINDOWS ? "" : ".jdk"))));
+//        if(selectedJDK.get() == null || !selectedJDK.get().exists()) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error With JDK Location");
+//            alert.setHeaderText("Could not validate the JDK Location");
+//            alert.setHeaderText("Could not validate the JDK Location");
+//            alert.setContentText("Something went terribly wrong :(");
+//
+//            DialogPane dialogPane = alert.getDialogPane();
+//            dialogPane.getStylesheets().add(getClass().getResource("/css/harmony.css").toExternalForm());
+//            dialogPane.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
+//
+//            alert.showAndWait();
+//            return false;
+//        }
+//
+//        GlobalData.setJDKLocation(selectedJDK.get().getPath());
 
         return true;
     }

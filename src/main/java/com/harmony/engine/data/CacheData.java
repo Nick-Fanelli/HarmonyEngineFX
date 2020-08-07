@@ -89,7 +89,7 @@ public class CacheData {
             builder = dbFactory.newDocumentBuilder();
             Document document = builder.newDocument();
 
-            Element rootElement = document.createElement("GlobalData");
+            Element rootElement = document.createElement("CacheData");
             document.appendChild(rootElement);
 
             CacheData.addAttributes(rootElement, document); // Add in the elements

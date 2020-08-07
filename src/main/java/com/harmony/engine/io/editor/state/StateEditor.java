@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -29,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -289,15 +291,18 @@ public class StateEditor implements Runnable {
                     Image image = images.get(object).getImage();
                     if(image == null) continue;
 
-                    // Check to make sure the game object is in bounds.
-                    if(object.position.x + editorCamera.x > canvas.getWidth() || object.position.y + editorCamera.y > canvas.getHeight() ||
-                            object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
-                        continue;
+                    // Translate Position
+                    Vector2f position = worldToScreen(object.position.copy());
 
-                    if(object.position.x + editorCamera.x <= mousePosition.x &&
-                       object.position.y + editorCamera.y <= mousePosition.y &&
-                       object.position.x + editorCamera.x + image.getWidth() >= mousePosition.x &&
-                       object.position.y + editorCamera.y + image.getHeight() >= mousePosition.y) {
+                    // Check to make sure the game object is in bounds.
+                    if(position.x > canvas.getWidth() || position.y > canvas.getHeight() ||
+                            position.x + image.getWidth() * globalScale < 0 || position.y + image.getHeight() * globalScale < 0)
+                        return;
+
+                    if(position.x <= mousePosition.x &&
+                            position.y <= mousePosition.y &&
+                            position.x + image.getWidth() * globalScale >= mousePosition.x &&
+                            position.y + image.getHeight() * globalScale >= mousePosition.y) {
 
                         if(!Harmony.shiftDown) {
                             shouldClear = true;
@@ -373,15 +378,18 @@ public class StateEditor implements Runnable {
                         Image image = images.get(object).getImage();
                         if (image == null) continue;
 
-                        // Check to make sure the game object is in bounds.
-                        if (object.position.x + editorCamera.x > canvas.getWidth() || object.position.y + editorCamera.y > canvas.getHeight() ||
-                                object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
-                            continue;
+                        // Translate Position
+                        Vector2f position = worldToScreen(object.position.copy());
 
-                        if(object.position.x + editorCamera.x <= mousePosition.x &&
-                                object.position.y + editorCamera.y <= mousePosition.y &&
-                                object.position.x + editorCamera.x + image.getWidth() >= mousePosition.x &&
-                                object.position.y + editorCamera.y + image.getHeight() >= mousePosition.y) {
+                        // Check to make sure the game object is in bounds.
+                        if(position.x > canvas.getWidth() || position.y > canvas.getHeight() ||
+                                position.x + image.getWidth() * globalScale < 0 || position.y + image.getHeight() * globalScale < 0)
+                            return;
+
+                        if(position.x <= mousePosition.x &&
+                                position.y <= mousePosition.y &&
+                                position.x + image.getWidth() * globalScale >= mousePosition.x &&
+                                position.y + image.getHeight() * globalScale >= mousePosition.y) {
                             selectedObject = object;
 
                             boolean shouldContinue = false;
@@ -403,13 +411,22 @@ public class StateEditor implements Runnable {
                     if(draggingSelected) {
                         for(TreeItem<String> item : selectionModel.model) {
                             GameObject object = gameObjects.get(item);
-                            object.position.x = (float) mouseEvent.getX() - (mousePosition.x - object.position.x);
-                            object.position.y = (float) mouseEvent.getY() - (mousePosition.y - object.position.y);
+
+                            Vector2f mouseBefore = screenToWorld(mousePosition.copy());
+                            Vector2f mouseAfter  = screenToWorld(new Vector2f((float) mouseEvent.getX(), (float) mouseEvent.getY()));
+
+                            object.position.x = mouseAfter.x - (mouseBefore.x - object.position.x);
+                            object.position.y = mouseAfter.y - (mouseBefore.y - object.position.y);
                         }
                     } else {
                         if(selectedObject != null && (draggedObject == null || draggedObject == selectedObject)) {
-                            selectedObject.position.x = (float) mouseEvent.getX() - (mousePosition.x - selectedObject.position.x);
-                            selectedObject.position.y = (float) mouseEvent.getY() - (mousePosition.y - selectedObject.position.y);
+
+                            Vector2f mouseBefore = screenToWorld(mousePosition.copy());
+                            Vector2f mouseAfter  = screenToWorld(new Vector2f((float) mouseEvent.getX(), (float) mouseEvent.getY()));
+
+                            selectedObject.position.x = mouseAfter.x - (mouseBefore.x - selectedObject.position.x);
+                            selectedObject.position.y = mouseAfter.y - (mouseBefore.y - selectedObject.position.y);
+
                             draggedObject = selectedObject;
                         }
                     }
@@ -417,17 +434,31 @@ public class StateEditor implements Runnable {
                     StateEditor.draw();
                 }
             } else if(mouseEvent.getButton() == MouseButton.MIDDLE) {
-                editorCamera.add((float) (mouseEvent.getX() - mousePosition.x) * (float) GlobalData.getPanMultipler(),
-                                 (float) (mouseEvent.getY() - mousePosition.y) * (float) GlobalData.getPanMultipler());
+
+                Vector2f mouseBefore = screenToWorld(mousePosition.copy());
+                Vector2f mouseAfter  = screenToWorld(new Vector2f((float) mouseEvent.getX(), (float) mouseEvent.getY()));
+
+                editorCamera.add((mouseAfter.x - mouseBefore.x) * (float) GlobalData.getPanMultipler(),
+                        (mouseAfter.y - mouseBefore.y) * (float) GlobalData.getPanMultipler());
             }
 
             mousePosition.set((float) mouseEvent.getX(), (float) mouseEvent.getY());
+            Status.setMousePosition(mousePosition);
             StateEditor.draw();
         });
 
         canvas.setOnScroll(scrollEvent -> {
-            byte sign = MathUtils.replicateNumberSign(scrollEvent.getDeltaY());
-            globalScale += Math.max(0.1, Math.abs(scrollEvent.getDeltaY() / 400)) * sign; // TODO: Add to global preferences
+            Vector2f mouseBeforeZoom = screenToWorld(mousePosition.copy());
+
+            if(scrollEvent.getDeltaY() > 0) {
+                globalScale *= 1.1f;
+            } else if(scrollEvent.getDeltaY() < 0) {
+                globalScale *= 0.9f;
+            }
+
+            Vector2f mouseAfterZoom = screenToWorld(mousePosition.copy());
+            editorCamera.add(mouseAfterZoom.sub(mouseBeforeZoom));
+
             StateEditor.draw();
         });
     }
@@ -453,6 +484,7 @@ public class StateEditor implements Runnable {
                 ClipboardContent content = new ClipboardContent();
                 copiedGameObject = ProjectData.gameObjects.get(finalI).copy();
                 content.putString("GameObject:" + ProjectData.gameObjects.get(finalI));
+
                 content.putImage(copiedGameObject.texture.getImage());
                 db.setContent(content);
 
@@ -502,16 +534,18 @@ public class StateEditor implements Runnable {
             Image image = images.get(object).getImage();
             if (image == null) return;
 
+            // Translate Position
+            Vector2f position = worldToScreen(object.position.copy());
+
             // Check to make sure the game object is in bounds.
-            if (object.position.x + editorCamera.x > width || object.position.y + editorCamera.y > height ||
-                    object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
+            if(position.x > canvas.getWidth() || position.y > canvas.getHeight() ||
+                    position.x + image.getWidth() * globalScale < 0 || position.y + image.getHeight() * globalScale < 0)
                 return;
 
             try {
                 g.setStroke(Color.web(GlobalData.getEditorOutlineColor()));
             } catch (Exception ignored) {}
-            g.strokeRect(object.position.x + editorCamera.x, object.position.y + editorCamera.y,
-                    image.getWidth(), image.getHeight());
+            g.strokeRect(position.x, position.y, image.getWidth() * globalScale, image.getHeight() * globalScale);
         } catch (Exception ignored) {}
     }
 
@@ -519,14 +553,34 @@ public class StateEditor implements Runnable {
         Image image = images.get(object).getImage();
         if(image == null) return;
 
+        // Translate Position
+        Vector2f position = worldToScreen(object.position.copy());
+
         // Check to make sure the game object is in bounds.
-        if(object.position.x + editorCamera.x > canvas.getWidth() || object.position.y + editorCamera.y > canvas.getHeight() ||
-                object.position.x + image.getWidth() + editorCamera.x < 0 || object.position.y + image.getHeight() + editorCamera.y < 0)
+        if(position.x > canvas.getWidth() || position.y > canvas.getHeight() ||
+                position.x + image.getWidth() * globalScale < 0 || position.y + image.getHeight() * globalScale < 0)
             return;
 
-        g.drawImage(image, object.position.x + editorCamera.x,
-                object.position.y + editorCamera.y,
-                image.getWidth() * globalScale, image.getHeight() * globalScale);
+        g.drawImage(image, position.x, position.y, image.getWidth() * globalScale, image.getHeight() * globalScale);
+    }
+
+    // Screen To World and World to Screen Translations
+    public static Vector2f worldToScreen(Vector2f position) {
+        Vector2f vector2f = new Vector2f();
+
+        vector2f.x = (position.x + editorCamera.x) * globalScale;
+        vector2f.y = (position.y + editorCamera.y) * globalScale;
+
+        return vector2f;
+    }
+
+    public static Vector2f screenToWorld(Vector2f screen) {
+        Vector2f vector2f = new Vector2f();
+
+        vector2f.x = (screen.x) / globalScale - editorCamera.x;
+        vector2f.y = (screen.y) / globalScale - editorCamera.y;
+
+        return vector2f;
     }
 
     // Game Object Methods

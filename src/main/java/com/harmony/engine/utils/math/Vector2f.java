@@ -53,7 +53,7 @@ public class Vector2f {
     }
 
     @Override public String toString() {
-        return String.format("X: %s, Y: %s", this.x, this.y);
+        return String.format("xValue: %s, yValue: %s", this.x, this.y);
     }
 
     public Vector2f add(float x, float y) {

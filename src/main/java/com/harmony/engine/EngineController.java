@@ -143,7 +143,7 @@ public class EngineController implements Runnable {
         documentationButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/info-icon.png"), 28, 28, true, true)));
         globalPreferencesButton.setGraphic(new ImageView(new Image(EngineController.class.getResourceAsStream("/images/icons/settings-icon.png"), 20, 20, true, true)));
 
-        saveProjectButton.setOnMouseClicked(mouse -> ProjectData.save(Harmony.directory));
+        saveProjectButton.setOnMouseClicked(mouse -> Harmony.save());
         documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(this, tabBar.getSelectionModel().getSelectedItem()));
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
 

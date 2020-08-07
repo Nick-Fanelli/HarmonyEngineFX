@@ -102,6 +102,11 @@ public class EngineController implements Runnable {
     public TreeView<String> hierarchy;
     public Button backStateButton;
 
+    public Button zoom50;
+    public Button zoom100;
+    public Button zoom150;
+    public Button zoom200;
+
     // Code Editor Tab
     public TreeView<String> codeFileList;
     public WebView codeView;
@@ -249,7 +254,7 @@ public class EngineController implements Runnable {
     private void initEditorTab() {
         staticEditorTab = editorTab;
         new StateEditor(editorCanvas, editorPane, objectsPane, hierarchy, editorStatesList, editorOpenStateButton,
-                editorNewStateButton, deleteStateButton, editorState, editorInteractable, backStateButton);
+                editorNewStateButton, deleteStateButton, editorState, editorInteractable, backStateButton, zoom50, zoom100, zoom150, zoom200);
     }
 
     // Code Methods

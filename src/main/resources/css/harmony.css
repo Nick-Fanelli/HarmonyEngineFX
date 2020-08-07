@@ -262,6 +262,18 @@
 
 .progress-bar { -fx-accent: -fx-default-dark; }
 
+.zoom-button {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-tab-selected-color;
+    -fx-border-width: 5px;
+}
+
+.zoom-button:hover { -fx-background-color: -fx-tab-selected-color; }
+
+.zoom-button.selected {
+    -fx-background-color: -fx-tab-selected-color;
+}
+
 /* Tab Pane */
 
 .tab-pane > .tab-header-area {

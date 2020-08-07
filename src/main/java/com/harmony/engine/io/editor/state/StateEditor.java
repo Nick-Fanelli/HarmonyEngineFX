@@ -13,13 +13,11 @@ import com.harmony.engine.io.context.HierarchyItemContext;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
-import com.harmony.engine.utils.math.MathUtils;
 import com.harmony.engine.utils.math.Vector2f;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -30,7 +28,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +55,11 @@ public class StateEditor implements Runnable {
     private static Button deleteStateButton;
     private static Button backButton;
 
+    private static Button zoom50;
+    private static Button zoom100;
+    private static Button zoom150;
+    private static Button zoom200;
+
     private final static Vector2f editorCamera = new Vector2f();
     private final static Vector2f mousePosition = new Vector2f();
 
@@ -79,7 +81,8 @@ public class StateEditor implements Runnable {
 
     public StateEditor(Canvas canvas, AnchorPane editorPane, GridPane objectsPane, TreeView<String> hierarchy,
                        ListView<String> statesList, Button openStateButton, Button newStateButton, Button deleteStateButton,
-                       AnchorPane statePane, AnchorPane interactablePane, Button backButton) {
+                       AnchorPane statePane, AnchorPane interactablePane, Button backButton, Button zoom50, Button zoom100,
+                       Button zoom150, Button zoom200) {
         StateEditor.canvas = canvas;
         StateEditor.editorPane = editorPane;
         StateEditor.objectsPane = objectsPane;
@@ -91,6 +94,10 @@ public class StateEditor implements Runnable {
         StateEditor.statePane = statePane;
         StateEditor.interactablePane = interactablePane;
         StateEditor.backButton = backButton;
+        StateEditor.zoom50 = zoom50;
+        StateEditor.zoom100 = zoom100;
+        StateEditor.zoom150 = zoom150;
+        StateEditor.zoom200 = zoom200;
 
         if(editorThread != null) return;
 
@@ -243,6 +250,9 @@ public class StateEditor implements Runnable {
 
     private TreeItem<String> clearItem = null;
     private boolean shouldClear = false;
+
+    private static GameObject draggedObject = null;
+    private static boolean draggingSelected = false;
 
     private void handleCanvasInput() {
         canvas.setOnDragOver(dragEvent -> {
@@ -460,11 +470,37 @@ public class StateEditor implements Runnable {
             editorCamera.add(mouseAfterZoom.sub(mouseBeforeZoom));
 
             StateEditor.draw();
+
+            if(globalScale == 0.5) zoomButton(zoom50, 0.5, false);
+            if(globalScale == 1.0) zoomButton(zoom50, 1.0, false);
+            if(globalScale == 1.5) zoomButton(zoom50, 1.5, false);
+            if(globalScale == 2.0) zoomButton(zoom50, 2.0, false);
+            else {
+                zoom50.getStyleClass().remove("selected");
+                zoom100.getStyleClass().remove("selected");
+                zoom150.getStyleClass().remove("selected");
+                zoom200.getStyleClass().remove("selected");
+            }
         });
+
+        zoom50.setOnMouseClicked (mouseEvent -> zoomButton(zoom50,  0.5, true));
+        zoom100.setOnMouseClicked(mouseEvent -> zoomButton(zoom100, 1.0, true));
+        zoom150.setOnMouseClicked(mouseEvent -> zoomButton(zoom150, 1.5, true));
+        zoom200.setOnMouseClicked(mouseEvent -> zoomButton(zoom200, 2.0, true));
     }
 
-    private static GameObject draggedObject = null;
-    private static boolean draggingSelected = false;
+    private void zoomButton(Button button, double percent, boolean completeZoom) {
+        zoom50.getStyleClass().remove("selected");
+        zoom100.getStyleClass().remove("selected");
+        zoom150.getStyleClass().remove("selected");
+        zoom200.getStyleClass().remove("selected");
+
+        button.getStyleClass().add("selected");
+
+        if(completeZoom) globalScale = (float) percent;
+
+        StateEditor.draw();
+    }
 
     public static void update() {
         objectsPane.getChildren().removeAll(objectsPane.getChildren());

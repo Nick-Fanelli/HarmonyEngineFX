@@ -735,10 +735,6 @@ public class StateEditor implements Runnable {
         StateEditor.draw();
     }
 
-    public enum Position { UP, DOWN, LEFT, RIGHT }
-
-    public static HashMap<TreeItem<String>, GameObject> getHierarchy() { return gameObjects; }
-
     public static void openSelectedGameObject() {
         GameObject object = gameObjects.get(hierarchy.getSelectionModel().getSelectedItem());
         if(object != null) GameObjectsTab.editGameObject(object);

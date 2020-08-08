@@ -110,6 +110,9 @@ public class EngineController implements Runnable {
     // Code Editor Tab
     public TreeView<String> codeFileList;
     public WebView codeView;
+    public AnchorPane codeNoFilePane;
+    public AnchorPane codeTabEditorPane;
+    public TabPane codeTabBar;
 
     @FXML
     public void initialize() {
@@ -258,7 +261,7 @@ public class EngineController implements Runnable {
     }
 
     // Code Methods
-    private void initCodeTab() { new CodeEditor(codeFileList, codeView); }
+    private void initCodeTab() { new CodeEditor(codeFileList, codeView, codeNoFilePane, codeTabEditorPane, codeTabBar); }
 
     // Util Methods
     public static boolean isStatusReady() { return staticStatusLabel != null; }

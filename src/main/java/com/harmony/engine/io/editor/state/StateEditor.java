@@ -557,13 +557,13 @@ public class StateEditor implements Runnable {
 
         // Draw the selection boxes
         for(int i = 0; i < selectionModel.model.size(); i++) {
-            drawBounds(gameObjects.get(selectionModel.model.get(i)), width, height);
+            drawBounds(gameObjects.get(selectionModel.model.get(i)));
         }
 
-        if(draggedObject != null) drawBounds(draggedObject, width, height);
+        if(draggedObject != null) drawBounds(draggedObject);
     }
 
-    private static void drawBounds(GameObject object, double width, double height) {
+    private static void drawBounds(GameObject object) {
         try {
             if (object == null) return;
 

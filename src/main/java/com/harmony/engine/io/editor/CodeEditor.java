@@ -108,7 +108,7 @@ public class CodeEditor implements Runnable {
         codeFileList.setRoot(root);
         codeFileList.setContextMenu(new FileItemContext());
         codeFileList.setEditable(true);
-        codeFileList.setCellFactory(stringTreeView -> new RenameMenuCell());
+//        codeFileList.setCellFactory(stringTreeView -> new RenameMenuCell());
     }
 
     private static void loadAllChildren(TreeItem<String> parent, File file) {

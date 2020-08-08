@@ -10,13 +10,11 @@ import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.io.SelectionModel;
 import com.harmony.engine.io.context.FileItemContext;
+import com.harmony.engine.io.context.RenameMenuCell;
 import com.harmony.engine.utils.Status;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -30,7 +28,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,6 +107,8 @@ public class CodeEditor implements Runnable {
         root.setExpanded(true);
         codeFileList.setRoot(root);
         codeFileList.setContextMenu(new FileItemContext());
+        codeFileList.setEditable(true);
+        codeFileList.setCellFactory(stringTreeView -> new RenameMenuCell());
     }
 
     private static void loadAllChildren(TreeItem<String> parent, File file) {
@@ -146,6 +145,8 @@ public class CodeEditor implements Runnable {
         codeFileList.getSelectionModel().selectedItemProperty().addListener((observableValue, stringTreeItem, t1) -> {
             selectScript(codeFileList.getSelectionModel().getSelectedItem());
         });
+
+        codeFileList.setOnMouseClicked(mouseEvent -> selectScript(codeFileList.getSelectionModel().getSelectedItem()));
 
         codeTabBar.getTabs().addListener((ListChangeListener<Tab>) change -> {
             change.next();

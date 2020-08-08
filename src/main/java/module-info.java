@@ -16,6 +16,7 @@ module com.harmony {
     exports com.harmony.engine.io.editor.state;
 
     exports com.harmony.engine.data;
+    exports com.harmony.engine.event;
     exports com.harmony.engine.utils.math;
     exports com.harmony.engine.utils;
     exports com.harmony.engine.setup;

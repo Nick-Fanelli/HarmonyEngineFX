@@ -75,6 +75,7 @@ public class GlobalPrefController {
                     Launcher.changeTheme();
             }
 
+            GlobalData.save();
             GlobalData.staticStage.close();
         });
 

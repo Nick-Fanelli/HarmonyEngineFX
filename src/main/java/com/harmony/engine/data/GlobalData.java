@@ -33,7 +33,8 @@ public class GlobalData implements Serializable {
     public static final String GLOBAL_PREFERENCES_FILENAME = "globalPreferences.xml";
     public static final String IMPORTED_PREFERENCES_DIRECTORY_NAME = "imported";
 
-    public static final String GLOBAL_DATA_LOCATION =  System.getProperty("user.home") + File.separator + ".harmony";
+    public static final String GLOBAL_DATA_LOCATION =  System.getProperty("user.home") + File.separator + ".harmony" + File.separator +
+            "v" + Launcher.VERSION_ID[0];
 
     public static final String GLOBAL_PREFERENCES_LOCATION = GLOBAL_DATA_LOCATION + File.separator + GLOBAL_PREFERENCES_FILENAME;
     public static final String IMPORTED_THEMES_LOCATION = GLOBAL_PREFERENCES_LOCATION + File.separator + IMPORTED_PREFERENCES_DIRECTORY_NAME +

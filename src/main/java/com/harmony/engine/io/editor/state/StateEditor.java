@@ -5,6 +5,7 @@
 
 package com.harmony.engine.io.editor.state;
 
+import com.harmony.engine.EngineController;
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
@@ -270,8 +271,13 @@ public class StateEditor implements Runnable {
 
             if(copiedGameObject != null) {
                 Image image = copiedGameObject.texture.getImage();
-                copiedGameObject.position = editorCamera.copy().inverse().add((float) dragEvent.getX() - (float) image.getWidth() / 2,
-                        (float) dragEvent.getY() - (float) image.getHeight() / 2);
+
+                Vector2f dragEventTranslated = screenToWorld(new Vector2f((float) dragEvent.getX(), (float) dragEvent.getY()));
+
+                copiedGameObject.position = new Vector2f(
+                        (float) (dragEventTranslated.x - image.getWidth()  / 2),
+                        (float) (dragEventTranslated.y - image.getHeight() / 2)
+                );
 
                 addGameObject(copiedGameObject);
 
@@ -483,6 +489,8 @@ public class StateEditor implements Runnable {
                 zoom150.getStyleClass().remove("selected");
                 zoom200.getStyleClass().remove("selected");
             }
+
+            StateEditor.updateAllDragEvents();
         });
 
         zoom50.setOnMouseClicked (mouseEvent -> zoomButton(zoom50,  0.5, true));
@@ -504,6 +512,8 @@ public class StateEditor implements Runnable {
         StateEditor.draw();
     }
 
+    private static HashMap<Integer, ImageView> gameObjectDragEventMap = new HashMap<>();
+
     public static void update() {
         objectsPane.getChildren().removeAll(objectsPane.getChildren());
 
@@ -513,24 +523,37 @@ public class StateEditor implements Runnable {
             texture.setFitHeight(50);
             texture.setFitWidth(50);
 
+            gameObjectDragEventMap.put(i, texture);
+
             objectsPane.add(texture, i, 0);
-
-            int finalI = i;
-            texture.setOnDragDetected(event -> {
-                Dragboard db = texture.startDragAndDrop(TransferMode.ANY);
-
-                ClipboardContent content = new ClipboardContent();
-                copiedGameObject = ProjectData.gameObjects.get(finalI).copy();
-                content.putString("GameObject:" + ProjectData.gameObjects.get(finalI));
-
-                content.putImage(copiedGameObject.texture.getImage());
-                db.setContent(content);
-
-                event.consume();
-            });
+            updateDragEvents(texture, i);
         }
 
         draw();
+    }
+
+    private static void updateAllDragEvents() {
+        for(Map.Entry<Integer, ImageView> entry: gameObjectDragEventMap.entrySet()) {
+            updateDragEvents(entry.getValue(), entry.getKey());
+        }
+    }
+
+    private static void updateDragEvents(ImageView view, int i) {
+        view.setOnDragDetected(event -> {
+            Dragboard db = view.startDragAndDrop(TransferMode.ANY);
+
+            ClipboardContent content = new ClipboardContent();
+            copiedGameObject = ProjectData.gameObjects.get(i).copy();
+            content.putString("GameObject:" + ProjectData.gameObjects.get(i));
+
+            content.putImage(copiedGameObject.texture.getImage());
+            content.putImage(EngineController.loadTexturesImage(copiedGameObject.texture.getPath(),
+                    (int) (copiedGameObject.texture.getImage().getWidth() * globalScale),
+                    (int) (copiedGameObject.texture.getImage().getHeight() * globalScale)));
+            db.setContent(content);
+
+            event.consume();
+        });
     }
 
     public static void draw() {

@@ -12,10 +12,10 @@ import java.io.Serializable;
 
 public class Texture implements Serializable {
 
-    private String path;
     public String name;
     public int id;
 
+    private String path;
     private Image image = null;
 
     public Texture(String path, String name, int id) {

@@ -6,7 +6,6 @@
 package com.harmony.engine;
 
 import com.harmony.engine.data.CacheData;
-import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.setup.SetupController;
 import javafx.application.Application;
@@ -14,18 +13,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Launcher extends Application {
 

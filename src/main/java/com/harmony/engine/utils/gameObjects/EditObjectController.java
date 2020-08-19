@@ -10,9 +10,12 @@ import com.harmony.engine.io.editor.state.StateEditor;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.utils.textures.TextureUtils;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 public class EditObjectController {
 
@@ -48,6 +51,9 @@ public class EditObjectController {
     }
 
     private void handleInput() {
+        // Static Stage
+
+        // Values
         name.textProperty().addListener(observable -> {
             if(!name.getText().isEmpty()){
                 gameObject.name = name.getText();

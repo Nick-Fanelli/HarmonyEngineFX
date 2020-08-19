@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -220,5 +221,15 @@ public class DataUtils {
             else if(osName.trim().toLowerCase().startsWith("mac")) return MACINTOSH;
             else return UNDEFINED;
         }
+    }
+
+    // Screen Utils
+    public static Dimension clipScreenSize(Dimension dimension) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        dimension.width  = Math.min( screenSize.width,  dimension.width  );
+        dimension.height = Math.min( screenSize.height, dimension.height );
+
+        return dimension;
     }
 }

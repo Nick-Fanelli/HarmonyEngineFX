@@ -27,9 +27,6 @@ public class GameObjectController {
 
     private static Texture texture;
 
-    private boolean control = false;
-    private boolean enter = false;
-
     @FXML
     public void initialize() {
         staticTextureField = textureField;

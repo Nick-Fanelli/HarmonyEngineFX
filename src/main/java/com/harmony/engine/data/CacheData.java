@@ -6,7 +6,6 @@
 package com.harmony.engine.data;
 
 import com.harmony.engine.Harmony;
-import com.harmony.engine.utils.Status;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,6 +18,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,6 +82,8 @@ public class CacheData {
 
     public static void save() {
 
+        CacheData.setValues();
+
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
 
@@ -137,6 +139,25 @@ public class CacheData {
         } catch (Exception ignored) { }
 
         return new HashMap<>();
+    }
+
+    private static void setValues() {
+        // Set the harmony window size.
+        if(Harmony.staticStage != null) {
+            setWindowSize(new Dimension((int) Harmony.staticStage.getWidth(), (int) Harmony.staticStage.getHeight()));
+        }
+    }
+
+    // Elements
+    public static void setWindowSize(Dimension dimension) {
+        dataContext.put("windowWidth", Integer.toString(dimension.width));
+        dataContext.put("windowHeight", Integer.toString(dimension.height));
+    }
+
+    public static Dimension getWindowSize() {
+        if(!dataContext.containsKey("windowWidth") || !dataContext.containsKey("windowHeight")) return null;
+
+        return new Dimension(Integer.parseInt(dataContext.get("windowWidth")), Integer.parseInt(dataContext.get("windowHeight")));
     }
 
 }

@@ -55,13 +55,13 @@ public class GameObjectUtils {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            staticScene = scene;
 
             // Handle Theme
             scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
             Stage stage = new Stage();
             GameObjectUtils.staticStage = stage;
+            GameObjectUtils.staticScene = scene;
             stage.setTitle(gameObject.name);
             stage.setResizable(false);
             stage.setAlwaysOnTop(true);

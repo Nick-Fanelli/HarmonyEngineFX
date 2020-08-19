@@ -6,6 +6,7 @@
 package com.harmony.engine;
 
 import com.harmony.engine.data.CacheData;
+import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.editor.CodeEditor;
@@ -22,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -90,8 +92,13 @@ public class Harmony extends Application {
         stage.getIcons().add(new Image(Harmony.class.getResourceAsStream("/images/logo.png")));
         stage.setMinHeight(600);
         stage.setMinWidth(800);
-        stage.setWidth(1280);
-        stage.setHeight(720);
+
+        // Set size based on the cache data.
+        Dimension size = CacheData.getWindowSize() != null ? DataUtils.clipScreenSize(CacheData.getWindowSize()) : null;
+
+        stage.setWidth(size != null ? size.width : 1280);
+        stage.setHeight(size != null ? size.height : 720);
+
         stage.setScene(scene);
         stage.setResizable(true);
         stage.centerOnScreen();

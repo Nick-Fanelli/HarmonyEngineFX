@@ -60,6 +60,7 @@ public class CacheData {
             if(location == null || location.isEmpty()) continue;
             File file = new File(location);
             if(file.exists()) files.add(file);
+            else dataContext.remove(location);
         }
 
         return files.toArray(new File[0]);

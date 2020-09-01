@@ -5,6 +5,7 @@
 
 package com.harmony.engine;
 
+import com.harmony.engine.bridge.Bridge;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.Documentation;
@@ -155,8 +156,7 @@ public class EngineController implements Runnable {
         documentationButton.setOnMouseClicked(mouse -> Documentation.showDocumentation(this, tabBar.getSelectionModel().getSelectedItem()));
         globalPreferencesButton.setOnMouseClicked(mouse -> GlobalData.launchGlobalPreferences());
 
-        runProjectButton.setOnMouseClicked(mouse -> {
-        });
+        runProjectButton.setOnMouseClicked(mouse -> Bridge.runProject());
 
         tabBar.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
             Platform.runLater(() -> {

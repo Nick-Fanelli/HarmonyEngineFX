@@ -204,15 +204,9 @@ public class DataUtils {
 
     // OS Utils
     public enum OperatingSystem {
-        MACINTOSH("/Library/Java/JavaVirtualMachines"),
-        WINDOWS("C:\\Program Files\\Java"),
-        UNDEFINED("");
-
-        public final String jdkLocation;
-
-        OperatingSystem(String jdkLocation) {
-            this.jdkLocation = jdkLocation;
-        }
+        MACINTOSH(),
+        WINDOWS(),
+        UNDEFINED();
 
         public static OperatingSystem getCurrentOS() {
             String osName = System.getProperty("os.name");

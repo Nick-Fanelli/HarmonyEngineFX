@@ -7,7 +7,6 @@ package com.harmony.engine;
 
 import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.GlobalData;
-import com.harmony.engine.setup.SetupController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.List;
 
 public class Launcher extends Application {
@@ -52,8 +50,6 @@ public class Launcher extends Application {
         for (String fontFamily: fontFamilies) {
             Font.font(fontFamily);
         }
-
-        if(!validateJDK()) System.exit(-1);
 
         staticStage = stage;
 
@@ -93,15 +89,5 @@ public class Launcher extends Application {
 
         // Handle Theme
         staticScene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
-    }
-
-    private boolean validateJDK() {
-        if(GlobalData.getJDKLocation() != null) {
-            File jdk = new File(GlobalData.getJDKLocation());
-            if(jdk.exists() && jdk.isDirectory()) return true;
-        }
-
-        SetupController.runSetup();
-        return true;
     }
 }

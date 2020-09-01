@@ -7,9 +7,6 @@ package com.harmony.engine.setup;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.data.GlobalData;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,9 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Timer;
 
 public class SetupController {
 
@@ -31,7 +26,6 @@ public class SetupController {
 
     // Value
     public static GlobalData.Theme theme;
-    public static File jdkLocation;
 
     // Theme
     public AnchorPane lightThemePane;
@@ -78,18 +72,7 @@ public class SetupController {
     }
 
     public static void finish() {
-        if(theme == null || jdkLocation == null) {
-            System.err.println("Harmony -> Something went wrong...\n" +
-                    "\tEither the theme or JDK Location is returning null. Here are the values\n\n" +
-                    "\ttheme = " + theme + "\n" +
-                    "\tjdkLocation = " + jdkLocation + "\n\n" +
-                    "\tRestarting Setup...");
-            setScene(themeScene);
-            return;
-        }
-
         GlobalData.setTheme(theme);
-        GlobalData.setJDKLocation(jdkLocation.getPath());
 
         stage.close();
     }

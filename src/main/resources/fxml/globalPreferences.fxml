@@ -55,57 +55,51 @@
                         <Insets left="20.0" />
                      </GridPane.margin></Label>
                      <ComboBox fx:id="theme" prefHeight="27.0" prefWidth="285.0" promptText="Select Theme" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                     <Label styleClass="default-label" text="Auto-Save:" GridPane.rowIndex="5">
+                     <Label styleClass="default-label" text="Auto-Save:" GridPane.rowIndex="4">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin></Label>
-                     <CheckBox fx:id="autoSave" mnemonicParsing="false" prefHeight="18.0" prefWidth="19.0" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     <CheckBox fx:id="autoSave" mnemonicParsing="false" prefHeight="18.0" prefWidth="19.0" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       
-                        <Label style="-fx-font-size: 30px; -fx-font-family: sans-serif;" styleClass="default-label" text="Editor" GridPane.rowIndex="7" />
-                  <Label styleClass="default-label" text="Draw From Top:" GridPane.rowIndex="8">
+                        <Label style="-fx-font-size: 30px; -fx-font-family: sans-serif;" styleClass="default-label" text="Editor" GridPane.rowIndex="6" />
+                  <Label styleClass="default-label" text="Draw From Top:" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin></Label>
-                  <CheckBox fx:id="editorDrawFromTop" mnemonicParsing="false" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                     <Label styleClass="default-label" text="Pan Multiplier:" GridPane.rowIndex="9">
+                  <CheckBox fx:id="editorDrawFromTop" mnemonicParsing="false" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                     <Label styleClass="default-label" text="Pan Multiplier:" GridPane.rowIndex="8">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin></Label>
-                     <TextField fx:id="panMultiplier" prefHeight="27.0" prefWidth="57.0" promptText="1.0" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <Label styleClass="default-label" text="Editor Background Color:" GridPane.rowIndex="11">
+                     <TextField fx:id="panMultiplier" prefHeight="27.0" prefWidth="57.0" promptText="1.0" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label styleClass="default-label" text="Editor Background Color:" GridPane.rowIndex="10">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin></Label>
-                  <TextField fx:id="editorBGColor" prefHeight="27.0" prefWidth="63.0" promptText="35406c" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                  <Label styleClass="default-label" text="Outline Color:" GridPane.rowIndex="12">
+                  <TextField fx:id="editorBGColor" prefHeight="27.0" prefWidth="63.0" promptText="35406c" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <Label styleClass="default-label" text="Outline Color:" GridPane.rowIndex="11">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin></Label>
-                  <TextField fx:id="editorOutlineColor" prefHeight="27.0" prefWidth="63.0" promptText="ff0000" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                  <Label styleClass="default-label" text="Show Guide Lines:" GridPane.rowIndex="14">
+                  <TextField fx:id="editorOutlineColor" prefHeight="27.0" prefWidth="63.0" promptText="ff0000" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <Label styleClass="default-label" text="Show Guide Lines:" GridPane.rowIndex="13">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <CheckBox fx:id="editorShowGuideLines" mnemonicParsing="false" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                  <Label prefHeight="21.0" prefWidth="195.0" styleClass="default-label" text="Guide Line Distance:" GridPane.rowIndex="15">
+                  <CheckBox fx:id="editorShowGuideLines" mnemonicParsing="false" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                  <Label prefHeight="21.0" prefWidth="195.0" styleClass="default-label" text="Guide Line Distance:" GridPane.rowIndex="14">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="editorGuideLineDist" prefHeight="27.0" prefWidth="57.0" promptText="10" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                  <Label styleClass="default-label" text="JDK:" GridPane.rowIndex="3">
+                  <TextField fx:id="editorGuideLineDist" prefHeight="27.0" prefWidth="57.0" promptText="10" styleClass="default-text-field" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <Label styleClass="default-label" text="Compress Project XML:" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Label>
-                  <ComboBox fx:id="jdk" prefHeight="27.0" prefWidth="285.0" promptText="Select JDK" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label styleClass="default-label" text="Compress Project XML:" GridPane.rowIndex="4">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <CheckBox fx:id="compressProject" mnemonicParsing="false" prefHeight="18.0" prefWidth="19.0" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <CheckBox fx:id="compressProject" mnemonicParsing="false" prefHeight="18.0" prefWidth="19.0" styleClass="default-check-box" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
                <padding>
                   <Insets left="10.0" top="10.0" />

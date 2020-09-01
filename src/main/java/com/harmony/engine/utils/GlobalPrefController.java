@@ -25,7 +25,6 @@ public class GlobalPrefController {
 
     // General
     public ComboBox<String> theme;
-    public ComboBox<String> jdk;
     public CheckBox autoSave;
     public CheckBox compressProject;
 
@@ -38,7 +37,6 @@ public class GlobalPrefController {
     public TextField editorGuideLineDist;
 
     private boolean isThemeChange = false;
-    private File[] jdkList;
 
     @FXML
     public void initialize() {
@@ -57,8 +55,6 @@ public class GlobalPrefController {
                     GlobalData.setTheme(GlobalData.Theme.values()[i]);
             }
 
-            GlobalData.setJDKLocation(DataUtils.OperatingSystem.getCurrentOS().jdkLocation
-                    + File.separator + jdk.getSelectionModel().getSelectedItem() + ".jdk");
             GlobalData.setAutoSave(autoSave.isSelected());
             GlobalData.setCompressProject(compressProject.isSelected());
             GlobalData.setPanMultiplier(Double.parseDouble(panMultiplier.getText()));
@@ -91,7 +87,6 @@ public class GlobalPrefController {
 
     private void setFields() {
         this.setTheme();
-        this.setJDK();
 
         autoSave.setSelected(GlobalData.getAutoSave());
         compressProject.setSelected(GlobalData.getCompressProject());
@@ -116,20 +111,5 @@ public class GlobalPrefController {
         }
 
         theme.getSelectionModel().select(index);
-    }
-
-    private void setJDK() {
-        int selectedIndex = 0;
-
-        File jdkDir = new File(DataUtils.OperatingSystem.getCurrentOS().jdkLocation);
-        jdkList = jdkDir.listFiles();
-        assert jdkList != null;
-
-        for(int i = 0; i < jdkList.length; i++) {
-            this.jdk.getItems().add(jdkList[i].getName().replaceAll("\\.jdk", ""));
-            if(jdkList[i].getPath().equals(GlobalData.getJDKLocation())) selectedIndex = i;
-        }
-
-        this.jdk.getSelectionModel().select(selectedIndex);
     }
 }

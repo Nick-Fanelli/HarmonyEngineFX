@@ -7,13 +7,10 @@ package com.harmony.engine.utils;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
-import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.io.Documentation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
-import java.io.File;
 
 public class GlobalPrefController {
 

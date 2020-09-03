@@ -173,7 +173,7 @@ public class ProjectData {
     public static void load(File directory) {
         ProjectData.reset();
 
-        File inputFile = new File(directory.getPath() + "/" + directory.getName() + ".hyproj");
+        File inputFile = getProjectFile(directory);
 
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -192,6 +192,8 @@ public class ProjectData {
             e.printStackTrace();
         }
     }
+
+    public static File getProjectFile(File directory) { return new File(directory.getPath() + "/" + directory.getName() + ".hyproj"); }
 
     private static void loadValueNodes(NodeList nList) {
         for (int i = 0; i < nList.getLength(); i++) {

@@ -19,17 +19,17 @@ public class Bridge {
 
     private static File index = null;
 
-    private static void cleanProject(File directory) {
-        if(directory.exists()) DataUtils.cleanDirectory(directory);
+    public static void cleanProject() {
+        File buildDirectory = new File(Harmony.directory.getPath() + File.separator + ".build");
+        if(buildDirectory.exists()) DataUtils.cleanDirectory(buildDirectory);
     }
 
     public static void buildProject() throws Exception {
         System.out.println("Harmony [Build] -> Building Project...");
         Harmony.save();
 
+        Bridge.cleanProject();
         File buildDirectory = new File(Harmony.directory.getPath() + File.separator + ".build");
-
-        Bridge.cleanProject(buildDirectory);
 
         if(!buildDirectory.exists()) {
             boolean success = buildDirectory.mkdirs();

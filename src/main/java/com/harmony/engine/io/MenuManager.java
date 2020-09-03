@@ -7,6 +7,7 @@ package com.harmony.engine.io;
 
 import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
+import com.harmony.engine.bridge.Bridge;
 import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.GlobalData;
 import javafx.scene.control.Menu;
@@ -115,5 +116,16 @@ public class MenuManager {
         });
 
         globalPreferences.setOnAction(actionEvent -> GlobalData.launchGlobalPreferences());
+
+        runProject.setOnAction(actionEvent -> Bridge.runProject());
+        buildProject.setOnAction(actionEvent -> {
+            try {
+                Bridge.buildProject();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        cleanProject.setOnAction(actionEvent -> Bridge.cleanProject());
     }
 }

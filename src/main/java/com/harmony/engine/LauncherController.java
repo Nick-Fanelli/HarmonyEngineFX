@@ -145,16 +145,6 @@ public class LauncherController {
         return stringBuilder.toString();
     }
 
-    private void cleanDirectory(File directory) {
-        File[] children = directory.listFiles();
-        if(children == null) return;
-
-        for(File file : children) {
-            if(file.isDirectory()) cleanDirectory(file);
-            file.delete();
-        }
-    }
-
     public static void showProgressAndOpen(File directory, NetResource[] netResources) throws Exception {
         CacheData.setRecentProject(directory);
         CacheData.save();

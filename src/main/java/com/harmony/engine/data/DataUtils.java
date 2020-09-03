@@ -221,6 +221,17 @@ public class DataUtils {
         }
     }
 
+    public static void cleanDirectory(File directory) {
+        File[] children = directory.listFiles();
+        if(children == null) return;
+
+        for(File file : children) {
+            if(file.isDirectory()) cleanDirectory(file);
+            boolean isSuccess = file.delete();
+            if(!isSuccess) System.err.println("Harmony [Error] -> Problem deleting: " + file);
+        }
+    }
+
     // OS Utils
     public enum OperatingSystem {
         MACINTOSH(),

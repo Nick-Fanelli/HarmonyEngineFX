@@ -9,30 +9,58 @@ import com.harmony.engine.Harmony;
 import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.ProjectData;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
+import java.net.URI;
+import java.util.ArrayList;
 
 public class Bridge {
 
-    public static void buildProject() {
-        File exportDirectory = new File(Harmony.directory.getPath() + File.separator + ".build");
+    private static File index = null;
 
-        if(!exportDirectory.exists()) {
-            boolean success = exportDirectory.mkdirs();
+    private static void cleanProject(File directory) {
+        if(directory.exists()) DataUtils.cleanDirectory(directory);
+    }
+
+    public static void buildProject() throws Exception {
+        System.out.println("Harmony [Build] -> Building Project...");
+        Harmony.save();
+
+        File buildDirectory = new File(Harmony.directory.getPath() + File.separator + ".build");
+
+        Bridge.cleanProject(buildDirectory);
+
+        if(!buildDirectory.exists()) {
+            boolean success = buildDirectory.mkdirs();
             if(!success) return; // TODO: Throw some kind of error!
         }
 
-        try {
-            File index = writeScripts(exportDirectory);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Bridge.index = writeSourceFiles(buildDirectory);
+        copyTextures(buildDirectory);
+
+        System.out.println("Harmony [Build] -> Project Built");
     }
 
     public static void runProject() {
-        Bridge.buildProject();
+        try { Bridge.buildProject(); } catch (Exception e) { e.printStackTrace(); }
+
+        if(!index.exists()) {
+            try { Bridge.buildProject(); } catch (Exception e) { e.printStackTrace(); }
+            return;
+        }
+
+        System.out.println("Harmony [Build] -> Running Project...");
+
+        URI indexURI = index.toURI();
+
+        try {
+            Desktop.getDesktop().browse(indexURI);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Harmony [Build] -> Project Running");
     }
 
     public enum ExportType {
@@ -43,7 +71,7 @@ public class Bridge {
 
     }
 
-    private static File writeScripts(File location) throws Exception {
+    private static File writeSourceFiles(File location) throws Exception {
         // Create "Client" index.html File
 //        System.out.println("Harmony [Build] -> Creating File index.html");
         File index = new File(location.getPath() + File.separator + "index.html");
@@ -123,4 +151,42 @@ public class Bridge {
         return index;
     }
 
+    private static void copyTextures(File location) {
+        File texturesLocation = new File(location.getPath() + File.separator + "textures");
+        if(!texturesLocation.exists()) {
+            boolean isSuccess = texturesLocation.mkdirs();
+            if(!isSuccess) return; // TODO: Throw Error
+        }
+
+        copyDirectory(Harmony.getTexturesLocation(), texturesLocation);
+    }
+
+    private static void copyDirectory(File sourceDirectory, File targetLocation) {
+        File[] children = sourceDirectory.listFiles();
+        if(children == null) return;
+        ArrayList<File> directories = new ArrayList<>();
+
+        for(File child : children) {
+            if(child.isHidden()) continue;
+
+            if(child.isDirectory()) {
+                directories.add(child);
+                continue;
+            }
+
+            File targetFile = new File(targetLocation.getPath() + File.separator + child.getName());
+            DataUtils.copyFile(child, targetFile);
+        }
+
+        for(File directory : directories) {
+            File targetDir = new File(targetLocation + File.separator + directory.getName());
+
+            if(!targetDir.exists()) {
+                boolean isSuccess = targetDir.mkdirs();
+                if(!isSuccess) return; // TODO: Throw Error
+            }
+
+            copyDirectory(directory, targetDir);
+        }
+    }
 }

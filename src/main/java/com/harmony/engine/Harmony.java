@@ -188,6 +188,9 @@ public class Harmony extends Application {
         return path.trim().replaceAll(Pattern.quote(Harmony.directory.getPath()), "").trim();
     }
 
+    public static String getTexturesLocationString() { return Harmony.directory + File.separator + "Resources" + File.separator + "Textures"; }
+    public static File getTexturesLocation() { return new File(getTexturesLocationString()); }
+
     public static String getScriptsLocationString() { return Harmony.directory + File.separator + "Resources" + File.separator + "Scripts"; }
     public static File getScriptsLocation() { return new File(getScriptsLocationString()); }
 }

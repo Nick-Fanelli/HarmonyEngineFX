@@ -52,7 +52,10 @@ public class MenuManager {
     private MenuItem save;
     private MenuItem closeProject;
 
-    private MenuItem exportJar;
+    private MenuItem runProject;
+    private MenuItem buildProject;
+    private MenuItem cleanProject;
+
     private MenuItem exportWeb;
     private MenuItem exportAndroid;
 
@@ -63,6 +66,7 @@ public class MenuManager {
         Menu file = new Menu("File");
         Menu edit = new Menu("Edit");
         Menu view = new Menu("View");
+        Menu run = new Menu("Run");
         Menu navigate = new Menu("Navigate");
         Menu help = new Menu("Help");
 
@@ -76,15 +80,25 @@ public class MenuManager {
         globalPreferences.setAccelerator(new KeyCodeCombination(KeyCode.COMMA, controlModifier));
 
         Menu export = new Menu("Export");
-        exportJar = new MenuItem("To Jar File");
         exportWeb = new MenuItem("To Web Formats");
         exportAndroid = new MenuItem("To Android APK");
-        export.getItems().addAll(exportJar, exportWeb, new SeparatorMenuItem(), exportAndroid);
+        export.getItems().addAll(exportWeb, new SeparatorMenuItem(), exportAndroid);
 
         file.getItems().addAll(save, export, closeProject, new SeparatorMenuItem(), globalPreferences);
 
+        // Run Menu Items
+        runProject = new MenuItem("Run Project");
+        buildProject = new MenuItem("Build Project");
+        cleanProject = new MenuItem("Clean Project");
+
+        runProject.setAccelerator(new KeyCodeCombination(KeyCode.R, controlModifier));
+        buildProject.setAccelerator(new KeyCodeCombination(KeyCode.B, controlModifier));
+        cleanProject.setAccelerator(new KeyCodeCombination(KeyCode.C, controlModifier, KeyCombination.SHIFT_DOWN));
+
+        run.getItems().addAll(runProject, new SeparatorMenuItem(), buildProject, cleanProject);
+
         // Add All Menus
-        menuBar.getMenus().addAll(file, edit, view, navigate, help);
+        menuBar.getMenus().addAll(file, edit, view, run, navigate, help);
     }
 
     private void handleMenuBarChildren() {
@@ -102,5 +116,4 @@ public class MenuManager {
 
         globalPreferences.setOnAction(actionEvent -> GlobalData.launchGlobalPreferences());
     }
-
 }

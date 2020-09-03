@@ -14,10 +14,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
 public class DataUtils {
@@ -200,6 +199,26 @@ public class DataUtils {
         }
 
         return builder.toString();
+    }
+
+    public static void writeFile(File file, String contents) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+
+            writer.write(contents);
+
+            writer.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void copyFile(File sourceFile, File targetFile) {
+         try {
+            Files.copy(sourceFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // OS Utils

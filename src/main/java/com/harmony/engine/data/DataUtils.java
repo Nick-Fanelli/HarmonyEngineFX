@@ -221,6 +221,14 @@ public class DataUtils {
         }
     }
 
+    public static void copyFile(InputStream sourceStream, File targetFile) {
+        try {
+            Files.copy(sourceStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void cleanDirectory(File directory) {
         File[] children = directory.listFiles();
         if(children == null) return;
@@ -234,9 +242,14 @@ public class DataUtils {
 
     // OS Utils
     public enum OperatingSystem {
-        MACINTOSH(),
-        WINDOWS(),
-        UNDEFINED();
+        // REMINDER: When adding a new OS don't forget:
+        /*
+            1. Do a command+shift+f search for any os references.
+            2. Update the bridge build method and find the os' start/open command.
+         */
+        MACINTOSH,
+        WINDOWS,
+        UNDEFINED;
 
         public static OperatingSystem getCurrentOS() {
             String osName = System.getProperty("os.name");

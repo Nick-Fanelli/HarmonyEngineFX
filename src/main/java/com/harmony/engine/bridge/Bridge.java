@@ -12,10 +12,18 @@ import com.harmony.engine.data.ProjectData;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class Bridge {
+
+    public static final String[] ENGINE_FILES = new String[] {
+            "graphics.js", "harmony.js", "physics.js", "states.js", "utils.js"
+    };
 
     private static File index = null;
 
@@ -36,7 +44,7 @@ public class Bridge {
             if(!success) return; // TODO: Throw some kind of error!
         }
 
-        Bridge.index = writeSourceFiles(buildDirectory);
+        writeSourceFiles(buildDirectory);
         copyTextures(buildDirectory);
 
         System.out.println("Harmony [Build] -> Project Built");
@@ -45,18 +53,19 @@ public class Bridge {
     public static void runProject() {
         try { Bridge.buildProject(); } catch (Exception e) { e.printStackTrace(); }
 
-        if(!index.exists()) {
-            try { Bridge.buildProject(); } catch (Exception e) { e.printStackTrace(); }
-            return;
-        }
-
         System.out.println("Harmony [Build] -> Running Project...");
 
-        URI indexURI = index.toURI();
+        try{
+            String[] commands = new String[0];
 
-        try {
-            Desktop.getDesktop().browse(indexURI);
-        } catch (IOException e) {
+            if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MACINTOSH) {
+                commands = new String[] { "open", index.getAbsolutePath() };
+            } else if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.WINDOWS) {
+                commands = new String[] { "start", index.getAbsolutePath() };
+            }
+
+            Runtime.getRuntime().exec(commands);
+        } catch(Exception e) {
             e.printStackTrace();
         }
 
@@ -71,84 +80,66 @@ public class Bridge {
 
     }
 
-    private static File writeSourceFiles(File location) throws Exception {
-        // Create "Client" index.html File
-//        System.out.println("Harmony [Build] -> Creating File index.html");
-        File index = new File(location.getPath() + File.separator + "index.html");
-        if(!index.exists()) {
-            try {
-                boolean isSuccess = index.createNewFile();
-                if(!isSuccess) return null; // TODO: Throw Error
-            } catch (IOException e) {
-                e.printStackTrace();
+    private static void writeSourceFiles(File buildDirectory) {
+        ArrayList<File> buildFiles = new ArrayList<>();
+        ArrayList<File> buildDirectories = new ArrayList<>();
+
+        // Create Directories
+        File clientDirectory = new File(buildDirectory.getPath() + File.separator + "client");
+        File cssDirectory = new File(buildDirectory.getPath() + File.separator + "css");
+        File engineDirectory = new File(buildDirectory.getPath() + File.separator + "engine");
+
+        buildDirectories.add(clientDirectory);
+        buildDirectories.add(cssDirectory);
+        buildDirectories.add(engineDirectory);
+
+        // Create Files
+        File index = new File(buildDirectory.getPath() + File.separator + "index.html");
+        File mainCSS = new File(cssDirectory.getPath() + File.separator + "main.css");
+        File clientEntryPoint = new File(clientDirectory.getPath() + File.separator + "client_entry_point.js");
+        File clientProject = new File(clientDirectory.getPath() + File.separator + "client_project.js");
+
+        for(String location : ENGINE_FILES) {
+            buildFiles.add(new File(engineDirectory.getPath() + File.separator + location));
+        }
+
+        buildFiles.add(index);
+        buildFiles.add(mainCSS);
+        buildFiles.add(clientEntryPoint);
+
+        // Create Directories
+        for(File directory : buildDirectories) {
+            if(!directory.exists()) {
+                boolean isSuccess = directory.mkdirs();
+                if(!isSuccess) return;
             }
         }
-//        System.out.println("Harmony [Build] -> File index.html Created\n");
 
-        // Copy index.html Data
-//        System.out.println("Harmony [Build] -> Copying index.html Data");
-        File indexSourceFile = new File(Bridge.class.getResource("/HarmonyJS/index.html").toURI());
-        DataUtils.copyFile(indexSourceFile, index);
-//        System.out.println("Harmony [Build] -> Copied index.html Data\n");
+        // Create Files
+        for(File file : buildFiles) {
+            if(!file.exists()) {
+                boolean isSuccess = false;
+                try {
+                    isSuccess = file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(!isSuccess) return;
+            }
 
-        // JS Directory
-//        System.out.println("Harmony [Build] -> Creating js Directory");
-        File jsDirectory = new File(location.getPath() + File.separator + "engine");
-        if(!jsDirectory.exists() || !jsDirectory.isDirectory()) {
-            boolean isSuccess = jsDirectory.mkdirs();
-            if(!isSuccess) return null; // TODO: Throw Error
-        }
-//        System.out.println("Harmony [Build] -> Directory js Created\n");
+            String currentLocation = file.getPath().replaceAll(Pattern.quote(buildDirectory.getPath()), "");
+            currentLocation = "/HarmonyJS/" + currentLocation.replaceAll(Pattern.quote("\\"), "/");
 
-        // Copy JS Files
-        File jsSourceDirectory = new File(Bridge.class.getResource("/HarmonyJS/engine").toURI());
-        File[] engineJSFiles = jsSourceDirectory.listFiles();
-        if(engineJSFiles == null) return null; // TODO: Throw Error
+            InputStream sourceInputStream = Bridge.class.getResourceAsStream(currentLocation.replaceAll("//+", "/"));
 
-        for(File sourceFile : engineJSFiles) {
-//            System.out.printf("Harmony [Build] -> Creating %s File\n", sourceFile.getName());
-            File file = new File(jsDirectory.getPath() + File.separator + sourceFile.getName());
-//            System.out.printf("Harmony [Build] -> Created %s File\n", sourceFile.getName());
-
-//            System.out.printf("Harmony [Build] -> Copying %s File\n", sourceFile.getName());
-            DataUtils.copyFile(sourceFile, file);
-//            System.out.printf("Harmony [Build] -> Copied %s File\n\n", sourceFile.getName());
+            DataUtils.copyFile(sourceInputStream, file);
         }
 
-        // Copy CSS File
-        File cssSourceFile = new File(Bridge.class.getResource("/HarmonyJS/css/main.css").toURI());
-        File cssDirectory = new File(location.getPath() + File.separator + "css");
-        if(!cssDirectory.exists()) {
-            boolean isSuccess = cssDirectory.mkdir();
-            if(!isSuccess) return null; // TODO: Throw Error
-        }
-
-        File cssFile = new File(cssDirectory.getPath() + File.separator + "main.css");
-        DataUtils.copyFile(cssSourceFile, cssFile);
-
-        // Copy Client Entry Point
-        File clientDirectory = new File(location.getPath() + File.separator + "client");
-        if(!clientDirectory.exists()) {
-            boolean isSuccess = clientDirectory.mkdir();
-            if(!isSuccess) return null; // TODO: Throw Error
-        }
-
-        File sourceClientEntryPoint = new File(Bridge.class.getResource("/HarmonyJS/client/client_entry_point.js").toURI());
-        File clientEntryPoint = new File(clientDirectory.getPath() + File.separator + sourceClientEntryPoint.getName());
-        DataUtils.copyFile(sourceClientEntryPoint, clientEntryPoint);
-
-        // Create Client Project
-        File clientProject = new File(clientDirectory + File.separator + "client_project.js");
-        if(!clientProject.exists()) {
-            boolean isSuccess = clientProject.createNewFile();
-            if(!isSuccess) return null; // TODO: Throw Error
-        }
-
+        // Client Project
         String projectFileData = DataUtils.readFile(ProjectData.getProjectFile(Harmony.directory));
-        String clientProjectData = String.format("const projectXML = `%s`;", projectFileData);
-        DataUtils.writeFile(clientProject, clientProjectData);
+        DataUtils.writeFile(clientProject, String.format("const projectXML = `%s`;", projectFileData));
 
-        return index;
+        Bridge.index = index;
     }
 
     private static void copyTextures(File location) {

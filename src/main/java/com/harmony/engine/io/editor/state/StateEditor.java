@@ -402,7 +402,7 @@ public class StateEditor implements Runnable {
                         // Check to make sure the game object is in bounds.
                         if(position.x > canvas.getWidth() || position.y > canvas.getHeight() ||
                                 position.x + image.getWidth() * globalScale < 0 || position.y + image.getHeight() * globalScale < 0)
-                            return;
+                            continue;
 
                         if(position.x <= mousePosition.x &&
                                 position.y <= mousePosition.y &&

@@ -55,7 +55,7 @@ public class Bridge {
 
         System.out.println("Harmony [Build] -> Running Project...");
 
-        try{
+        try {
             String[] commands = new String[0];
 
             if(DataUtils.OperatingSystem.getCurrentOS() == DataUtils.OperatingSystem.MACINTOSH) {

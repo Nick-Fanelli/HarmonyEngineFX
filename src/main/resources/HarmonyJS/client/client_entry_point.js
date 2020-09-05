@@ -70,6 +70,8 @@ for(let i = 0; i < project.children.length; i++) {
                 createdState.addGameObject(stateObjects[obj]);
             }
 
+            createdState.gameObjects.reverse();
+
             statesArray.push(createdState);
         }
     }

@@ -97,7 +97,7 @@ public class GlobalData implements Serializable {
     public static void setEditorOutlineColor(String value) { dataContext.put(EDITOR_OUTLINE_COLOR, value); }
     public static String getEditorOutlineColor() { return dataContext.get(EDITOR_OUTLINE_COLOR); }
 
-    // Editor Draw From Top
+    // Editor Draw From Top // TODO: REMOVE!!!
     public static final String EDITOR_DRAW_FROM_TOP = "editorDrawFromTop";
     public static void setEditorDrawFromTop(boolean value) { dataContext.put(EDITOR_DRAW_FROM_TOP, Boolean.toString(value)); }
     public static boolean getEditorDrawFromTop() { return Boolean.parseBoolean(dataContext.get(EDITOR_DRAW_FROM_TOP)); }

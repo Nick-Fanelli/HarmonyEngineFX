@@ -208,7 +208,7 @@ public class StateEditor implements Runnable {
         hierarchy.setContextMenu(new HierarchyItemContext());
 //        hierarchy.setCellFactory(stringTreeView -> new RenameMenuCell()); // TODO: PUT IN AND HANDLE!!!
 
-        for (GameObject object : activeState.gameObjects) addGameObject(object);
+        for (GameObject object : activeState.gameObjects) addGameObject(object, false);
     }
 
     private void handleInput() {
@@ -575,10 +575,7 @@ public class StateEditor implements Runnable {
 //        drawGuides((int) width, (int) height);
 
         // Draw the game objects
-        if(GlobalData.getEditorDrawFromTop())
-            for(int i = 0; i < root.getChildren().size(); i++) drawGameObject(gameObjects.get(root.getChildren().get(i)));
-        else
-            for(int i = root.getChildren().size() - 1; i >= 0; i--) drawGameObject(gameObjects.get(root.getChildren().get(i)));
+        for(int i = root.getChildren().size() - 1; i >= 0; i--) drawGameObject(gameObjects.get(root.getChildren().get(i)));
 
         // Draw the selection boxes
         for(int i = 0; i < selectionModel.model.size(); i++) {
@@ -646,9 +643,16 @@ public class StateEditor implements Runnable {
 
     // Game Object Methods
     public static void addGameObject(GameObject gameObject) {
+        addGameObject(gameObject, true);
+    }
+
+    public static void addGameObject(GameObject gameObject, boolean toTop) {
         TreeItem<String> key = new TreeItem<>(gameObject.name);
         gameObjects.put(key, gameObject);
-        root.getChildren().add(key);
+
+        if(toTop) root.getChildren().add(0, key);
+        else root.getChildren().add(key);
+
 
         if(gameObject.texture != null) {
             Image image = gameObject.texture.getImage();
@@ -679,8 +683,8 @@ public class StateEditor implements Runnable {
 
         activeState.gameObjects.clear();
 
-        for(Map.Entry<TreeItem<String>, GameObject> entry : gameObjects.entrySet()) {
-            activeState.gameObjects.add(entry.getValue());
+        for(TreeItem<String> item : hierarchy.getRoot().getChildren()) {
+            activeState.gameObjects.add(gameObjects.get(item));
         }
     }
 

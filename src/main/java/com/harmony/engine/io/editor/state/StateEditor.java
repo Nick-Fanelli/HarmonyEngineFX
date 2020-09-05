@@ -11,7 +11,6 @@ import com.harmony.engine.data.GlobalData;
 import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.io.SelectionModel;
 import com.harmony.engine.io.context.HierarchyItemContext;
-import com.harmony.engine.io.context.RenameMenuCell;
 import com.harmony.engine.io.tabs.GameObjectsTab;
 import com.harmony.engine.utils.Status;
 import com.harmony.engine.utils.gameObjects.GameObject;
@@ -106,7 +105,6 @@ public class StateEditor implements Runnable {
         editorThread = new Thread(this, "Harmony:StateEditor");
         editorThread.start();
     }
-
 
     @Override
     public void run() {

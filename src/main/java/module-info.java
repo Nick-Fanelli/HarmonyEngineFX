@@ -8,23 +8,7 @@ module com.harmony {
 
     // Exported Source Packages
     exports com.harmony.engine;
-
-    exports com.harmony.engine.io;
-    exports com.harmony.engine.io.editor;
-    exports com.harmony.engine.io.context;
-    exports com.harmony.engine.io.tabs;
-    exports com.harmony.engine.io.editor.state;
-
-    exports com.harmony.engine.data;
-    exports com.harmony.engine.event;
-    exports com.harmony.engine.utils.math;
-    exports com.harmony.engine.utils;
-    exports com.harmony.engine.setup;
-    exports com.harmony.engine.data.networking;
-    exports com.harmony.engine.data.networking.resource;
-
-    exports com.harmony.engine.utils.textures;
-    exports com.harmony.engine.utils.gameObjects;
+    exports com.harmony.engine.controllers;
 
     opens com.harmony.engine;
 }

@@ -5,8 +5,6 @@
 
 package com.harmony.engine;
 
-import com.harmony.engine.data.CacheData;
-import com.harmony.engine.data.GlobalData;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -24,22 +22,14 @@ public class Launcher extends Application {
     public static final int[] VERSION_ID = new int[] { 1, 0, 0 };
     public static final LaunchType LAUNCH_TYPE = LaunchType.VERSION;
 
-    public static final String GITHUB_VERSION_STRING = "version-" + VERSION_ID[0] + "." + VERSION_ID[1] + "." + VERSION_ID[2];
     public enum LaunchType { VERSION, SNAPSHOT }
 
     public static Stage staticStage;
     public static Scene staticScene;
 
     public enum LauncherMethod { DEFAULT, OPEN, NEW }
-    public static LauncherMethod launcherMethod;
 
     public static void main(String[] args) {
-        if(args.length > 0) {
-            if(args[0].equals("H_OPEN")) launcherMethod = LauncherMethod.OPEN;
-            else if(args[0].equals("H_NEW")) launcherMethod = LauncherMethod.NEW;
-            else launcherMethod = LauncherMethod.DEFAULT;
-        } else launcherMethod = LauncherMethod.DEFAULT;
-
         configureSystemProperties();
         launch(args);
     }
@@ -53,12 +43,9 @@ public class Launcher extends Application {
 
         staticStage = stage;
 
-        Parent root = FXMLLoader.load(Harmony.class.getResource("/launcher.fxml"));
+        Parent root = FXMLLoader.load(Launcher.class.getResource("/launcher.fxml"));
         Scene scene = new Scene(root, 800, 600);
         staticScene = scene;
-
-        // Handle Theme
-        scene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
 
         stage.setTitle(String.format("%sHarmony Engine", LAUNCH_TYPE == LaunchType.SNAPSHOT ? "PRE-RELEASE - " : ""));
         stage.getIcons().add(new Image(Launcher.class.getResourceAsStream("/images/logo.png")));
@@ -66,9 +53,6 @@ public class Launcher extends Application {
         stage.setResizable(false);
 
         stage.setOnCloseRequest(windowEvent -> {
-            GlobalData.save();
-            CacheData.save();
-
             Platform.exit();
             System.exit(0);
         });
@@ -79,15 +63,5 @@ public class Launcher extends Application {
     public static void configureSystemProperties() {
         System.setProperty("prism.lcdtext", "false");
         System.setProperty("prism.subpixeltext", "false");
-
-        CacheData.load();
-        GlobalData.load();
-    }
-
-    public static void changeTheme() {
-        staticScene.getStylesheets().remove(staticScene.getStylesheets().size() - 1);
-
-        // Handle Theme
-        staticScene.getStylesheets().add(Harmony.class.getResource(GlobalData.getThemeCSSLocation()).toExternalForm());
     }
 }

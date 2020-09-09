@@ -9,6 +9,8 @@ module com.harmony {
     // Exported Source Packages
     exports com.harmony.engine;
     exports com.harmony.engine.controllers;
+    exports com.harmony.engine.data;
+    exports com.harmony.engine.utils;
 
     opens com.harmony.engine;
 }

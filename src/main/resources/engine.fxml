@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="1024.0" styleClass="anchor-section" stylesheets="@css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.controllers.EngineController">
+   <children>
+      <SplitPane dividerPositions="0.19960861056751467, 0.8091976516634051" prefHeight="200.0" prefWidth="200.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <SplitPane dividerPositions="0.5167224080267558" orientation="VERTICAL">
+               <items>
+                  <TabPane prefHeight="200.0" prefWidth="200.0">
+                    <tabs>
+                      <Tab text="Hierarchy">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TreeView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+                  <TabPane prefHeight="200.0" prefWidth="200.0">
+                     <tabs>
+                        <Tab text="File Manager">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TreeView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </items>
+            </SplitPane>
+            <SplitPane dividerPositions="0.745819397993311" orientation="VERTICAL" styleClass="default-split-pane">
+               <items>
+                  <TabPane prefHeight="200.0" prefWidth="200.0">
+                    <tabs>
+                      <Tab text="State Editor">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                      <Tab text="Code Editor">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+                  <TabPane prefHeight="200.0" prefWidth="200.0">
+                     <tabs>
+                        <Tab text="Console">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Animator">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </items>
+            </SplitPane>
+            <TabPane prefHeight="200.0" prefWidth="200.0">
+              <tabs>
+                <Tab text="Inspector">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

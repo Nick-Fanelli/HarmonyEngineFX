@@ -5,6 +5,7 @@
 
 package com.harmony.engine;
 
+import com.harmony.engine.data.CacheData;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -21,13 +22,12 @@ public class Launcher extends Application {
     // TODO - Deploy: Update The Version Data
     public static final int[] VERSION_ID = new int[] { 1, 0, 0 };
     public static final LaunchType LAUNCH_TYPE = LaunchType.VERSION;
+    public static boolean isDebugMode = true;
 
     public enum LaunchType { VERSION, SNAPSHOT }
 
     public static Stage staticStage;
     public static Scene staticScene;
-
-    public enum LauncherMethod { DEFAULT, OPEN, NEW }
 
     public static void main(String[] args) {
         configureSystemProperties();
@@ -53,6 +53,8 @@ public class Launcher extends Application {
         stage.setResizable(false);
 
         stage.setOnCloseRequest(windowEvent -> {
+            CacheData.save();
+
             Platform.exit();
             System.exit(0);
         });
@@ -63,5 +65,7 @@ public class Launcher extends Application {
     public static void configureSystemProperties() {
         System.setProperty("prism.lcdtext", "false");
         System.setProperty("prism.subpixeltext", "false");
+
+        CacheData.load();
     }
 }

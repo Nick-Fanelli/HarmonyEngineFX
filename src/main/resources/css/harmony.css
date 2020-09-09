@@ -1,0 +1,348 @@
+/* Fonts */
+
+@font-face {
+    font-family: Montserrat;
+    src: url('../fonts/Montserrat-Regular.ttf');
+}
+
+/* The Dark Theme For Development Only!!! TODO: DEPLOY - REMOVE */
+* {
+    -fx-tab-color: #70a7ff;
+    -fx-tab-selected-color: #4287f5;
+    -fx-default-dark: #2B2B2B;
+    -fx-default-medium: #313335;
+    -fx-default-light: #3c3f41;
+    -fx-default-extra-light: #61676b;
+    -fx-default-text-fill: #ffffff;
+}
+
+.root {
+    -fx-accent: -fx-default-light;
+    -fx-focus-color: transparent;
+}
+
+/* Defaults */
+.default-text-field {
+    -fx-background-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: Montserrat;
+}
+
+.default-button {
+    -fx-background-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: Montserrat;
+    -fx-cursor: hand;
+}
+
+.default-button:hover {
+    -fx-background-color: -fx-default-extra-light;
+}
+
+.default-choose-button {
+    -fx-background-color: #365880;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: Montserrat;
+    -fx-cursor: hand;
+}
+
+.default-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: Montserrat;
+}
+
+.default-split-pane {
+    -fx-color: -fx-default-dark;
+    -fx-box-border: -fx-default-dark;
+    -fx-background-color: -fx-default-light;
+}
+
+.combo-box {
+    -fx-background-color: -fx-default-dark;
+}
+
+.combo-box .list-cell {
+    -fx-focus-color: transparent;
+    -fx-background: -fx-default-dark;
+    -fx-background-color: transparent;
+    -fx-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: Montserrat;
+    -fx-padding: 3 0 2 7;
+    -fx-cell-size: 1.66667em;
+}
+
+.combo-box .combo-box-popup .list-view {
+    -fx-background-color: -fx-default-medium, -fx-default-medium;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+
+.combo-box .combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: -fx-default-light, -fx-default-light;
+    -fx-cursor: hand;
+}
+
+.combo-box .combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: -fx-default-dark, -fx-default-dark;
+}
+
+.default-check-box .box {
+    -fx-background-color: -fx-default-dark;
+    -fx-border-color: -fx-default-dark;
+    -fx-border-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: -fx-default-text-fill;
+}
+
+.anchor-section {
+    -fx-background-color: -fx-default-medium;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-default-extra-light;
+    -fx-background-radius: 5em;
+}
+
+.dialog-pane {
+    -fx-background-color: -fx-default-medium;
+}
+
+.dialog-pane .label {
+    -fx-font-family: Montserrat;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: -fx-default-dark;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-family: Montserrat;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.dialog-pane .button {
+    -fx-background-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: Montserrat;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: -fx-default-extra-light;
+}
+
+// TODO: FILL IN
+.context-menu.system-defaults {
+
+}
+
+.context-menu {
+    -fx-background-color: -fx-default-medium;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-border-color: -fx-default-medium;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+}
+
+.menu-item {
+    -fx-background-color: -fx-default-medium;
+    -fx-border-color: -fx-default-medium -fx-default-medium -fx-default-medium -fx-default-medium;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+}
+
+.context-menu > * > .separator > .line {
+    -fx-border-color: -fx-default-dark;
+    -fx-border-insets: 0;
+}
+
+.menu-item .label {
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-border-insets: 0;
+}
+
+.menu-item:focused {
+    -fx-background-color: -fx-default-dark;
+    -fx-cursor: hand;
+}
+
+.menu .label {
+    -fx-font-family: sans-serif, "Montserrat";
+    -fx-border-insets: 0;
+    -fx-border: 0;
+}
+
+.menu {
+    -fx-border-insets: 0;
+    -fx-border: 0;
+    -fx-cursor: hand;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: -fx-default-medium;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: -fx-default-light;
+}
+
+.tree-view .tree-cell {
+    -fx-background-color: -fx-default-medium;
+    -fx-text-fill: -fx-default-text-fill;
+}
+
+.tree-view .tree-cell:selected {
+    -fx-background-color: -fx-default-dark;
+    -fx-cursor: hand;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: -fx-default-text-fill;
+}
+
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: -fx-default-text-fill;
+}
+
+.item-array {
+    -fx-background-color: -fx-default-dark;
+    -fx-cursor: hand;
+}
+
+.item-array:hover { -fx-background-color: -fx-default-medium; }
+.item-array.selected { -fx-background-color: -fx-default-extra-light; }
+
+.progress-bar > .track {
+  -fx-text-box-border: -fx-default-dark, -fx-default-dark;
+  -fx-control-inner-background: -fx-default-medium;
+  -fx-border-color: -fx-default-dark;
+}
+
+.progress-bar .bar {
+    -fx-padding: 1px;
+    -fx-background-insets: 0;
+}
+
+.progress-bar { -fx-accent: -fx-default-dark; }
+
+.zoom-button {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-tab-selected-color;
+    -fx-border-width: 5px;
+}
+
+.zoom-button:hover { -fx-background-color: -fx-tab-selected-color; }
+
+.zoom-button.selected {
+    -fx-background-color: -fx-tab-selected-color;
+}
+
+/* Tab Pane */
+
+.tab-pane > .tab-header-area {
+    -fx-padding: 0;
+}
+
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: -fx-default-dark, -fx-default-dark;
+    -fx-background-insets: 0, 0 0 1px 0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: -fx-default-dark;
+    -fx-background-insets: 0 0 1px 0;
+    -fx-padding: 5px 15px;
+    -fx-cursor: hand;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab >.tab-container >.tab-label {
+    -fx-text-fill: -fx-tab-color;
+    -fx-font-family: 'Montserrat';
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: -fx-tab-selected-color, -fx-default-medium;
+    -fx-background-insets: 0, 0 0 2px 0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab >.tab-container > .tab-close-button {
+    -fx-background-color: -fx-default-text-fill;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab >.tab-container > .tab-close-button:hover {
+    -fx-background-color: -fx-default-medium;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected >.tab-container >.tab-label {
+    -fx-text-fill: -fx-tab-selected-color;
+    -fx-font-family: 'Montserrat';
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected >.tab-container >.focus-indicator {
+    -fx-opacity: 0;
+}
+
+/* Textures */
+#texturesList {
+    -fx-background-color: transparent;
+}
+
+#texturesList:focused {
+    -fx-background-color: transparent;
+}
+
+.list-row-cell:odd {
+    -fx-background-color: -fx-default-medium;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.list-row-cell:event {
+    -fx-background-color: -fx-default-dark;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+/* Launcher */
+.recent-button.active { -fx-cursor: hand; }
+
+.recent-button.active:hover {
+    -fx-background-color: -fx-default-light;
+}

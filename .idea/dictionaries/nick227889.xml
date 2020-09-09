@@ -5,7 +5,9 @@
       <w>hyproj</w>
       <w>interactable</w>
       <w>interactables</w>
+      <w>lcdtext</w>
       <w>multipler</w>
+      <w>subpixeltext</w>
     </words>
   </dictionary>
 </component>

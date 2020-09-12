@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="600.0" prefWidth="1024.0" styleClass="anchor-section" stylesheets="@css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.controllers.EngineController">
+<AnchorPane prefHeight="600.0" prefWidth="1024.0" styleClass="anchor-section" stylesheets="@../css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.controllers.EngineController">
    <children>
       <SplitPane dividerPositions="0.19960861056751467, 0.8091976516634051" prefHeight="200.0" prefWidth="200.0" styleClass="default-split-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>

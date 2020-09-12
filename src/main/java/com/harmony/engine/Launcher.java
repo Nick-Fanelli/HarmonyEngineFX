@@ -43,7 +43,7 @@ public class Launcher extends Application {
 
         staticStage = stage;
 
-        Parent root = FXMLLoader.load(Launcher.class.getResource("/launcher.fxml"));
+        Parent root = FXMLLoader.load(Launcher.class.getResource("/fxml/launcher.fxml"));
         Scene scene = new Scene(root, 800, 600);
         staticScene = scene;
 

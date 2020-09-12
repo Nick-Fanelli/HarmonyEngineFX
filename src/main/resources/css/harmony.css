@@ -262,18 +262,6 @@
 
 .progress-bar { -fx-accent: -fx-default-dark; }
 
-.zoom-button {
-    -fx-background-color: transparent;
-    -fx-border-color: -fx-tab-selected-color;
-    -fx-border-width: 5px;
-}
-
-.zoom-button:hover { -fx-background-color: -fx-tab-selected-color; }
-
-.zoom-button.selected {
-    -fx-background-color: -fx-tab-selected-color;
-}
-
 /* Tab Pane */
 
 .tab-pane > .tab-header-area {
@@ -317,6 +305,25 @@
 
 .tab-pane > .tab-header-area > .headers-region > .tab:selected >.tab-container >.focus-indicator {
     -fx-opacity: 0;
+}
+
+.spinner {
+	-fx-background-color: transparent;
+}
+
+.spinner .text-field {
+	-fx-background-color: -fx-default-dark;
+    -fx-text-fill: -fx-default-text-fill;
+    -fx-font-family: Montserrat;
+}
+
+.spinner .increment-arrow-button, .decrement-arrow-button {
+	-fx-background-color: -fx-default-dark;
+	-fx-cursor: hand;
+}
+
+.spinner .increment-arrow, .decrement-arrow {
+	-fx-background-color: -fx-default-extra-light;
 }
 
 /* Textures */

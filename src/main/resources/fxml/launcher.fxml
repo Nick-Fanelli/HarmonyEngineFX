@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.controllers.LauncherController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="anchor-section" stylesheets="@../css/harmony.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.harmony.engine.controllers.LauncherController">
    <children>
       <Label layoutX="325.0" layoutY="14.0" style="-fx-font-size: 50px;" styleClass="default-label" text="Harmony Engine" AnchorPane.rightAnchor="47.0">
          <font>

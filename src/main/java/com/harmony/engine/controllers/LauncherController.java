@@ -3,12 +3,16 @@ package com.harmony.engine.controllers;
 import com.harmony.engine.Launcher;
 import com.harmony.engine.utils.Log;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class LauncherController {
 
     public Label versionID;
+
+    public Button newProjectButton;
+    public Button openProjectButton;
 
     public AnchorPane recentProjectsPane;
     public AnchorPane[] recentProjects;
@@ -38,6 +42,8 @@ public class LauncherController {
 
         Log.debug("Sample Debug Message");
         Log.error("Sample Error Message");
+
+        newProjectButton.setOnAction(actionEvent -> NewProjectController.createNewProject());
     }
 
 }

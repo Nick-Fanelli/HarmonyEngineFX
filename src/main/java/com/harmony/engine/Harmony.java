@@ -17,7 +17,7 @@ public class Harmony extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = new FXMLLoader(Harmony.class.getResource("/engine.fxml")).load();
+        Parent root = new FXMLLoader(Harmony.class.getResource("/fxml/engine.fxml")).load();
 
         Scene scene = new Scene(root, 1024, 600);
         stage.setScene(scene);

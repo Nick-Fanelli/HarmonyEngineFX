@@ -1,11 +1,14 @@
 package com.harmony.engine.controllers;
 
+import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
 import com.harmony.engine.utils.Log;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.File;
 
 public class LauncherController {
 
@@ -40,10 +43,12 @@ public class LauncherController {
             recentProjects[i] = pane;
         }
 
-        Log.debug("Sample Debug Message");
-        Log.error("Sample Error Message");
-
         newProjectButton.setOnAction(actionEvent -> NewProjectController.createNewProject());
+    }
+
+    public static void open(File directory) {
+        Harmony.open(directory, null);
+        Launcher.staticStage.close();
     }
 
 }

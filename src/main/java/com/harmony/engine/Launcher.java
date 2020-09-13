@@ -22,7 +22,7 @@ public class Launcher extends Application {
     // TODO - Deploy: Update The Version Data
     public static final int[] VERSION_ID = new int[] { 1, 0, 0 };
     public static final LaunchType LAUNCH_TYPE = LaunchType.VERSION;
-    public static boolean isDebugMode = true;
+    public static boolean isDebugMode = false;
 
     public enum LaunchType { VERSION, SNAPSHOT }
 

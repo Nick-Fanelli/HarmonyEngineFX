@@ -2,7 +2,11 @@ package com.harmony.engine.utils;
 
 import com.harmony.engine.Launcher;
 
+import java.util.ArrayList;
+
 public class Log {
+
+    private static ArrayList<LogEntry> logEntries = new ArrayList<>();
 
     // Reset
     public static final String ANSI_RESET = "\033[0m";  // Text Reset
@@ -47,12 +51,56 @@ public class Log {
     public static final String ANSI_CYAN_BACKGROUND = "\033[46m";   // CYAN
     public static final String ANSI_WHITE_BACKGROUND = "\033[47m";  // WHITE
 
-
     public static void error(String errorMessage) {
-        System.out.printf("%sHarmony [%sError%s] -> %s%s\n", ANSI_RED, ANSI_RED_BOLD, ANSI_RED, errorMessage, ANSI_RESET);
+        logEntries.add(new LogEntry(LogType.ERROR, errorMessage).log());
     }
 
     public static void debug(String debugMessage) {
-        if(Launcher.isDebugMode) System.out.printf("Harmony [%sDebug%s] -> %s\n", ANSI_BLUE_BOLD, ANSI_RESET, debugMessage);
+        if(Launcher.isDebugMode) {
+            logEntries.add(new LogEntry(LogType.DEBUG, debugMessage).log());
+        }
+    }
+
+    public static void print(String message) {
+        logEntries.add(new LogEntry(LogType.MESSAGE, message).log());
+    }
+
+    public static void printStack() {
+        for(LogEntry entry : logEntries) {
+            entry.log();
+        }
+    }
+
+    public static class LogEntry {
+
+        public LogType logType;
+        public String message;
+
+        public LogEntry(LogType logType, String message) {
+            this.logType = logType;
+            this.message = message;
+        }
+
+        public LogEntry log() {
+            switch (logType) {
+                case DEBUG:
+                    if(Launcher.isDebugMode)
+                        System.out.printf("Harmony [%sDebug%s] -> %s\n", ANSI_BLUE_BOLD, ANSI_RESET, message);
+                    break;
+                case MESSAGE:
+                    System.out.printf("Harmony -> %s\n", message);
+                    break;
+                case ERROR:
+                    System.out.printf("%sHarmony [%sError%s] -> %s%s\n", ANSI_RED, ANSI_RED_BOLD, ANSI_RED, message, ANSI_RESET);
+                    break;
+            }
+
+            return this;
+        }
+
+    }
+
+    public enum LogType {
+        MESSAGE, DEBUG, ERROR
     }
 }

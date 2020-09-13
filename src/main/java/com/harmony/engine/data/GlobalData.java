@@ -6,7 +6,7 @@ import com.harmony.engine.utils.Log;
 import java.io.File;
 import java.io.IOException;
 
-public class DataUtils {
+public class GlobalData {
 
     public static final String DATA_LOCATION = System.getProperty("user.home") + File.separator + ".harmony"
             + File.separator + String.format("v%s.%s.%s", Launcher.VERSION_ID[0], Launcher.VERSION_ID[1], Launcher.VERSION_ID[2]);

@@ -34,7 +34,7 @@ public class CacheData {
 
     public static void save() {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = null;
+        DocumentBuilder builder;
 
         try {
             builder = dbFactory.newDocumentBuilder();
@@ -58,7 +58,7 @@ public class CacheData {
 
             DOMSource source = new DOMSource(document);
 
-            StreamResult file = new StreamResult(DataUtils.CACHE_DATA_LOCATION);
+            StreamResult file = new StreamResult(GlobalData.CACHE_DATA_LOCATION);
 
             transformer.transform(source, file);
         } catch (ParserConfigurationException | TransformerException e) {
@@ -68,7 +68,7 @@ public class CacheData {
 
     public static void load() {
         try {
-            File inputFile = new File(DataUtils.CACHE_DATA_LOCATION);
+            File inputFile = new File(GlobalData.CACHE_DATA_LOCATION);
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = dbFactory.newDocumentBuilder();

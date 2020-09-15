@@ -2,6 +2,7 @@ package com.harmony.engine.data;
 
 import com.harmony.engine.utils.Log;
 
+import java.io.File;
 import java.util.regex.Pattern;
 
 public class DataUtils {
@@ -26,6 +27,33 @@ public class DataUtils {
 
     public static String[] stringToStringArray(String string) {
         return string.split(Pattern.quote(IDENTIFIER_STRING));
+    }
+
+    // File Utils
+    public enum FileType {
+        DIRECTORY("", "Directory"),
+        BLANK(".~\\", "File"),
+        JS("js", "Javascript File"),
+        TXT("txt", "Text File");
+
+        public final String fileExtension;
+        public final String fileName;
+
+        FileType(String fileExtension, String fileName) {
+            this.fileExtension = fileExtension;
+            this.fileName = fileName;
+        }
+
+        public static FileType identifyFile(File file) {
+            String[] fileSplit = file.getName().split("\\.");
+            String fileName = fileSplit[fileSplit.length - 1].toLowerCase();
+
+            for(FileType type : FileType.values()) {
+                if(fileName.equals(type.fileExtension)) return type;
+            }
+
+            return BLANK;
+        }
     }
 
 }

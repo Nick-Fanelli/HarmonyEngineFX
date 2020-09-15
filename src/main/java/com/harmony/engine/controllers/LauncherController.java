@@ -4,7 +4,6 @@ import com.harmony.engine.Harmony;
 import com.harmony.engine.Launcher;
 import com.harmony.engine.data.CacheData;
 import com.harmony.engine.data.DataUtils;
-import com.harmony.engine.data.ProjectData;
 import com.harmony.engine.utils.Log;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,9 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class LauncherController {
@@ -77,7 +73,6 @@ public class LauncherController {
             System.arraycopy(buffer, 0, recentProjectPaths, 0, buffer.length);
 
             CacheData.push(CacheData.RECENT_PROJECTS, DataUtils.stringArrayToString(recentProjectPaths));
-//            Collections.reverse(Arrays.asList(recentProjectPaths));
 
             for (String recentProjectPath : recentProjectPaths) {
                 for (AnchorPane pane : recentProjects) {

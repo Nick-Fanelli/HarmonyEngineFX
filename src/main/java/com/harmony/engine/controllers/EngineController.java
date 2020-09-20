@@ -13,13 +13,12 @@ public class EngineController {
     // File Manager
     public TreeView<String> fileManager;
     public VBox newFilePane;
-    public AnchorPane fileManagerBlurPane;
     public Button createNewFileButton;
     public TextField newFileField;
 
     @FXML
     public void initialize() {
-        new FileManager(fileManager, newFilePane, createNewFileButton, newFileField, fileManagerBlurPane);
+        new FileManager(fileManager, newFilePane, createNewFileButton, newFileField);
     }
 
 }

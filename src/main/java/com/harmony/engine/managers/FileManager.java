@@ -3,13 +3,21 @@ package com.harmony.engine.managers;
 import com.harmony.engine.context.HierarchyItemContext;
 import com.harmony.engine.data.DataUtils;
 import com.harmony.engine.data.ProjectData;
+import com.harmony.engine.utils.Log;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,24 +38,29 @@ public class FileManager {
     private final VBox newFilePane;
     private final Button newFileButton;
     private final TextField newFileField;
-    private final AnchorPane blurPane;
 
-    public FileManager(TreeView<String> fileManager, VBox newFilePane, Button newFileButton, TextField newFileField, AnchorPane blurPane) {
+    private final BoxBlur boxBlur = new BoxBlur(0, 0, 0);
+
+    public FileManager(TreeView<String> fileManager, VBox newFilePane, Button newFileButton, TextField newFileField) {
         this.fileManager = fileManager;
         this.newFilePane = newFilePane;
         this.newFileButton = newFileButton;
         this.newFileField = newFileField;
-        this.blurPane = blurPane;
 
-        init();
+        initialize();
 
         FileManager.synchronize = this::synchronizeFileManager;
         synchronize.run();
     }
 
-    private void init() {
-        blurPane.setEffect(new BoxBlur(10, 10, 3));
-        blurPane.setVisible(true);
+    private void initialize() {
+        fileManager.setEffect(boxBlur);
+    }
+
+    private void setBoxBlur(boolean value) {
+        boxBlur.setWidth(value ? 5 : 0);
+        boxBlur.setHeight(value ? 5 : 0);
+        boxBlur.setIterations(value ? 5 : 0);
     }
 
     private void synchronizeFileManager() {
@@ -96,11 +109,79 @@ public class FileManager {
         return BLANK_FILE;
     }
 
+    private File getCurrentDirectory() {
+        TreeItem<String> currentItem = fileManager.getSelectionModel().getSelectedItem();
+        File currentFile = fileManagerData.get(currentItem);
+
+        if(!currentFile.exists()) return null;
+
+        if(currentFile.isDirectory()) return currentFile;
+        else return currentFile.getParentFile();
+    }
+
+    private File getCurrentFile() {
+        TreeItem<String> currentItem = fileManager.getSelectionModel().getSelectedItem();
+        File currentFile = fileManagerData.get(currentItem);
+
+        return currentFile.exists() ? currentFile : null;
+    }
+
     public void create(DataUtils.FileType fileType) {
         newFileField.setText("");
         newFileField.setPromptText(fileType.fileName + " Name");
+        this.setBoxBlur(true);
+        this.handleNewFile(fileType);
+        this.shouldHandleNewFile = true;
+
         newFilePane.setVisible(true);
-        blurPane.setVisible(true);
     }
 
+    public void delete() {
+        File currentFile = getCurrentFile();
+        // TODO: Delete This!
+    }
+
+    private boolean shouldHandleNewFile = false;
+
+    private void handleNewFile(DataUtils.FileType fileType) {
+        Platform.runLater(newFileField::requestFocus);
+
+        newFileField.textProperty().addListener(observable -> {
+            if(!shouldHandleNewFile) return;
+
+            switch (fileType) {
+                case BLANK: break;
+                case DIRECTORY:
+                    newFileButton.setDisable(newFileField.getText().contains("\\") || newFileField.getText().contains(".")
+                    || newFileField.getText().contains("/") || newFileField.getText().isEmpty());
+                    break;
+            }
+        });
+
+        newFileButton.setOnAction(actionEvent -> {
+            if(!shouldHandleNewFile) return;
+            createFileType(fileType);
+            shouldHandleNewFile = false;
+            this.setBoxBlur(false);
+            newFilePane.setVisible(false);
+        });
+    }
+
+    private void createFileType(DataUtils.FileType fileType) {
+        File parentDirectory = getCurrentDirectory();
+        if(parentDirectory == null) return;
+
+        File childFile = new File(parentDirectory.getPath() + File.separator + newFileField.getText().trim());
+
+        switch (fileType) {
+            case BLANK: break;
+            case DIRECTORY:
+                boolean isSuccess = childFile.mkdirs();
+                if(!isSuccess) Log.error("Could not create childFile as directory at " + childFile.getPath());
+                break;
+
+        }
+
+        FileManager.synchronize.run();
+    }
 }

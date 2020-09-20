@@ -1,6 +1,7 @@
 package com.harmony.engine.data;
 
 import com.harmony.engine.utils.Log;
+import javafx.scene.input.KeyCombination;
 
 import java.io.File;
 import java.util.regex.Pattern;
@@ -53,6 +54,28 @@ public class DataUtils {
             }
 
             return BLANK;
+        }
+    }
+
+    // OS Utils
+    public enum OperatingSystem {
+        MACINTOSH(KeyCombination.META_DOWN),
+        WINDOWS(KeyCombination.CONTROL_DOWN),
+        UNKNOWN(null);
+
+        public final KeyCombination.Modifier controlModifier;
+
+        OperatingSystem(KeyCombination.Modifier controlModifier) {
+            this.controlModifier = controlModifier;
+        }
+
+        public static OperatingSystem getCurrentOS() {
+            String osName = System.getProperty("os.name").toLowerCase();
+
+            if(osName.startsWith("win")) return WINDOWS;
+            if(osName.startsWith("mac")) return MACINTOSH;
+
+            return UNKNOWN;
         }
     }
 

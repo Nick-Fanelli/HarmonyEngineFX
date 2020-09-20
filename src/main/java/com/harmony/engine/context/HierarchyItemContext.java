@@ -7,6 +7,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 
 public class HierarchyItemContext extends ContextMenu {
 
@@ -17,6 +19,8 @@ public class HierarchyItemContext extends ContextMenu {
     private final MenuItem newJSFile;
     private final MenuItem newFile;
     private final MenuItem newTextFile;
+
+    private final MenuItem delete;
 
     private final MenuItem synchronize;
 
@@ -40,11 +44,14 @@ public class HierarchyItemContext extends ContextMenu {
 
         newItems.getItems().addAll(newDirectory, new SeparatorMenuItem(), newJSFile, newFile, newTextFile);
 
+        delete = new MenuItem("Delete");
+        delete.setAccelerator(new KeyCodeCombination(KeyCode.BACK_SPACE, DataUtils.OperatingSystem.getCurrentOS().controlModifier));
+
         synchronize = new MenuItem("Synchronize");
 
         // Handle Accelerators
         // Add Items
-        super.getItems().addAll(newItems, new SeparatorMenuItem(), synchronize);
+        super.getItems().addAll(newItems, new SeparatorMenuItem(), synchronize, new SeparatorMenuItem(), delete);
 
         handleInput();
     }
@@ -53,6 +60,8 @@ public class HierarchyItemContext extends ContextMenu {
         synchronize.setOnAction(actionEvent -> FileManager.synchronize.run());
 
         newDirectory.setOnAction(actionEvent -> fileManager.create(DataUtils.FileType.DIRECTORY));
+
+        delete.setOnAction(actionEvent -> fileManager.delete());
     }
 
 }
